@@ -10,3 +10,8 @@
     max-height: 50px; /* Smaller height for mobile */
   }
 }
+:root {
+  --heading-font: "Roboto",  sans-serif; line-height: 90px;
+}
+
+h1 {line-height:60px}
