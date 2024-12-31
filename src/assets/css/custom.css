@@ -1,0 +1,12 @@
+.logo {
+  max-height: 80px; /* Set the maximum height */
+  width: auto; /* Maintain the aspect ratio */
+  object-fit: contain; /* Ensure the image doesn't distort */
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .logo {
+    max-height: 50px; /* Smaller height for mobile */
+  }
+}
