@@ -37,27 +37,20 @@ color-mix(in srgb, var(--nav-color) 100%, rgb(255, 255, 255) 50%);
 
   .navmenu a,
   .navmenu a:focus {
-    color: black; /* Default text color for links */
+    color: black !important; /* Default text color for links */
     transition: color 0.3s ease; /* Smooth transition for hover effect */
   }
 
   .navmenu a:hover {
-    color: red;
+    color: red !important; /* Hover text color to red */
+  }
+
+  .navmenu a:hover i {
+    color: red !important; /* Ensure icons turn red on hover */
   }
 
   .navmenu .active,
   .navmenu .active:focus {
-    color: black; /* Active state text remains black */
-  }
-
-  .navmenu a i {
-    background-color: rgba(0, 0, 0, 0.1); /* Adjust the background color of icons for better contrast */
-    color: black; /* Ensure icons are also black */
-    transition: color 0.3s ease; /* Smooth transition for icon color */
-  }
-
-  .navmenu a:hover i {
-    color: red; /* Icons also turn red on hover */
+    color: black !important; /* Active state text remains black */
   }
 }
-
