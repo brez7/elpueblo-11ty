@@ -15,3 +15,49 @@
 }
 
 h1 {line-height:60px}
+
+.footer {padding: 0;}
+
+.header {color:black; background-color:black;}
+
+.navmenu a {color:white;}
+
+@media (min-width: 1200px) {
+    .navmenu li:hover>a, .navmenu .active, .navmenu .active:focus {
+        color: 
+color-mix(in srgb, var(--nav-color) 100%, rgb(255, 255, 255) 50%);
+    }
+}
+
+/* Mobile Navigation */
+@media (max-width: 1199px) {
+  .navmenu ul {
+    background-color: var(--nav-mobile-background-color); /* Ensure proper background color */
+  }
+
+  .navmenu a,
+  .navmenu a:focus {
+    color: black; /* Default text color for links */
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+  }
+
+  .navmenu a:hover {
+    color: red;
+  }
+
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: black; /* Active state text remains black */
+  }
+
+  .navmenu a i {
+    background-color: rgba(0, 0, 0, 0.1); /* Adjust the background color of icons for better contrast */
+    color: black; /* Ensure icons are also black */
+    transition: color 0.3s ease; /* Smooth transition for icon color */
+  }
+
+  .navmenu a:hover i {
+    color: red; /* Icons also turn red on hover */
+  }
+}
+
