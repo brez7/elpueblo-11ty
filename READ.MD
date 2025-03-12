@@ -1,6 +1,7 @@
  
  sTART SERVER: 
 npx eleventy --serve
+npm run run
 
  BUILD: 
 eleventy
@@ -27,3 +28,4 @@ git push
 
 
 eleventy  firebase deploy --only hosting 
+npm run go

@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy"
+    "build": "npx @11ty/eleventy",
+    "go": "npm run build && firebase deploy",
+    "run": "npx eleventy --serve"
+
   },
   "keywords": [],
   "author": "",

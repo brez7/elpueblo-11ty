@@ -6,22 +6,33 @@ currentPage: home
 permalink: index.html
 ---
 
-<section id="hero" class="hero section light-background">
+<section id="hero" class="hero section light-background" style="background-color:black;">
   <div class="container">
     <div class="row gy-4 justify-content-center justify-content-lg-between">
-      <div class="col-lg-5 d-flex flex-column justify-content-center">
-        <h1>Taco 'Bout Delicious</h1>
-        <h2>Fresh and Authentic Mexican Food</h2>
+      <div class="col-lg-7 d-flex flex-column justify-content-center">
+        <h1 style="color:white;padding-bottom:20px;">
+          Taco 'Bout
+          <span
+            class="fwx-lighter"
+            style="color: white"
+            data-typed
+            data-options='{"strings": ["Tasty", "Genuine", "Delicious"], "typeSpeed": 100, "backSpeed": 50, "loop": true}'
+          >
+          </span>
+        </h1>
+        <h2 style="color:white; padding-bottom:20px;">Fresh and Authentic Mexican Food</h2>
         <div class="d-flex">
-          <a href="#book-a-table" class="btn-get-started">Book a Table</a>
-          <a href="https://www.youtube.com/watch?v=Y7f98aduVJ8" class="btn-watch-video"><i class="bi bi-play-circle"></i> Watch Video</a>
+          <a href="/menu" class="btn-get-started">View Our Menu</a>
+          {# <a
+            href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
+            class="btn-watch-video"
+            ><i class="bi bi-play-circle"></i> Watch Video</a
+          > #}
         </div>
       </div>
       <div class="col-lg-5 hero-img">
-        <img src="/assets/img/taco.png" class="img-fluid animated" alt="">
+        <img src="/assets/img/taco.png" class="img-fluid animated" alt="" />
       </div>
     </div>
   </div>
 </section>
-
- 

@@ -174,3 +174,10 @@
   document.addEventListener('scroll', navmenuScrollspy);
 
 })();
+
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("[data-typed]").forEach(el => {
+    const options = JSON.parse(el.getAttribute("data-options"));
+    new Typed(el, options);
+  });
+});
