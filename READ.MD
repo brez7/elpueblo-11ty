@@ -28,4 +28,4 @@ git push
 
 
 eleventy  firebase deploy --only hosting 
-npm run go
+npm run goddd
