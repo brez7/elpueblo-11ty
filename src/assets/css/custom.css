@@ -7,32 +7,45 @@
 /* Mobile-specific styles */
 @media (max-width: 768px) {
   .logo {
-    max-height: 50px; /* Smaller height for mobile */
+    max-height: 60px; /* Smaller height for mobile */
   }
 }
 :root {
-  --heading-font: "Roboto",  sans-serif; line-height: 90px;
+  --heading-font: "Roboto", sans-serif;
+  line-height: 90px;
 }
 
-h1 {line-height:60px}
+h1 {
+  line-height: 60px;
+}
 
-.footer {padding: 0;}
+.footer {
+  padding: 0;
+}
 
-.header {color:black; background-color:black;}
+.header {
+  color: black;
+  background-color: black;
+}
 
-.navmenu a {color:white;}
+.navmenu a {
+  color: white;
+}
 
 @media (min-width: 1200px) {
-    .navmenu li:hover>a, .navmenu .active, .navmenu .active:focus {
-        color: 
-color-mix(in srgb, var(--nav-color) 100%, rgb(255, 255, 255) 50%);
-    }
+  .navmenu li:hover > a,
+  .navmenu .active,
+  .navmenu .active:focus {
+    color: color-mix(in srgb, var(--nav-color) 100%, rgb(255, 255, 255) 50%);
+  }
 }
 
 /* Mobile Navigation */
 @media (max-width: 1199px) {
   .navmenu ul {
-    background-color: var(--nav-mobile-background-color); /* Ensure proper background color */
+    background-color: var(
+      --nav-mobile-background-color
+    ); /* Ensure proper background color */
   }
 
   .navmenu a,
@@ -54,7 +67,55 @@ color-mix(in srgb, var(--nav-color) 100%, rgb(255, 255, 255) 50%);
     color: red !important; /* Active state text remains black */
   }
 }
- 
-h1, h2, h3, h4, h5, h6, nav {
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+nav {
   font-family: var(--bs-font-sans-serif);
 }
+
+.navmenu a {
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.hero .animated {
+  animation: up-down 1s ease-in-out infinite alternate-reverse both;
+}
+
+
+.menu .tab-content .menu-item .menu-img {
+     padding: 0 10px;  
+    margin-bottom: 15px;
+    border-radius: 15px;
+}
+
+.menu .tab-content .menu-item h4 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    font-family: var(--default-font);
+}
+
+ 
+ .menu .tab-content .menu-item h4 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: var(--default-font);
+    color: #000000;
+    text-shadow: 1px 1px 0 #ff9784, 1px 1px 0 #a8a8a8;
+}  
+ 
+.menu .tab-content .menu-item .ingredients {
+    font-family: var(--bs-font-sans-serif);
+    /* color: 
+color-mix(in srgb, var(--default-color), transparent 50%); */
+    margin-bottom: 5px;
+    color:black;
+    font-weight: bold;
+}
+
