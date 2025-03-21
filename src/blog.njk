@@ -1,18 +1,49 @@
 ---
 layout: base.njk
 title: "Blog"
-description: "Our delicious menu items"
-currentPage: log
+description: "Our latest stories and updates"
+currentPage: blog
 permalink: blog.html
 ---
+
 <section id="blog" class="blog section">
-  <div class="container section-title" data-aos="fade-up">
-  <h1>Blog Posts</h1>
-  {% for post in collections.blog %}
-    <article>
-      <h2><a href="{{ post.url }}">{{ post.data.title }}</a></h2>
-      <p>{{ post.data.description }}</p>
-    </article>
-  {% endfor %}
+  <div class="container" data-aos="fade-up">
+    <div class="section-title text-center">
+      <h1>Latest from El Pueblo Mexican Food</h1>
+      <p style="text-align: center">
+        Discover new dishes, behind-the-scenes stories, and what’s cooking next.
+      </p>
+    </div>
+
+    <div class="row gy-4">
+      {% for post in collections.blog | reverse %}
+      <div class="col-lg-3 col-md-6 d-flex">
+        <div class="card w-100 h-100">
+          <a href="{{ post.url }}">
+            <img
+              src="{{ post.data.image or '/assets/img/menu-items/soon.jpg' }}"
+              class="card-img-top"
+              alt="{{ post.data.title }}"
+              style="object-fit: cover; height: 200px"
+            />
+          </a>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title mb-2">
+              <a href="{{ post.url }}" class="text-dark text-decoration-none">
+                {{ post.data.title }}
+              </a>
+            </h5>
+            <p class="card-text">
+              {{ post.data.description or post.templateContent | striptags |
+              truncate(100, true) }}
+            </p>
+            <div class="mt-auto">
+              <a href="{{ post.url }}" class="btn-read-more"> Read More </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </section>

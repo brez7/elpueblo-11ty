@@ -1,18 +1,23 @@
 ---
 layout: "base.njk"
-title: "My First Blog Post"
-description: "This is my first post using 11ty!"
+title: "2 for 10 Tacos at El Pueblo – Delicious, Affordable, and Authentic"
+description: "Enjoy authentic Mexican tacos with El Pueblo’s unbeatable 2 for $10 deal. Mix and match flavors like carne asada, carnitas, and more—crafted fresh and full of flavor."
+
 currentPage: blog
-permalink: posts/my-first-post/index.html
+permalink: posts/first/index.html
 tags: ["blog"]
 date: "2025-03-17"
+image: assets/img/menu-items/two4tentacos.jpg
 ---
- 
+
 <section id="menu" class="menu section">
-  <!-- Section Title -->
-<div class="container section-title" data-aos="fade-up" style="text-align: left;">
+  <div class="container section-title" data-aos="fade-up" style="text-align: left;">
+
+<img src="/assets/img/menu-items/two4tentacos.jpg" alt="Delicious tacos on a plate" class="centered-responsive-img">
 
 # 2 for 10 Tacos: A Delicious Deal You Can’t Miss
+
+
 
 At **El Pueblo Mexican Food**, we’re all about bringing you the best flavors of Mexico without breaking the bank. That’s why we’re excited to offer our **2 for 10 tacos** deal!
 
@@ -39,10 +44,9 @@ Each taco at **El Pueblo Mexican Food** is crafted with care, using only the fre
 
 Don’t miss out on this incredible offer! The **2 for 10 tacos** deal is available at all **El Pueblo Mexican Food** locations, making it easy for you to enjoy **delicious, affordable tacos** any day of the week. Bring your friends, bring your family, or just bring your appetite—our tacos are waiting for you!
 
-### Ready to dive into this taco fiesta?
+## Ready to dive into this taco fiesta?
 
 Visit **El Pueblo Mexican Food** today and take advantage of our **2 for 10 tacos** deal. We guarantee it will become your new favorite way to enjoy authentic Mexican cuisine.
 
   </div>
 </section>
-<!-- /Menu Section -->
