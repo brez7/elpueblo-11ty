@@ -1,52 +1,48 @@
 ---
 layout: "base.njk"
-title: "2 for 10 Tacos at El Pueblo – Delicious, Affordable, and Authentic"
-description: "Enjoy authentic Mexican tacos with El Pueblo’s unbeatable 2 for $10 deal. Mix and match flavors like carne asada, carnitas, and more—crafted fresh and full of flavor."
+title: "Anatomy of a Fish Taco"
+description: "Explore what makes El Pueblo’s fish tacos unforgettable — crispy fish, chipotle sauce, fresh toppings, and bold flavor."
 
 currentPage: blog
 permalink: posts/second/index.html
 tags: ["blog"]
 date: "2025-03-17"
-image: assets/img/menu-items/two4tentacos.jpg
+image: assets/img/menu-items/fish_tacos.jpg
 ---
 
 <section id="menu" class="menu section">
   <div class="container section-title" data-aos="fade-up" style="text-align: left;">
 
-<img src="/assets/img/menu-items/two4tentacos.jpg" alt="Delicious tacos on a plate" class="centered-responsive-img">
+<img src="/assets/img/menu-items/fish_tacos.jpg" alt="Delicious tacos on a plate" class="centered-responsive-img">
 
-# 2 for 10 Tacos: A Delicious Deal You Can’t Miss
+# The Anatomy of a Perfect Fish Taco — El Pueblo Style
 
+Fish tacos have become a global favorite, but their origins lie in the coastal regions of Mexico. At **El Pueblo Mexican Food**, we've embraced this tradition and elevated it into something truly unforgettable. Every fish taco we serve is a balance of flavor, texture, and freshness — a handheld celebration of Mexican culinary heritage.
 
+## The Foundation: Tortillas That Hold It All Together
 
-At **El Pueblo Mexican Food**, we’re all about bringing you the best flavors of Mexico without breaking the bank. That’s why we’re excited to offer our **2 for 10 tacos** deal!
+No fish taco is complete without the right tortilla. At El Pueblo, we let guests choose between **soft flour tortillas** and **traditional corn**. Flour tortillas offer a soft, neutral base that lets other flavors shine, while corn tortillas bring a heartier, slightly earthy bite. Whichever you choose, it’s the perfect canvas for everything that follows.
 
-## Why Choose the 2 for 10 Tacos Deal?
+## The Star Ingredient: Crispy Battered Fish
 
-Getting more for less is always a win, especially when it comes to our authentic Mexican tacos. With our **2 for 10 tacos** offer, you can indulge in the rich, bold flavors of our freshly prepared tacos at an unbeatable price. Perfect for lunch, dinner, or a quick snack, this deal is designed to satisfy both your taste buds and your wallet.
+At the heart of our tacos is our freshly battered white fish, fried to golden perfection. Each piece delivers a **crispy crunch on the outside** and a **tender, flaky interior**. It’s the kind of texture contrast that makes every bite memorable.
 
-## A Variety of Tacos to Satisfy Your Cravings
+## The Flavor Booster: House-Made Chipotle Sauce
 
-At **El Pueblo Mexican Food**, variety is the spice of life. Our **2 for 10 tacos** offer allows you to mix and match from our wide range of taco options. Whether you’re in the mood for:
+Our signature **chipotle sauce** is what elevates the experience. A smoky, creamy blend of chipotle in adobo, lime, garlic, and spices, it adds just the right amount of **heat and depth**, pulling all the taco’s elements together with every bite.
 
-- Classic **carne asada**
-- Succulent **carnitas**
-- Flavorful **pollo asado**
-- Savory **Adobada (Marinated Pork)**
+## The Crucial Crunch: Fresh Cabbage
 
-You’ll find the perfect taco combination to suit your taste. Everyone can enjoy this fantastic deal.
+To balance out the richness, we top our tacos with a generous pile of **crisp shredded cabbage** — green or purple. It brings a clean crunch and refreshing contrast. Sometimes, we mix in slaw ingredients like carrots or cilantro for extra flavor and color.
 
-## Experience Authentic Mexican Flavors
+## The Zesty Finisher: Pico de Gallo
 
-Each taco at **El Pueblo Mexican Food** is crafted with care, using only the freshest ingredients. From our **homemade tortillas** to our **flavorful salsas**, every bite of our **2 for 10 tacos** deal is packed with the authentic taste of Mexico. Our dedication to quality ensures that every taco you enjoy is bursting with flavor, making this deal a must-try for all taco lovers.
+No fish taco is complete without a spoonful of **zesty pico de gallo** — our fresh mix of diced tomatoes, onions, cilantro, jalapeños, and lime juice. It adds brightness, spice, and that fresh “pop” that rounds out the dish beautifully.
 
-## Visit Us Today for the 2 for 10 Tacos Deal
+## A Culinary Masterpiece in Every Bite
 
-Don’t miss out on this incredible offer! The **2 for 10 tacos** deal is available at all **El Pueblo Mexican Food** locations, making it easy for you to enjoy **delicious, affordable tacos** any day of the week. Bring your friends, bring your family, or just bring your appetite—our tacos are waiting for you!
+A well-crafted fish taco from El Pueblo Mexican Food is more than the sum of its parts. It’s the combination of textures — **crunchy, creamy, tender, and fresh** — that creates a satisfying experience in every bite. Whether you're dining in with us or recreating the magic at home, understanding the anatomy of our fish taco shows just how powerful simple ingredients can be when done right.
 
-## Ready to dive into this taco fiesta?
-
-Visit **El Pueblo Mexican Food** today and take advantage of our **2 for 10 tacos** deal. We guarantee it will become your new favorite way to enjoy authentic Mexican cuisine.
 
   </div>
 </section>

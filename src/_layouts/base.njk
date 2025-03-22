@@ -46,32 +46,37 @@
   <body class="{{ bodyClass }}">
     {% include "header.njk" %}
     <!-- Include the header -->
-    {% if currentPage != "home" %}
-    <nav aria-label="breadcrumb" class="breadcrumb-nav py-2">
-      <div class="container">
-        <ol class="breadcrumb mb-0">
-          <li class="breadcrumb-item">
-            <a href="/">Home</a>
-          </li>
 
-          {% if page.url startsWith "/posts/" %}
+{% if currentPage != "home" %}
+  <nav aria-label="breadcrumb" class="breadcrumb-nav py-2">
+    <div class="container">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item">
+          <a href="/">Home</a>
+        </li>
+
+        {% if tags and "blog" in tags %}
           <li class="breadcrumb-item">
             <a href="/blog">Blog</a>
           </li>
-          <li class="breadcrumb-item active" aria-current="page">
-            {{ title }}
-          </li>
-          {% else %}
-          <li class="breadcrumb-item active" aria-current="page">
-            {{ title }}
-          </li>
-          {% endif %}
-        </ol>
-      </div>
-    </nav>
-    {% endif %}
+          <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+        {% else %}
+          <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+        {% endif %}
+      </ol>
+    </div>
+  </nav>
+{% endif %}
+
+
+
+    <!-- DEBUG -->
+
+
 
     <main class="main">
+
+ 
       <!-- Dynamic Content -->
       {{ content | safe }}
     </main>

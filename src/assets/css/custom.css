@@ -269,3 +269,11 @@ color-mix(in srgb, var(--default-color), transparent 50%); */
 .breadcrumb .breadcrumb-item.active {
   color: #333;
 }
+#blog-preview .card {
+  border: 1px solid #eaeaea;
+  transition: transform 0.2s;
+}
+
+#blog-preview .card:hover {
+  transform: translateY(-5px);
+}

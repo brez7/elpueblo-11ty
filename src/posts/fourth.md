@@ -1,6 +1,6 @@
 ---
 layout: "base.njk"
-title: "2 for 10 Tacos at El Pueblo – Delicious, Affordable, and Authentic"
+title: "2 for 10 Tacos at El Pueblo"
 description: "Enjoy authentic Mexican tacos with El Pueblo’s unbeatable 2 for $10 deal. Mix and match flavors like carne asada, carnitas, and more—crafted fresh and full of flavor."
 
 currentPage: blog
