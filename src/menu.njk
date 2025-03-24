@@ -15,6 +15,7 @@ permalink: menu.html
         height: 5px;
         background: linear-gradient(to right, #7f120b, #7f120b);
         margin: 20px 0;
+        opacity: 1 !important;
       "
     />
 
@@ -36,8 +37,9 @@ permalink: menu.html
       style="
         border: none;
         height: 5px;
-        background: linear-gradient(to right, #ff0000, #cc0000);
+        background: linear-gradient(to right,  #7f120b, #7f120b);
         margin: 20px 0;
+        opacity: 1 !important;
       "
     />
   </div>
@@ -116,16 +118,7 @@ permalink: menu.html
           <h4>Quesadillas</h4>
         </a>
       </li>
-      <!-- End tab nav item -->
-
-      {#
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" data-bs-target="#menu-Tortas">
-          <h4>Tortas</h4>
-        </a>
-      </li>
-      #}
-      <!-- End tab nav item -->
+ 
 
       <li class="nav-item">
         <a
@@ -134,6 +127,18 @@ permalink: menu.html
           data-bs-target="#menu-Dinner-Combos"
         >
           <h4>Dinner Combos</h4>
+        </a>
+      </li>
+
+
+      <!-- End tab nav item -->
+            <li class="nav-item">
+        <a
+          class="nav-link"
+          data-bs-toggle="tab"
+          data-bs-target="#chips-fries"
+        >
+          <h4>Chips & Fries</h4>
         </a>
       </li>
       <li class="nav-item">
@@ -1201,6 +1206,111 @@ permalink: menu.html
           </div>
         </div>
       </div>
+
+      <!-- Chips and Fries Section -->
+      <div class="tab-pane fade" id="chips-fries">
+        <div class="tab-header text-center">
+          <h3>Chips & Fries</h3>
+        </div>
+        <div class="row gy-5">
+          <div class="col-lg-4 menu-item">
+            <a href="/assets/img/menu-items/soon.jpg" class="glightbox">
+              <img
+                src="/assets/img/menu-items/soon.jpg"
+                class="menu-img img-fluid"
+                alt="Chips and Salsa"
+              />
+            </a>
+            <h4>Chips and Salsa</h4>
+            <p class="ingredients">
+               Golden tortilla chips with zesty, house-made salsa duo
+            </p>
+          </div>
+
+          <div class="col-lg-4 menu-item">
+            <a href="/assets/img/menu-items/soon.jpg" class="glightbox">
+              <img
+                src="/assets/img/menu-items/soon.jpg"
+                class="menu-img img-fluid"
+                alt="Chips and Guacamole"
+              />
+            </a>
+            <h4>Chips and Guacamole</h4>
+            <p class="ingredients">
+               Crunchy tortilla chips paired with smooth, fresh guacamole
+            </p>
+          </div>
+
+          <div class="col-lg-4 menu-item">
+            <a href="/assets/img/menu-items/soon.jpg" class="glightbox">
+              <img
+                src="/assets/img/menu-items/soon.jpg"
+                class="menu-img img-fluid"
+                alt="Nachos Supreme"
+              />
+            </a>
+            <h4>Nachos Supreme</h4>
+            <p class="ingredients">
+             Loaded nachos with melted cheese, beans, and more
+            </p>
+          </div>
+
+          <div class="col-lg-4 menu-item">
+            <a href="/assets/img/menu-items/soon.jpg" class="glightbox">
+              <img
+                src="/assets/img/menu-items/soon.jpg"
+                class="menu-img img-fluid"
+                alt="Protein Fries"
+              />
+            </a>
+            <h4>Protein Fries</h4>
+            <p class="ingredients">
+                Crispy fries smothered in meat, bold and tasty
+              </p>
+          </div>
+                    <div class="col-lg-4 menu-item">
+            <a href="/assets/img/menu-items/soon.jpg" class="glightbox">
+              <img
+                src="/assets/img/menu-items/soon.jpg"
+                class="menu-img img-fluid"
+                alt="Veggie Fries"
+              />
+            </a>
+            <h4>Veggie Fries</h4>
+            <p class="ingredients">
+              Golden fries piled with fresh, flavorful grilled veggies
+              </p>
+          </div>
+          <div class="col-lg-4 menu-item">
+            <a href="/assets/img/menu-items/soon.jpg" class="glightbox">
+              <img
+                src="/assets/img/menu-items/soon.jpg"
+                class="menu-img img-fluid"
+                alt="Shrimp Fries"
+              />
+            </a>
+            <h4>Shrimp Fries</h4>
+            <p class="ingredients">
+              Golden fries topped with seasoned, sautéed shrimp
+              </p>
+          </div>
+          <div class="col-lg-4 menu-item">
+            <a href="/assets/img/menu-items/soon.jpg" class="glightbox">
+              <img
+                src="/assets/img/menu-items/soon.jpg"
+                class="menu-img img-fluid"
+                alt="Surf & Turf Fries"
+              />
+            </a>
+            <h4>Surf & Turf Fries</h4>
+            <p class="ingredients">
+              Hearty fries loaded with shrimp and savory steak
+              </p>
+          </div>
+        </div>
+      </div>
+
+      
       <!-- Sides Section -->
       <div class="tab-pane fade" id="menu-Sides">
         <div class="tab-header text-center">
@@ -1212,12 +1322,12 @@ permalink: menu.html
               <img
                 src="/assets/img/menu-items/soon.jpg"
                 class="menu-img img-fluid"
-                alt="Chips and Guacamole"
+                alt="Beans, Rice or Sour Cream (8oz.)"
               />
             </a>
-            <h4>Chips and Guacamole</h4>
+            <h4>Beans, Rice or Sour Cream (8oz.)</h4>
             <p class="ingredients">
-              Crispy tortilla chips served with house guac
+              Flavorful side of beans, rice, or sour cream
             </p>
           </div>
 
@@ -1226,12 +1336,12 @@ permalink: menu.html
               <img
                 src="/assets/img/menu-items/soon.jpg"
                 class="menu-img img-fluid"
-                alt="Chips and Salsa"
+                alt="guacamole"
               />
             </a>
-            <h4>Chips and Salsa</h4>
+            <h4>Guacamole (4oz.)</h4>
             <p class="ingredients">
-              Classic side of chips with our spicy red salsa
+              Fresh, zesty guacamole perfect for chips or more
             </p>
           </div>
 
@@ -1240,25 +1350,25 @@ permalink: menu.html
               <img
                 src="/assets/img/menu-items/soon.jpg"
                 class="menu-img img-fluid"
-                alt="Mexican Rice"
+                alt="chile relleno"
               />
             </a>
-            <h4>Mexican Rice</h4>
+            <h4>Chile Relleno</h4>
             <p class="ingredients">
-              Fluffy seasoned rice with tomato, garlic, and spices
+              Cheesy stuffed pepper, fried golden, totally crave-worthy bite
             </p>
           </div>
 
           <div class="col-lg-4 menu-item">
-            <a href="/assets/img/menu-items/soon.jpg" class="glightbox">
+            <a href="/assets/img/menu-items/chickentortsoup.jpg" class="glightbox">
               <img
-                src="/assets/img/menu-items/soon.jpg"
+                src="/assets/img/menu-items/chickentortsoup.jpg"
                 class="menu-img img-fluid"
-                alt="Refried Beans"
+                alt="Chicken Tortilla Soup"
               />
             </a>
-            <h4>Refried Beans</h4>
-            <p class="ingredients">Creamy pinto beans with melted cheese</p>
+            <h4>Chicken Tortilla Soup</h4>
+            <p class="ingredients">Hearty soup with chicken, tortillas, and warm spices</p>
           </div>
         </div>
       </div>

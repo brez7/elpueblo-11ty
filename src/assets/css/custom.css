@@ -119,9 +119,10 @@ h2 {
   text-align: left;
 }
 h3 {
-  font-size: 20px;
+  font-size: 38px !important;
   color: #666;
   text-align: left;
+  text-transform: uppercase;
 }
 h4 {
   font-size: 18px;
@@ -277,3 +278,8 @@ color-mix(in srgb, var(--default-color), transparent 50%); */
 #blog-preview .card:hover {
   transform: translateY(-5px);
 }
+ .tab-header h3 {
+text-align: center;
+ }
+
+ .sub-title {font-size:18px;color:black;text-align:center;}
