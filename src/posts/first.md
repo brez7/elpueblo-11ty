@@ -5,7 +5,7 @@ description: "Enjoy authentic Mexican tacos with El Pueblo’s unbeatable 2 for 
 
 currentPage: blog
 permalink: posts/first/index.html
-tags: ["blog"]
+tags: ["posts"]
 date: "2025-03-17"
 image: assets/img/menu-items/two4tentacos.jpg
 ---

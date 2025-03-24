@@ -3,8 +3,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/assets");
 
   // Create a collection for blog posts
-  eleventyConfig.addCollection("blog", function (collectionApi) {
-    return collectionApi.getFilteredByGlob("src/posts/*.md").reverse();
+  eleventyConfig.addCollection("posts", function (collectionApi) {
+    return collectionApi.getFilteredByTag("posts").reverse();
   });
 
   return {

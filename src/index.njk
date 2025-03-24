@@ -6,11 +6,15 @@ currentPage: home
 permalink: index.html
 ---
 
-<section id="hero" class="hero section light-background" style="background-color:black;">
+<section
+  id="hero"
+  class="hero section light-background"
+  style="background-color: black"
+>
   <div class="container">
     <div class="row gy-4 justify-content-center justify-content-lg-between">
       <div class="col-lg-7 d-flex flex-column justify-content-center">
-        <h1 style="color:white;padding-bottom:20px;">
+        <h1 style="color: white; padding-bottom: 20px">
           Taco 'Bout
           <span
             class="fwx-lighter"
@@ -20,14 +24,18 @@ permalink: index.html
           >
           </span>
         </h1>
-        <h2 style="color:white; padding-bottom:20px;">Fresh and Authentic Mexican Food</h2>
+        <h2 style="color: white; padding-bottom: 20px">
+          Fresh and Authentic Mexican Food
+        </h2>
         <div class="d-flex">
           <a href="/menu" class="btn-get-started">View Our Menu</a>
-          {# <a
+          {#
+          <a
             href="https://www.youtube.com/watch?v=Y7f98aduVJ8"
             class="btn-watch-video"
             ><i class="bi bi-play-circle"></i> Watch Video</a
-          > #}
+          >
+          #}
         </div>
       </div>
       <div class="col-lg-5 hero-img">
@@ -35,13 +43,4 @@ permalink: index.html
       </div>
     </div>
   </div>
-
-</section>
  
-<ul>
-  {% for post in collections.posts %}
-    <li>
-      <a href="{{ post.url }}">{{ post.data.title }}</a>
-    </li>
-  {% endfor %}
-</ul>
