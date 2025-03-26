@@ -1,19 +1,19 @@
 ---
 layout: "base.njk"
-title: "2 for 10 Tacos at El Pueblo"
-description: "Enjoy authentic Mexican tacos with El Pueblo’s unbeatable 2 for $10 deal. Mix and match flavors like carne asada, carnitas, and more—crafted fresh and full of flavor."
+title: "Fresh and Authentic Mexican Food at El Pueblo Mex"
+description: "Experience the freshest and most authentic Mexican cuisine at El Pueblo Mexican Food restaurants in Carlsbad, Cardiff, Del Mar, and Carmel Valley.."
 
 currentPage: blog
-permalink: posts/fifth/index.html
+permalink: posts/fresh-and-authentic/index.html
 tags: ["blog"]
 date: "2025-03-17"
-image: assets/img/menu-items/two4tentacos.jpg
+image: assets/img/blog/dinner-plate.jpg
 ---
 
 <section id="menu" class="menu section">
   <div class="container section-title" data-aos="fade-up" style="text-align: left;">
 
-<img src="/assets/img/menu-items/two4tentacos.jpg" alt="Delicious tacos on a plate" class="centered-responsive-img">
+<img src="/assets/img/blog/dinner-plate.jpg" alt="Delicious tacos on a plate" class="centered-responsive-img">
 
 # 2 for 10 Tacos: A Delicious Deal You Can’t Miss
 

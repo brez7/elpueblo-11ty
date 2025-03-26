@@ -4,7 +4,7 @@ title: "Anatomy of a Fish Taco"
 description: "Explore what makes El Pueblo’s fish tacos unforgettable — crispy fish, chipotle sauce, fresh toppings, and bold flavor."
 
 currentPage: blog
-permalink: posts/second/index.html
+permalink: posts/anatomy-fish-taco/index.html
 tags: ["blog"]
 date: "2025-03-17"
 image: assets/img/menu-items/fish_tacos.jpg

@@ -283,3 +283,12 @@ text-align: center;
  }
 
  .sub-title {font-size:18px;color:black;text-align:center;}
+
+ section-events,
+.section-events {
+  color: var(--default-color);
+  background-color: var(--background-color);
+  padding: 0 0 !important;
+  scroll-margin-top: 92px;
+  overflow: clip;
+}
