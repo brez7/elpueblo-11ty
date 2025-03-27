@@ -1,5 +1,5 @@
 {
-  "name": "yummy-elpueblo-11ty",
+  "name": "restart-elpueblo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,12 +9,14 @@
     "build": "npx @11ty/eleventy",
     "go": "npm run build && firebase deploy",
     "run": "npx eleventy --serve"
-
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0"
+  },
+  "dependencies": {
+    "@googlemaps/google-maps-services-js": "^3.4.0"
   }
 }

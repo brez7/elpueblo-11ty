@@ -1,19 +1,19 @@
 module.exports = function (eleventyConfig) {
-  // Copy assets (CSS, JS, images) to the output folder
+  // ✅ Copy everything from src/assets to dist/assets
   eleventyConfig.addPassthroughCopy("src/assets");
 
-  // Create a collection for blog posts
+  // ✅ Blog post collection (optional)
   eleventyConfig.addCollection("posts", function (collectionApi) {
     return collectionApi.getFilteredByTag("posts").reverse();
   });
 
   return {
     dir: {
-      input: "src", // The main input directory
-      output: "dist", // Where the final site is built
-      includes: "_includes", // Where components are stored
-      layouts: "_layouts", // Where layouts (base.njk) are stored
+      input: "src", // Source folder
+      output: "dist", // Output folder
+      includes: "_includes", // Shortcodes, partials, etc.
+      layouts: "_layouts", // Layout files
     },
-    templateFormats: ["md", "njk", "html"], // Ensure Markdown is processed
+    templateFormats: ["md", "njk", "html"], // File types to process
   };
 };
