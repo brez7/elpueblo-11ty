@@ -109,10 +109,10 @@
     selector: '.glightbox'
   });
 
-  /**
-   * Initiate Pure Counter
-   */
-  new PureCounter();
+  // /**
+  //  * Initiate Pure Counter
+  //  */
+  // new PureCounter();
 
   /**
    * Init swiper sliders

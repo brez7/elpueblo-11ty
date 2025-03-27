@@ -4,3 +4,9 @@ dist/
 # Node.js dependencies
 node_modules/
 
+.firebase/
+
+functions/node_modules
+
+design-source
+

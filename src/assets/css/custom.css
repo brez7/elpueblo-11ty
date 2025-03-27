@@ -278,17 +278,102 @@ color-mix(in srgb, var(--default-color), transparent 50%); */
 #blog-preview .card:hover {
   transform: translateY(-5px);
 }
- .tab-header h3 {
-text-align: center;
- }
+.tab-header h3 {
+  text-align: center;
+}
 
- .sub-title {font-size:18px;color:black;text-align:center;}
+.sub-title {
+  font-size: 18px;
+  color: black;
+  text-align: center;
+}
 
- section-events,
+section-events,
 .section-events {
   color: var(--default-color);
   background-color: var(--background-color);
   padding: 0 0 !important;
   scroll-margin-top: 92px;
   overflow: clip;
+}
+/* Container for the entire reviews section */
+.container-reviews {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* Grid layout for reviews */
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Each review card */
+.review-card {
+  background: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #eaeaea;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s ease;
+}
+
+.review-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Header of each card: photo and name */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-photo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f0f0f0;
+}
+
+/* Name styling */
+.review-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+/* Star rating */
+.review-stars {
+  color: #f5a623;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Review text */
+.review-text {
+  font-style: italic;
+  color: #555;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+
+.menu-links {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  font-family: var(--default-font);
+}
+
+.h2-format {
+  font-weight: 700;
+  color: var(--accent-color);
+  text-align: center;
+  font-size: 38px !important;
+  text-transform: uppercase;
 }
