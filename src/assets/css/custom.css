@@ -377,3 +377,7 @@ section-events,
   font-size: 38px !important;
   text-transform: uppercase;
 }
+.ti-widget[data-layout-id='34'][data-set-id='ligth-border'] .ti-review-item>.ti-inner {
+    margin: 20px !important;
+
+}
