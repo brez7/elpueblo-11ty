@@ -108,7 +108,7 @@ nav {
   text-shadow: 1px 1px 0 #ff9784, 1px 1px 0 #a8a8a8;
 }
 
-h1 {
+/* h1 {
   font-size: 40px;
   color: #ff5733;
   text-align: left;
@@ -128,7 +128,7 @@ h4 {
   font-size: 18px;
   color: #666;
   text-align: left;
-}
+} */
 p {
   font-size: 18px;
   color: #000;
@@ -374,10 +374,35 @@ section-events,
   font-weight: 700;
   color: var(--accent-color);
   text-align: center;
-  font-size: 38px !important;
+  font-size: 35px !important;
+  text-transform: uppercase;
+}
+.h1-format {
+  font-weight: 700;
+  color: var(--accent-color);
+  text-align: center;
+  font-size: 42px !important;
   text-transform: uppercase;
 }
 .ti-widget[data-layout-id='34'][data-set-id='ligth-border'] .ti-review-item>.ti-inner {
     margin: 20px !important;
 
 }
+ 
+@media (max-width: 767px) {
+  .mobile-divider {
+    display: block;
+    border: none;
+    border-bottom: 2px solid #7f120b;
+    width: 70%;              /* Adjust width to your liking */
+    margin: 20px auto;       /* Vertically spaced, centered horizontally */
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-divider {
+    display: none;
+  }
+}
+
+ 
