@@ -8,8 +8,8 @@
         "destination": "/menu.html"
       },
       {
-        "source": "/blog",
-        "destination": "/blog.html"
+        "source": "/latest-news",
+        "destination": "/latest-news.html"
       },
       {
         "source": "/locations",

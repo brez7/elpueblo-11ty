@@ -1,21 +1,23 @@
 ---
 layout: base.njk
-title: "Blog"
+title: "Latest News"
 description: "Our latest stories and updates"
-currentPage: blog
-permalink: blog.html
+currentPage: latest-news
+permalink: latest-news.html
 ---
 
 <section id="blog" class="blog section">
-  <div class="container" data-aos="fade-up">
-    <div class="section-title text-center">
-      <h1>Latest News from El Pueblo Mexican Food</h1>
-      <p style="text-align: center">
-        Discover new dishes, behind-the-scenes stories, and what’s cooking next.
-      </p>
-    </div>
+  <div class="container section-title" data-aos="fade-up">
+    <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
+    <h1 class="h1-format" style="color:red;">Latest News from El Pueblo Mexican Food</h1>
+    <p style="font-size: 21px; text-align: center">
+      Discover new dishes, behind-the-scenes stories, and what’s cooking next.
+    </p>
+    <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
+  </div>
 
-    <div class="row gy-4">
+  <div class="container">
+    <div class="row gy-4 justify-content-center">
       {% for post in collections.blog | reverse %}
       <div class="col-lg-3 col-md-6 d-flex">
         <div class="card w-100 h-100">
@@ -34,8 +36,7 @@ permalink: blog.html
               </a>
             </h5>
             <p class="card-text">
-              {{ post.data.description or post.templateContent | striptags |
-              truncate(100, true) }}
+              {{ post.data.description or post.templateContent | striptags | truncate(100, true) }}
             </p>
             <div class="mt-auto">
               <a href="{{ post.url }}" class="btn-read-more"> Read More </a>
