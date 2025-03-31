@@ -459,3 +459,30 @@ section-events,
     width: 100%;
   }
 }
+
+.custom-burger {
+  position: absolute;
+  top: 7px;   /* Distance from top */
+  right: 20px; /* Distance from right */
+  z-index: 9999; /* Keep it on top */
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 30px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.custom-burger span {
+  display: block;
+  height: 3px;
+  background-color: var(--nav-color, #000);
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.custom-burger span.short {
+  width: 50%;
+  align-self: flex-end; /* changed from flex-start to flex-end */
+}

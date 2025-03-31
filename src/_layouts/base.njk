@@ -2,58 +2,83 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}" />
     <meta name="keywords" content="{{ keywords }}" />
-    <link href="/assets/img/favicon.png" rel="icon" />
-    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet" />
-     <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-    <link href="/assets/vendor/aos/aos.css" rel="stylesheet" />
-    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-    <link href="/assets/css/main.css" rel="stylesheet" />
-    {# <link href="/assets/css/vendor.min.css" rel="stylesheet" />     #} 
-    <link href="/assets/css/custom.css" rel="stylesheet" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/img/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png" />
+
+    <!-- Preconnect for Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload Fonts -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" />
+
+    <!-- Load Fonts (async) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <!-- Critical Styles (load first) -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <link rel="stylesheet" href="/assets/css/custom.css" />
+
+    <!-- Non-critical styles (lazy-load) -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/assets/vendor/aos/aos.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/assets/vendor/glightbox/css/glightbox.min.css" media="print" onload="this.media='all'" />
+    <link rel="stylesheet" href="/assets/vendor/swiper/swiper-bundle.min.css" media="print" onload="this.media='all'" />
+
+    <!-- Fallback for no-JS users -->
+    <noscript>
+      <link rel="stylesheet" href="/assets/vendor/aos/aos.css" />
+      <link rel="stylesheet" href="/assets/vendor/glightbox/css/glightbox.min.css" />
+      <link rel="stylesheet" href="/assets/vendor/swiper/swiper-bundle.min.css" />
+    </noscript>
   </head>
+
   <body class="{{ bodyClass }}">
     {% include "header.njk" %}
+
     {% if currentPage != "home" %}
     <nav aria-label="breadcrumb" class="breadcrumb-nav py-2">
       <div class="container">
         <ol class="breadcrumb mb-0">
           <li class="breadcrumb-item"><a href="/">Home</a></li>
           {% if tags and "blog" in tags %}
-          <li class="breadcrumb-item"><a href="/blog">Blog</a></li>
-          <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+            <li class="breadcrumb-item"><a href="/blog">Blog</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
           {% else %}
-          <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
           {% endif %}
         </ol>
       </div>
     </nav>
     {% endif %}
+
     <main class="main">
       {{ content | safe }}
     </main>
+
     {% include "footer.njk" %}
+
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center">
       <i class="bi bi-arrow-up-short"></i>
     </a>
+
     <div id="preloader"></div>
-    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/vendor/aos/aos.js"></script>
-    <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    {# {% if page.url == '/' %}
-    <script src="/assets/js/reviews.js" defer></script>
-    {% endif %} #}
-    <script src="/assets/js/main.js"></script>
+
+    <!-- JS: All Deferred for Faster Paint -->
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+    <script src="/assets/vendor/aos/aos.js" defer></script>
+    <script src="/assets/vendor/glightbox/js/glightbox.min.js" defer></script>
+    <script src="/assets/vendor/swiper/swiper-bundle.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+    <script src="/assets/js/main.js" defer></script>
   </body>
 </html>
