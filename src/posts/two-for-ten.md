@@ -17,8 +17,6 @@ image: assets/img/menu-items/two4tentacos.jpg
 
 # 2 for 10 Tacos: A Delicious Deal You Can’t Miss
 
-
-
 At **El Pueblo Mexican Food**, we’re all about bringing you the best flavors of Mexico without breaking the bank. That’s why we’re excited to offer our **2 for 10 tacos** deal!
 
 ## Why Choose the 2 for 10 Tacos Deal?
