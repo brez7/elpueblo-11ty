@@ -6,7 +6,7 @@ description: "Explore what makes El Pueblo’s fish tacos unforgettable — cris
 currentPage: blog
 permalink: posts/anatomy-fish-taco/index.html
 tags: ["blog"]
-date: "2025-03-17"
+date: "2025-02-28"
 image: assets/img/menu-items/fish_tacos.jpg
 ---
 

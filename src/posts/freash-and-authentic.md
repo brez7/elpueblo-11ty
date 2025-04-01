@@ -6,7 +6,7 @@ description: "Experience the freshest and most authentic Mexican cuisine at El P
 currentPage: blog
 permalink: posts/fresh-and-authentic/index.html
 tags: ["blog"]
-date: "2025-03-17"
+date: "2025-03-02"
 image: assets/img/blog/dinner-plate.jpg
 ---
 

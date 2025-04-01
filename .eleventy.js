@@ -17,3 +17,19 @@ module.exports = function (eleventyConfig) {
     templateFormats: ["md", "njk", "html"], // File types to process
   };
 };
+const {DateTime} = require("luxon");
+
+module.exports = function (eleventyConfig) {
+  eleventyConfig.addFilter("date", (value, format = "MMMM d, yyyy") => {
+    return DateTime.fromJSDate(value, {zone: "utc"}).toFormat(format);
+  });
+
+  return {
+    dir: {
+      input: "src",
+      output: "dist",
+      layouts: "_layouts", // <-- you probably already have this!
+    },
+  };
+};
+

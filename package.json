@@ -17,6 +17,7 @@
     "@11ty/eleventy": "^3.0.0"
   },
   "dependencies": {
-    "@googlemaps/google-maps-services-js": "^3.4.0"
+    "@googlemaps/google-maps-services-js": "^3.4.0",
+    "luxon": "^3.6.1"
   }
 }
