@@ -28,6 +28,7 @@ module.exports = function (eleventyConfig) {
     dir: {
       input: "src",
       output: "dist",
+      includes: "_includes", // Shortcodes, partials, etc.
       layouts: "_layouts", // <-- you probably already have this!
     },
   };
