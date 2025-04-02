@@ -1,3 +1,5 @@
+Here’s the context of my Eleventy project. Please load this.
+
 # 📘 Eleventeenth Project Context — `elpueblo-11ty`
 
 ## 🧠 Project Purpose
@@ -14,67 +16,606 @@ The project uses a structured source folder and a Python-based data fetcher to p
 ## 📁 Directory Structure Overview
 
 ```
-elpueblo-11ty/
-├── .eleventy.js          → Eleventy config file
-├── src/                  → Main 11ty input folder
-│   ├── _includes/        → Nunjucks partials
-│   ├── _layouts/         → Base templates/layouts
-│   ├── posts/            → Markdown or template content (TBD)
-│   ├── blog.njk          → Blog listing template
-│   ├── index.njk         → Main landing page
-│   ├── locations.njk     → Location content
-│   ├── menu.njk          → Structured menu or content map (large)
-│   ├── test.njk          → Test template
-│   └── _data/github.json → Auto-generated GitHub data
-│
-├── github-poller/        → Python app that fetches GitHub commits
-│   ├── app.py            → Polls GitHub API and writes to _data
-│   ├── requirements.txt  → Contains `requests`
-│   └── index.html        → Optional output interface
-│
-├── functions/            → Firebase functions (not yet reviewed)
-├── design-source/        → Likely raw design assets
-├── code-pull-index.html  → Large generated or static HTML file
-├── file-tree.py          → Generates file tree (internal use)
-├── file_tree.txt         → Output of file-tree.py
-├── firebase.json         → Firebase hosting config
-├── .firebaserc           → Firebase project settings
-├── rev.json              → Possibly a build rev marker
-├── notes                 → Small file, maybe placeholder
-├── package.json          → Contains scripts + Eleventy dep
-└── READ.MD               → Rename to README.md
-```
+Project Structure:
+
+├── READ.MD
+├── code-pull-index.html
+├── design-source
+│   └── image-template.psd
+├── dist
+│   ├── assets
+│   │   ├── css
+│   │   │   ├── custom.css
+│   │   │   ├── main.css
+│   │   │   └── vendor.min.css
+│   │   ├── img
+│   │   │   ├── about-2.jpg
+│   │   │   ├── about.jpg
+│   │   │   ├── apple-touch-icon.png
+│   │   │   ├── blog
+│   │   │   │   ├── bunuelos.jpg
+│   │   │   │   ├── dinner-plate.jpg
+│   │   │   │   └── dinner.jpg
+│   │   │   ├── carne-asada.png
+│   │   │   ├── carneasada plate.png
+│   │   │   ├── chefs
+│   │   │   │   ├── chefs-1.jpg
+│   │   │   │   ├── chefs-2.jpg
+│   │   │   │   └── chefs-3.jpg
+│   │   │   ├── el-pueblo-logo.png
+│   │   │   ├── el_pueblo_mex_logo-01.png
+│   │   │   ├── events-1.jpg
+│   │   │   ├── events-2.jpg
+│   │   │   ├── events-3.jpg
+│   │   │   ├── events-4.jpg
+│   │   │   ├── favicon.png
+│   │   │   ├── gallery
+│   │   │   │   ├── gallery-1.jpg
+│   │   │   │   ├── gallery-2.jpg
+│   │   │   │   ├── gallery-3.jpg
+│   │   │   │   ├── gallery-4.jpg
+│   │   │   │   ├── gallery-5.jpg
+│   │   │   │   ├── gallery-6.jpg
+│   │   │   │   ├── gallery-7.jpg
+│   │   │   │   └── gallery-8.jpg
+│   │   │   ├── hero-img.png
+│   │   │   ├── logo.png
+│   │   │   ├── menu
+│   │   │   │   ├── menu-item-1.png
+│   │   │   │   ├── menu-item-2.png
+│   │   │   │   ├── menu-item-3.png
+│   │   │   │   ├── menu-item-4.png
+│   │   │   │   ├── menu-item-5.png
+│   │   │   │   └── menu-item-6.png
+│   │   │   ├── menu-items
+│   │   │   │   ├── 2-for-10-taco-combo.jpg
+│   │   │   │   ├── adobada-burrito.jpg
+│   │   │   │   ├── adobada-quesadilla.jpg
+│   │   │   │   ├── adobada-taco.jpg
+│   │   │   │   ├── adobada-torta.jpg
+│   │   │   │   ├── bean-and-cheese-burrito.jpg
+│   │   │   │   ├── breakfast-bowl.jpg
+│   │   │   │   ├── breakfast-burrito.jpg
+│   │   │   │   ├── breakfast.jpg
+│   │   │   │   ├── cali-burrito.jpg
+│   │   │   │   ├── carne-asada-burrito.jpg
+│   │   │   │   ├── carne-asada-plate.jpg
+│   │   │   │   ├── carne-asada-quesadilla.jpg
+│   │   │   │   ├── carne-asada-taco.jpg
+│   │   │   │   ├── carne-asada-torta.jpg
+│   │   │   │   ├── carnitas-burrito.jpg
+│   │   │   │   ├── carnitas-burrito2.jpg
+│   │   │   │   ├── carnitas-plate.jpg
+│   │   │   │   ├── carnitas-quesadilla.jpg
+│   │   │   │   ├── carnitas-taco.jpg
+│   │   │   │   ├── carnitas-torta.jpg
+│   │   │   │   ├── cheese-quesadilla.jpg
+│   │   │   │   ├── chickentortsoup.jpg
+│   │   │   │   ├── chilaquiles-rojos.jpg
+│   │   │   │   ├── chilaquiles-verdes.jpg
+│   │   │   │   ├── chile-relleno-burrito.jpg
+│   │   │   │   ├── chile-relleno-plate.jpg
+│   │   │   │   ├── chile-relleno.jpg
+│   │   │   │   ├── chimichanga.jpg
+│   │   │   │   ├── chips-and-salsa.jpg
+│   │   │   │   ├── chorizo-burrito.jpg
+│   │   │   │   ├── chorizo-plate.jpg
+│   │   │   │   ├── chorizo-torta.jpg
+│   │   │   │   ├── conga-burrito.jpg
+│   │   │   │   ├── dinners.jpg
+│   │   │   │   ├── el-pueblo-mexican-food.jpg
+│   │   │   │   ├── el-pueblo-torta-with-fries.jpg
+│   │   │   │   ├── enchiladas.jpg
+│   │   │   │   ├── fajitas-burrito.jpg
+│   │   │   │   ├── fajitas-plate.jpg
+│   │   │   │   ├── fish-taco.jpg
+│   │   │   │   ├── fish_tacos.jpg
+│   │   │   │   ├── flautas-(3).jpg
+│   │   │   │   ├── fries-and-chips.jpg
+│   │   │   │   ├── full-menu.jpg
+│   │   │   │   ├── guacamole-(1-2-tray).jpg
+│   │   │   │   ├── ham-and-cheese.jpg
+│   │   │   │   ├── huevos-a-la-mexicana.jpg
+│   │   │   │   ├── huevos-con-jamon.jpg
+│   │   │   │   ├── huevos-rancheros.jpg
+│   │   │   │   ├── josh-cellars-vintage-pinot-noir-bottle-central-coast-(750-ml).jpg
+│   │   │   │   ├── kids-quesadilla.jpg
+│   │   │   │   ├── la-marca-prosecco-bottle-doc-italy-(375-ml).jpg
+│   │   │   │   ├── lengua-taco.jpg
+│   │   │   │   ├── machaca-burrito.jpg
+│   │   │   │   ├── machaca-plate.jpg
+│   │   │   │   ├── machaca-torta.jpg
+│   │   │   │   ├── make-your-own-tacos.jpg
+│   │   │   │   ├── menu-items.zip
+│   │   │   │   ├── menudo-sat-and-sun-only.jpg
+│   │   │   │   ├── michelob-ultra-light-usa-limited-edition-beer-slim-cans-(12-fl-oz-x-24-ct).jpg
+│   │   │   │   ├── modelo-especial-mexican-lager-bottles-(12-fl-oz-x-12-ct).jpg
+│   │   │   │   ├── nachos-supreme.jpg
+│   │   │   │   ├── party-packs.jpg
+│   │   │   │   ├── pollo-asada-quesadilla.jpg
+│   │   │   │   ├── pollo-asado-burrito.jpg
+│   │   │   │   ├── pollo-asado-taco.jpg
+│   │   │   │   ├── pollo-asado-torta.jpg
+│   │   │   │   ├── protein-bowl.jpg
+│   │   │   │   ├── protein-fries.jpg
+│   │   │   │   ├── quesadillas.jpg
+│   │   │   │   ├── rice-(8-oz).jpg
+│   │   │   │   ├── rolled-tacos-(50).jpg
+│   │   │   │   ├── rolled-with-guacamole-(3).jpg
+│   │   │   │   ├── rolled-with-guacamole-(5).jpg
+│   │   │   │   ├── rolled-with-sour-cream-(3).jpg
+│   │   │   │   ├── rolled-with-sour-cream-(5).jpg
+│   │   │   │   ├── shredded-beef-taco.jpg
+│   │   │   │   ├── shredded-chicken-quesadilla.jpg
+│   │   │   │   ├── shredded-chicken-taco.jpg
+│   │   │   │   ├── shrimp-burrito.jpg
+│   │   │   │   ├── shrimp-fries.jpg
+│   │   │   │   ├── shrimp-quesadilla.jpg
+│   │   │   │   ├── shrimp-taco.jpg
+│   │   │   │   ├── side-of-rice-serves-20.jpg
+│   │   │   │   ├── side-orders.jpg
+│   │   │   │   ├── soon.jpg
+│   │   │   │   ├── steak-and-eggs-burrito.jpg
+│   │   │   │   ├── super-breakfast-bowl.jpg
+│   │   │   │   ├── super-breakfast-burrito.jpg
+│   │   │   │   ├── supreme-burrito.jpg
+│   │   │   │   ├── surf-and-turf-bowl.jpg
+│   │   │   │   ├── surf-and-turf-fries.jpg
+│   │   │   │   ├── surf-n'-turf-burrito.jpg
+│   │   │   │   ├── tacos---hard.jpg
+│   │   │   │   ├── tacos---soft.jpg
+│   │   │   │   ├── taquito-burrito.jpg
+│   │   │   │   ├── tito's-gluten-free-80-proof-handmade-vodka-bottle-(750-ml).jpg
+│   │   │   │   ├── two4tentacos.jpg
+│   │   │   │   ├── veggie-fries.jpg
+│   │   │   │   ├── veggie-quesadilla.jpg
+│   │   │   │   └── white-claw-gluten-free-no.-1-variety-pack-hard-seltzer-cans-(12-fl-oz-x-12-ct).jpg
+│   │   │   ├── new-bun.jpg
+│   │   │   ├── reservation.jpg
+│   │   │   ├── stats-bg.jpg
+│   │   │   ├── taco.png
+│   │   │   ├── tacos-front.webp
+│   │   │   ├── tacos.webp
+│   │   │   ├── team-shape.svg
+│   │   │   └── testimonials
+│   │   │       ├── testimonials-1.jpg
+│   │   │       ├── testimonials-2.jpg
+│   │   │       ├── testimonials-3.jpg
+│   │   │       └── testimonials-4.jpg
+│   │   ├── js
+│   │   │   ├── main.js
+│   │   │   └── reviews.js
+│   │   ├── scss
+│   │   └── vendor
+│   │       ├── aos
+│   │       │   ├── aos.cjs.js
+│   │       │   ├── aos.css
+│   │       │   ├── aos.esm.js
+│   │       │   ├── aos.js
+│   │       │   └── aos.js.map
+│   │       ├── bootstrap
+│   │       │   ├── css
+│   │       │   │   ├── bootstrap-grid.css
+│   │       │   │   ├── bootstrap-grid.css.map
+│   │       │   │   ├── bootstrap-grid.min.css
+│   │       │   │   ├── bootstrap-grid.min.css.map
+│   │       │   │   ├── bootstrap-grid.rtl.css
+│   │       │   │   ├── bootstrap-grid.rtl.css.map
+│   │       │   │   ├── bootstrap-grid.rtl.min.css
+│   │       │   │   ├── bootstrap-grid.rtl.min.css.map
+│   │       │   │   ├── bootstrap-reboot.css
+│   │       │   │   ├── bootstrap-reboot.css.map
+│   │       │   │   ├── bootstrap-reboot.min.css
+│   │       │   │   ├── bootstrap-reboot.min.css.map
+│   │       │   │   ├── bootstrap-reboot.rtl.css
+│   │       │   │   ├── bootstrap-reboot.rtl.css.map
+│   │       │   │   ├── bootstrap-reboot.rtl.min.css
+│   │       │   │   ├── bootstrap-reboot.rtl.min.css.map
+│   │       │   │   ├── bootstrap-utilities.css
+│   │       │   │   ├── bootstrap-utilities.css.map
+│   │       │   │   ├── bootstrap-utilities.min.css
+│   │       │   │   ├── bootstrap-utilities.min.css.map
+│   │       │   │   ├── bootstrap-utilities.rtl.css
+│   │       │   │   ├── bootstrap-utilities.rtl.css.map
+│   │       │   │   ├── bootstrap-utilities.rtl.min.css
+│   │       │   │   ├── bootstrap-utilities.rtl.min.css.map
+│   │       │   │   ├── bootstrap.css
+│   │       │   │   ├── bootstrap.css.map
+│   │       │   │   ├── bootstrap.min.css
+│   │       │   │   ├── bootstrap.min.css.map
+│   │       │   │   ├── bootstrap.rtl.css
+│   │       │   │   ├── bootstrap.rtl.css.map
+│   │       │   │   ├── bootstrap.rtl.min.css
+│   │       │   │   ├── bootstrap.rtl.min.css.map
+│   │       │   │   └── prb.txt
+│   │       │   └── js
+│   │       │       ├── bootstrap.bundle.js
+│   │       │       ├── bootstrap.bundle.js.map
+│   │       │       ├── bootstrap.bundle.min.js
+│   │       │       ├── bootstrap.bundle.min.js.map
+│   │       │       ├── bootstrap.esm.js
+│   │       │       ├── bootstrap.esm.js.map
+│   │       │       ├── bootstrap.esm.min.js
+│   │       │       ├── bootstrap.esm.min.js.map
+│   │       │       ├── bootstrap.js
+│   │       │       ├── bootstrap.js.map
+│   │       │       ├── bootstrap.min.js
+│   │       │       └── bootstrap.min.js.map
+│   │       ├── bootstrap-icons
+│   │       │   ├── bootstrap-icons.css
+│   │       │   ├── bootstrap-icons.json
+│   │       │   ├── bootstrap-icons.min.css
+│   │       │   ├── bootstrap-icons.scss
+│   │       │   └── fonts
+│   │       │       ├── bootstrap-icons.woff
+│   │       │       └── bootstrap-icons.woff2
+│   │       ├── glightbox
+│   │       │   ├── css
+│   │       │   │   ├── glightbox.css
+│   │       │   │   └── glightbox.min.css
+│   │       │   └── js
+│   │       │       ├── glightbox.js
+│   │       │       └── glightbox.min.js
+│   │       ├── php-email-form
+│   │       │   └── validate.js
+│   │       ├── purecounter
+│   │       │   ├── purecounter_vanilla.js
+│   │       │   └── purecounter_vanilla.js.map
+│   │       └── swiper
+│   │           ├── swiper-bundle.min.css
+│   │           ├── swiper-bundle.min.js
+│   │           └── swiper-bundle.min.js.map
+│   ├── index.html
+│   ├── latest-news.html
+│   ├── locations.html
+│   ├── menu.html
+│   ├── posts
+│   │   ├── anatomy-fish-taco
+│   │   │   └── index.html
+│   │   ├── breakfast-burritos
+│   │   │   └── index.html
+│   │   ├── bunuelos-crispy-sweet-treat
+│   │   │   └── index.html
+│   │   ├── fresh-and-authentic
+│   │   │   └── index.html
+│   │   ├── two-for-ten
+│   │   │   └── index.html
+│   │   └── voted-top-ten-yelp
+│   │       └── index.html
+│   └── test.html
+├── file-tree.py
+├── file_tree.txt
+├── firebase.json
+├── functions
+│   ├── index.js
+│   ├── package-lock.json
+│   └── package.json
+├── github-poller
+│   ├── app.py
+│   ├── index.html
+│   └── requirements.txt
+├── notes
+├── notes.md
+├── package-lock.json
+├── package.json
+├── rev.json
+└── src
+    ├── _includes
+    │   ├── footer.njk
+    │   └── header.njk
+    ├── _layouts
+    │   └── base.njk
+    ├── assets
+    │   ├── css
+    │   │   ├── custom.css
+    │   │   ├── main.css
+    │   │   └── vendor.min.css
+    │   ├── img
+    │   │   ├── about-2.jpg
+    │   │   ├── about.jpg
+    │   │   ├── apple-touch-icon.png
+    │   │   ├── blog
+    │   │   │   ├── bunuelos.jpg
+    │   │   │   ├── dinner-plate.jpg
+    │   │   │   └── dinner.jpg
+    │   │   ├── carne-asada.png
+    │   │   ├── carneasada plate.png
+    │   │   ├── chefs
+    │   │   │   ├── chefs-1.jpg
+    │   │   │   ├── chefs-2.jpg
+    │   │   │   └── chefs-3.jpg
+    │   │   ├── el-pueblo-logo.png
+    │   │   ├── el_pueblo_mex_logo-01.png
+    │   │   ├── events-1.jpg
+    │   │   ├── events-2.jpg
+    │   │   ├── events-3.jpg
+    │   │   ├── events-4.jpg
+    │   │   ├── favicon.png
+    │   │   ├── gallery
+    │   │   │   ├── gallery-1.jpg
+    │   │   │   ├── gallery-2.jpg
+    │   │   │   ├── gallery-3.jpg
+    │   │   │   ├── gallery-4.jpg
+    │   │   │   ├── gallery-5.jpg
+    │   │   │   ├── gallery-6.jpg
+    │   │   │   ├── gallery-7.jpg
+    │   │   │   └── gallery-8.jpg
+    │   │   ├── hero-img.png
+    │   │   ├── logo.png
+    │   │   ├── menu
+    │   │   │   ├── menu-item-1.png
+    │   │   │   ├── menu-item-2.png
+    │   │   │   ├── menu-item-3.png
+    │   │   │   ├── menu-item-4.png
+    │   │   │   ├── menu-item-5.png
+    │   │   │   └── menu-item-6.png
+    │   │   ├── menu-items
+    │   │   │   ├── 2-for-10-taco-combo.jpg
+    │   │   │   ├── adobada-burrito.jpg
+    │   │   │   ├── adobada-quesadilla.jpg
+    │   │   │   ├── adobada-taco.jpg
+    │   │   │   ├── adobada-torta.jpg
+    │   │   │   ├── bean-and-cheese-burrito.jpg
+    │   │   │   ├── breakfast-bowl.jpg
+    │   │   │   ├── breakfast-burrito.jpg
+    │   │   │   ├── breakfast.jpg
+    │   │   │   ├── cali-burrito.jpg
+    │   │   │   ├── carne-asada-burrito.jpg
+    │   │   │   ├── carne-asada-plate.jpg
+    │   │   │   ├── carne-asada-quesadilla.jpg
+    │   │   │   ├── carne-asada-taco.jpg
+    │   │   │   ├── carne-asada-torta.jpg
+    │   │   │   ├── carnitas-burrito.jpg
+    │   │   │   ├── carnitas-burrito2.jpg
+    │   │   │   ├── carnitas-plate.jpg
+    │   │   │   ├── carnitas-quesadilla.jpg
+    │   │   │   ├── carnitas-taco.jpg
+    │   │   │   ├── carnitas-torta.jpg
+    │   │   │   ├── cheese-quesadilla.jpg
+    │   │   │   ├── chickentortsoup.jpg
+    │   │   │   ├── chilaquiles-rojos.jpg
+    │   │   │   ├── chilaquiles-verdes.jpg
+    │   │   │   ├── chile-relleno-burrito.jpg
+    │   │   │   ├── chile-relleno-plate.jpg
+    │   │   │   ├── chile-relleno.jpg
+    │   │   │   ├── chimichanga.jpg
+    │   │   │   ├── chips-and-salsa.jpg
+    │   │   │   ├── chorizo-burrito.jpg
+    │   │   │   ├── chorizo-plate.jpg
+    │   │   │   ├── chorizo-torta.jpg
+    │   │   │   ├── conga-burrito.jpg
+    │   │   │   ├── dinners.jpg
+    │   │   │   ├── el-pueblo-mexican-food.jpg
+    │   │   │   ├── el-pueblo-torta-with-fries.jpg
+    │   │   │   ├── enchiladas.jpg
+    │   │   │   ├── fajitas-burrito.jpg
+    │   │   │   ├── fajitas-plate.jpg
+    │   │   │   ├── fish-taco.jpg
+    │   │   │   ├── fish_tacos.jpg
+    │   │   │   ├── flautas-(3).jpg
+    │   │   │   ├── fries-and-chips.jpg
+    │   │   │   ├── full-menu.jpg
+    │   │   │   ├── guacamole-(1-2-tray).jpg
+    │   │   │   ├── ham-and-cheese.jpg
+    │   │   │   ├── huevos-a-la-mexicana.jpg
+    │   │   │   ├── huevos-con-jamon.jpg
+    │   │   │   ├── huevos-rancheros.jpg
+    │   │   │   ├── josh-cellars-vintage-pinot-noir-bottle-central-coast-(750-ml).jpg
+    │   │   │   ├── kids-quesadilla.jpg
+    │   │   │   ├── la-marca-prosecco-bottle-doc-italy-(375-ml).jpg
+    │   │   │   ├── lengua-taco.jpg
+    │   │   │   ├── machaca-burrito.jpg
+    │   │   │   ├── machaca-plate.jpg
+    │   │   │   ├── machaca-torta.jpg
+    │   │   │   ├── make-your-own-tacos.jpg
+    │   │   │   ├── menu-items.zip
+    │   │   │   ├── menudo-sat-and-sun-only.jpg
+    │   │   │   ├── michelob-ultra-light-usa-limited-edition-beer-slim-cans-(12-fl-oz-x-24-ct).jpg
+    │   │   │   ├── modelo-especial-mexican-lager-bottles-(12-fl-oz-x-12-ct).jpg
+    │   │   │   ├── nachos-supreme.jpg
+    │   │   │   ├── party-packs.jpg
+    │   │   │   ├── pollo-asada-quesadilla.jpg
+    │   │   │   ├── pollo-asado-burrito.jpg
+    │   │   │   ├── pollo-asado-taco.jpg
+    │   │   │   ├── pollo-asado-torta.jpg
+    │   │   │   ├── protein-bowl.jpg
+    │   │   │   ├── protein-fries.jpg
+    │   │   │   ├── quesadillas.jpg
+    │   │   │   ├── rice-(8-oz).jpg
+    │   │   │   ├── rolled-tacos-(50).jpg
+    │   │   │   ├── rolled-with-guacamole-(3).jpg
+    │   │   │   ├── rolled-with-guacamole-(5).jpg
+    │   │   │   ├── rolled-with-sour-cream-(3).jpg
+    │   │   │   ├── rolled-with-sour-cream-(5).jpg
+    │   │   │   ├── shredded-beef-taco.jpg
+    │   │   │   ├── shredded-chicken-quesadilla.jpg
+    │   │   │   ├── shredded-chicken-taco.jpg
+    │   │   │   ├── shrimp-burrito.jpg
+    │   │   │   ├── shrimp-fries.jpg
+    │   │   │   ├── shrimp-quesadilla.jpg
+    │   │   │   ├── shrimp-taco.jpg
+    │   │   │   ├── side-of-rice-serves-20.jpg
+    │   │   │   ├── side-orders.jpg
+    │   │   │   ├── soon.jpg
+    │   │   │   ├── steak-and-eggs-burrito.jpg
+    │   │   │   ├── super-breakfast-bowl.jpg
+    │   │   │   ├── super-breakfast-burrito.jpg
+    │   │   │   ├── supreme-burrito.jpg
+    │   │   │   ├── surf-and-turf-bowl.jpg
+    │   │   │   ├── surf-and-turf-fries.jpg
+    │   │   │   ├── surf-n'-turf-burrito.jpg
+    │   │   │   ├── tacos---hard.jpg
+    │   │   │   ├── tacos---soft.jpg
+    │   │   │   ├── taquito-burrito.jpg
+    │   │   │   ├── tito's-gluten-free-80-proof-handmade-vodka-bottle-(750-ml).jpg
+    │   │   │   ├── two4tentacos.jpg
+    │   │   │   ├── veggie-fries.jpg
+    │   │   │   ├── veggie-quesadilla.jpg
+    │   │   │   └── white-claw-gluten-free-no.-1-variety-pack-hard-seltzer-cans-(12-fl-oz-x-12-ct).jpg
+    │   │   ├── new-bun.jpg
+    │   │   ├── reservation.jpg
+    │   │   ├── stats-bg.jpg
+    │   │   ├── taco.png
+    │   │   ├── tacos-front.webp
+    │   │   ├── tacos.webp
+    │   │   ├── team-shape.svg
+    │   │   └── testimonials
+    │   │       ├── testimonials-1.jpg
+    │   │       ├── testimonials-2.jpg
+    │   │       ├── testimonials-3.jpg
+    │   │       └── testimonials-4.jpg
+    │   ├── js
+    │   │   ├── main.js
+    │   │   └── reviews.js
+    │   ├── scss
+    │   └── vendor
+    │       ├── aos
+    │       │   ├── aos.cjs.js
+    │       │   ├── aos.css
+    │       │   ├── aos.esm.js
+    │       │   ├── aos.js
+    │       │   └── aos.js.map
+    │       ├── bootstrap
+    │       │   ├── css
+    │       │   │   ├── bootstrap-grid.css
+    │       │   │   ├── bootstrap-grid.css.map
+    │       │   │   ├── bootstrap-grid.min.css
+    │       │   │   ├── bootstrap-grid.min.css.map
+    │       │   │   ├── bootstrap-grid.rtl.css
+    │       │   │   ├── bootstrap-grid.rtl.css.map
+    │       │   │   ├── bootstrap-grid.rtl.min.css
+    │       │   │   ├── bootstrap-grid.rtl.min.css.map
+    │       │   │   ├── bootstrap-reboot.css
+    │       │   │   ├── bootstrap-reboot.css.map
+    │       │   │   ├── bootstrap-reboot.min.css
+    │       │   │   ├── bootstrap-reboot.min.css.map
+    │       │   │   ├── bootstrap-reboot.rtl.css
+    │       │   │   ├── bootstrap-reboot.rtl.css.map
+    │       │   │   ├── bootstrap-reboot.rtl.min.css
+    │       │   │   ├── bootstrap-reboot.rtl.min.css.map
+    │       │   │   ├── bootstrap-utilities.css
+    │       │   │   ├── bootstrap-utilities.css.map
+    │       │   │   ├── bootstrap-utilities.min.css
+    │       │   │   ├── bootstrap-utilities.min.css.map
+    │       │   │   ├── bootstrap-utilities.rtl.css
+    │       │   │   ├── bootstrap-utilities.rtl.css.map
+    │       │   │   ├── bootstrap-utilities.rtl.min.css
+    │       │   │   ├── bootstrap-utilities.rtl.min.css.map
+    │       │   │   ├── bootstrap.css
+    │       │   │   ├── bootstrap.css.map
+    │       │   │   ├── bootstrap.min.css
+    │       │   │   ├── bootstrap.min.css.map
+    │       │   │   ├── bootstrap.rtl.css
+    │       │   │   ├── bootstrap.rtl.css.map
+    │       │   │   ├── bootstrap.rtl.min.css
+    │       │   │   ├── bootstrap.rtl.min.css.map
+    │       │   │   └── prb.txt
+    │       │   └── js
+    │       │       ├── bootstrap.bundle.js
+    │       │       ├── bootstrap.bundle.js.map
+    │       │       ├── bootstrap.bundle.min.js
+    │       │       ├── bootstrap.bundle.min.js.map
+    │       │       ├── bootstrap.esm.js
+    │       │       ├── bootstrap.esm.js.map
+    │       │       ├── bootstrap.esm.min.js
+    │       │       ├── bootstrap.esm.min.js.map
+    │       │       ├── bootstrap.js
+    │       │       ├── bootstrap.js.map
+    │       │       ├── bootstrap.min.js
+    │       │       └── bootstrap.min.js.map
+    │       ├── bootstrap-icons
+    │       │   ├── bootstrap-icons.css
+    │       │   ├── bootstrap-icons.json
+    │       │   ├── bootstrap-icons.min.css
+    │       │   ├── bootstrap-icons.scss
+    │       │   └── fonts
+    │       │       ├── bootstrap-icons.woff
+    │       │       └── bootstrap-icons.woff2
+    │       ├── glightbox
+    │       │   ├── css
+    │       │   │   ├── glightbox.css
+    │       │   │   └── glightbox.min.css
+    │       │   └── js
+    │       │       ├── glightbox.js
+    │       │       └── glightbox.min.js
+    │       ├── php-email-form
+    │       │   └── validate.js
+    │       ├── purecounter
+    │       │   ├── purecounter_vanilla.js
+    │       │   └── purecounter_vanilla.js.map
+    │       └── swiper
+    │           ├── swiper-bundle.min.css
+    │           ├── swiper-bundle.min.js
+    │           └── swiper-bundle.min.js.map
+    ├── blog.njk
+    ├── index.njk
+    ├── locations.njk
+    ├── menu.njk
+    ├── posts
+    │   ├── anatomy-fish-taco.md
+    │   ├── breakfast-burritos.md
+    │   ├── bunuelos-crispy-sweet-treat.md
+    │   ├── freash-and-authentic.md
+    │   ├── two-for-ten.md
+    │   └── yelp-voted-top-ten.md
+    ├── robots.txt
+    └── test.njk
 
 ---
 
-## 🔄 GitHub Poller Integration
+ April 2, 2025 
 
-- `github-poller/app.py` fetches recent commits from GitHub
-- Output is written to `src/_data/github.json`
-- This makes commit data available in any 11ty template as `github`
+ 🧠 Goal
+You wanted to display recent blog post previews on your Eleventy-powered homepage (index.njk) and encountered issues with collections and layout.
 
-🧪 Sample Nunjucks usage:
-```njk
-{% for commit in github %}
-  <p>{{ commit.commit.message }} — {{ commit.commit.author.date }}</p>
-{% endfor %}
-```
+✅ What We Diagnosed and Solved
+1. Blog Posts Not Showing on Homepage
+Your blog posts were correctly tagged and visible on the blog listing page.
 
-🛠️ Enhancements coming soon:
-- Filtering commit data
-- Auto-deployment via GitHub Actions or Firebase Functions
-- Schedule-based polling or webhook triggers
+However, they were not rendering on the homepage.
+
+We confirmed collections.blog had 6 posts, but collections.blogLatest returned 0.
+
+2. Issue with slice() in .eleventy.js
+Using .slice(0, 3) directly in a custom collection (blogLatest) caused it to return an empty array due to build timing issues.
+
+Fix: Instead of slicing in .eleventy.js, we now slice inside the template using:
+
+njk
+Copy
+Edit
+{% set blogLatest = collections.blog.slice(0, 3) %}
+3. Rendering Fix
+Updated the index.njk to:
+
+Use collections.blog.slice(0, 3)
+
+Render Bootstrap card layout like your latest-news.njk template
+
+Fixed layout bugs and ensured visibility
+
+4. HTML Cleanup
+Resolved an invalid {# ... #} Nunjucks comment block that caused HTML parsing errors
+
+Ensured all tags in your homepage template were correctly opened and closed
+
+5. Updated .eleventy.js
+Cleaned it up to include:
+
+blog collection only (no need for blogLatest)
+
+Luxon-based date filter
+
+Passthrough copy for assets
+
+Correct directory configuration
+
+✅ Final State
+✅ Blog posts show on homepage via collections.blog.slice(0, 3)
+
+✅ No Eleventy build errors
+
+✅ Clean and maintainable index.njk and .eleventy.js
 
 ---
-
-## ✅ Setup Tasks
-
-- [ ] Confirm `posts/` content structure
-- [ ] Review and optimize `.eleventy.js` for collections and passthroughs
-- [ ] Clean up loose files (`rev.json`, `notes`, `READ.MD`)
-- [ ] Break up or modularize `menu.njk` (~46 KB)
-- [ ] Add GitHub token support to `app.py` (via `.env` or secrets manager)
-- [ ] Add cron job or Firebase Function to automate poller
-
----
-
+ 

@@ -13,7 +13,7 @@ image: assets/img/menu-items/super-breakfast-burrito.jpg
 <section id="menu" class="menu section">
   <div class="container section-title" data-aos="fade-up" style="text-align: left;">
 
-<img src="/assets/img/menu-items/fish_tacos.jpg" alt="Delicious tacos on a plate" class="centered-responsive-img">
+<img src="/assets/img/menu-items/super-breakfast-burrito.jpg" alt="Delicious tacos on a plate" class="centered-responsive-img">
 
 # Breakfast Burritos: A Perfect Start to Your Day
 
