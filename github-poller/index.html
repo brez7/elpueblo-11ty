@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Commit Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .commit {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    .commit .sha {
+      font-family: monospace;
+      color: #555;
+    }
+    .commit .message {
+      font-weight: bold;
+    }
+    .commit .meta {
+      font-size: 0.9em;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <h1>Latest GitHub Commits</h1>
+  <div id="commits"></div>
+
+  <script>
+    async function fetchCommits() {
+      try {
+        const response = await fetch('http://127.0.0.1:8000/check-updates', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ test: true })
+        });
+        const data = await response.json();
+
+        const commitsContainer = document.getElementById('commits');
+        commitsContainer.innerHTML = '';
+
+        data.latest_commits.forEach(commit => {
+          const commitEl = document.createElement('div');
+          commitEl.className = 'commit';
+
+          commitEl.innerHTML = `
+            <div class="message">${commit.message}</div>
+            <div class="meta">By ${commit.author} on ${new Date(commit.date).toLocaleString()}</div>
+            <div class="sha">SHA: ${commit.sha}</div>
+          `;
+
+          commitsContainer.appendChild(commitEl);
+        });
+
+      } catch (error) {
+        document.getElementById('commits').innerHTML = '<p>Failed to load commits. Is the FastAPI server running?</p>';
+        console.error('Error fetching commits:', error);
+      }
+    }
+
+    fetchCommits();
+  </script>
+</body>
+</html>

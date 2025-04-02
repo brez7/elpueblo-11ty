@@ -30,4 +30,7 @@ git push
 eleventy  firebase deploy --only hosting 
 npm run go
 
- 
+
+cd /mnt/c/Users/rob/OneDrive/Desktop/yummy-elpueblo-11ty/github-poller
+
+ uvicorn app:app --host 0.0.0.0 --port 8000 --reload
