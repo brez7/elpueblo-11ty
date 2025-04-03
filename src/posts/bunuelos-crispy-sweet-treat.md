@@ -7,13 +7,13 @@ currentPage: blog
 permalink: posts/bunuelos-crispy-sweet-treat/index.html
 tags: ["blog"]
 date: "2025-04-02"
-image: assets/img/blog/bunuelos.jpg
+image: assets/img/blog/bunuelos.webp
 ---
 
 <section id="menu" class="menu section">
   <div class="container section-title" data-aos="fade-up" style="text-align: left;">
 
-<img src="/assets/img/blog/bunuelos.jpg" alt="Bunuelos flyer" class="centered-responsive-img">
+<img src="/assets/img/blog/bunuelos.webp" alt="Bunuelos flyer" class="centered-responsive-img">
 
 # Buñuelos: A Crispy and Sweet Treat
 

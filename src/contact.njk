@@ -1,0 +1,68 @@
+---
+layout: base.njk
+title: "Contact"
+description: "Contact form"
+currentPage: contact
+permalink: contact.html
+---
+
+<section id="events" class="events section-events">
+  <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+    <h2>Contact Us</h2>
+
+    <form id="contact-form">
+      <label>
+        Your Name:
+        <input type="text" name="name" required />
+      </label>
+
+      <label>
+        Your Email:
+        <input type="email" name="email" required />
+      </label>
+
+      <label>
+        Your Message:
+        <textarea name="message" rows="5" required></textarea>
+      </label>
+
+      <button type="submit">Send Message</button>
+    </form>
+
+    <div id="form-response" style="margin-top: 1em; font-weight: bold"></div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form")
+  const responseBox = document.getElementById("form-response")
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+
+    const data = {
+      name: form.name.value,
+      email: form.email.value,
+      message: form.message.value,
+    }
+
+    try {
+      const res = await fetch(
+        "https://contact-form-fvmy7faymq-uc.a.run.app/submit",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        }
+      )
+
+      const result = await res.json()
+      responseBox.textContent =
+        result.message || "Thanks! Your message was sent."
+      form.reset()
+    } catch (err) {
+      responseBox.textContent =
+        "⚠️ Error sending message. Please try again later."
+    }
+  })
+</script>
