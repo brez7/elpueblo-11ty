@@ -238,7 +238,7 @@ color-mix(in srgb, var(--default-color), transparent 50%); */
   color: white;
   border: 1px solid black;
   padding: 10px 28px 12px 28px;
-  border-radius: 50px;
+  border-radius: 10px;
   font-weight: 400;
   font-size: 15px;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
@@ -247,9 +247,9 @@ color-mix(in srgb, var(--default-color), transparent 50%); */
 }
 
 .btn-read-more:hover {
-  background-color: white;
-  color: #7f120b;
-  border-color: #7f120b;
+  background-color: rgb(170, 162, 162);
+  color: #ffffff;
+  border-color:  rgb(170, 162, 162);
 }
 .breadcrumb-nav {
   background-color: #f8f9fa;

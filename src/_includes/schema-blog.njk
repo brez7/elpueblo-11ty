@@ -1,0 +1,47 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://elpueblomex.com/latest-news.html"
+  },
+  "name": "Latest News from El Pueblo Mexican Food",
+  "description": "Discover new dishes, behind-the-scenes stories, and what’s cooking next.",
+  "url": "https://elpueblomex.com/latest-news.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "El Pueblo Mexican Food",
+    "url": "https://elpueblomex.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://elpueblomex.com/assets/img/logo.png"
+    }
+  },
+  "blogPost": [
+    {% for post in collections.blog %}
+    {
+      "@type": "BlogPosting",
+      "headline": {{ post.data.title | dump }},
+      "image": {{ (post.data.image or "/assets/img/menu-items/soon.jpg") | dump }},
+      "author": {
+        "@type": "Organization",
+        "name": "El Pueblo Mexican Food"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "El Pueblo Mexican Food",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://elpueblomex.com/assets/img/logo.png"
+        }
+      },
+      "url": "https://elpueblomex.com{{ post.url }}",
+      "datePublished": "{{ post.date | date("yyyy-MM-dd") }}",
+      "dateModified": "{{ post.date | date("yyyy-MM-dd") }}",
+      "description": {{ (post.data.description or post.templateContent | striptags | truncate(100, true)) | dump }}
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
