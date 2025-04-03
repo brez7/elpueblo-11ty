@@ -2,6 +2,16 @@ Here’s the context of my Eleventy project. Please load this.
 
 # 📘 Eleventeenth Project Context — `elpueblo-11ty`
 
+In this session, we set up a fully customizable contact form for an Eleventy static site using a Flask API deployed on Google Cloud Run. After evaluating options, we chose Flask over Firebase Functions for greater flexibility and control. We built the Flask app with a /submit endpoint to handle POST requests, containerized it with Docker, and deployed it to Cloud Run using the Google Cloud CLI.
+
+To handle browser security restrictions, we addressed a CORS error by integrating flask-cors and explicitly allowing cross-origin requests. Once the API was live, we wired up a frontend form in the Eleventy site to send submissions via fetch.
+
+Next, we enabled Gmail integration by generating a secure App Password for it@elpueblomex.com and configured Flask to send emails via SMTP. After successful deployment and testing, we verified that the contact form was sending emails properly.
+
+We also began integrating Google Sheets as a backend log for form submissions. This involved creating a new Google Sheet, setting up a service account, enabling the Google Sheets API, and preparing secure authentication credentials to allow Flask to write data to the sheet.
+
+The session was highly productive, ending with a live contact form that sends real emails and is nearly ready for full data logging.
+
 Always use thsi styling for buttons: 
 
 .btn-read-more {

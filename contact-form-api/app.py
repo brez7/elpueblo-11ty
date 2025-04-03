@@ -37,3 +37,18 @@ def submit():
     send_email(name, email, message)
 
     return jsonify({"status": "success", "message": "Thanks! Your message was sent."})
+
+
+@app.route("/", methods=["POST", "OPTIONS"])
+def root_post():
+    if request.method == "OPTIONS":
+        return "", 204
+
+    data = request.get_json()
+    name = data.get("name")
+    email = data.get("email")
+    message = data.get("message")
+
+    send_email(name, email, message)
+
+    return jsonify({"status": "success", "message": "Thanks! Your message was sent."})
