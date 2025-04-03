@@ -618,4 +618,57 @@ Correct directory configuration
 ✅ Clean and maintainable index.njk and .eleventy.js
 
 ---
- 
+ Absolutely. Here's a **text-only summary** of everything we've covered in this conversation so far:
+
+---
+
+### 🧱 **Project Setup & Goals**
+- You’re building a static site with **Eleventy (11ty)** and deploying via **Firebase Hosting**.
+- You wanted a **fully customizable contact form** that integrates with your site.
+- We explored whether to use **Firebase Functions** or a **Flask API with Cloud Run** — you chose Flask on Cloud Run for flexibility.
+
+---
+
+### ⚙️ **Flask + Cloud Run Setup**
+1. Created a `contact-form-api/` directory with `app.py`, `requirements.txt`, and a `Dockerfile`.
+2. Flask app included a `/submit` endpoint that receives form data via POST.
+3. Docker image was built and deployed to **Google Cloud Run** using:
+   ```bash
+   gcloud builds submit --tag gcr.io/PROJECT_ID/contact-form
+   gcloud run deploy contact-form --image gcr.io/PROJECT_ID/contact-form --platform managed --region us-central1 --allow-unauthenticated
+   ```
+4. Eleventy site submits the form via `fetch()` to the live Cloud Run endpoint.
+
+---
+
+### 🚨 **CORS Issue & Fix**
+- You hit a CORS error when testing the form.
+- Solution: Installed `flask-cors` and added:
+  ```python
+  CORS(app, origins="*", methods=["GET", "POST", "OPTIONS"])
+  ```
+- Also handled `OPTIONS` requests explicitly in the Flask route.
+
+---
+
+### 📬 **Sending Emails via Gmail**
+- Created a Gmail **App Password** for `it@elpueblomex.com`
+- Updated Flask to send email via `smtplib` using:
+  ```python
+  smtp.login(GMAIL_USER, GMAIL_PASSWORD)
+  smtp.send_message(msg)
+  ```
+- Emails now arrive successfully in the inbox.
+
+---
+
+### 📊 **Logging Submissions to Google Sheets (in progress)**
+- Created a Google Sheet with headers: `Timestamp | Name | Email | Message`
+- Set up a **Service Account** with access to Google Sheets API
+- Shared the sheet with the service account
+- Downloaded the JSON credentials file
+- Preparing to use `gspread` or `google-api-python-client` to log submissions from Flask
+
+---
+
+Let me know if you want this saved or exported as a `.txt` or markdown file. When you’re ready, type **`next`** to continue integrating Google Sheets.
