@@ -376,7 +376,6 @@ section-events,
   text-align: center;
   font-size: 35px !important;
   text-transform: uppercase;
-
 }
 .h1-format {
   font-weight: 700;
@@ -386,18 +385,19 @@ section-events,
   text-transform: uppercase;
   line-height: 40px;
 }
-.ti-widget[data-layout-id='34'][data-set-id='ligth-border'] .ti-review-item>.ti-inner {
-    margin: 20px !important;
-
+.ti-widget[data-layout-id="34"][data-set-id="ligth-border"]
+  .ti-review-item
+  > .ti-inner {
+  margin: 20px !important;
 }
- 
+
 @media (max-width: 767px) {
   .mobile-divider {
     display: block;
     border: none;
     border-bottom: 2px solid #7f120b;
-    width: 70%;              /* Adjust width to your liking */
-    margin: 20px auto;       /* Vertically spaced, centered horizontally */
+    width: 70%; /* Adjust width to your liking */
+    margin: 20px auto; /* Vertically spaced, centered horizontally */
   }
 }
 
@@ -407,9 +407,8 @@ section-events,
   }
 }
 
- .gm-style .place-card-large .place-card  {
-
-    display: none !important;
+.gm-style .place-card-large .place-card {
+  display: none !important;
 }
 .team-member {
   width: 100%;
@@ -452,7 +451,6 @@ section-events,
 .location-btn-full:hover {
   background-color: #000000;
   color: white;
- 
 }
 @media (max-width: 767px) {
   .location-btn-full {
@@ -462,7 +460,7 @@ section-events,
 
 .custom-burger {
   position: absolute;
-  top: 7px;   /* Distance from top */
+  top: 7px; /* Distance from top */
   right: 20px; /* Distance from right */
   z-index: 9999; /* Keep it on top */
   display: inline-flex;
@@ -486,7 +484,6 @@ section-events,
   width: 50%;
   align-self: flex-end; /* changed from flex-start to flex-end */
 }
-
 
 /* Contact Form */
 .contact-container {
@@ -523,5 +520,27 @@ button {
 }
 
 #form-message {
-    margin-top: 10px;
+  margin-top: 10px;
 }
+
+.location-box h3 {
+  color: var(--accent-color);
+  font-size: 22px;
+  margin-bottom: 0.3em;
+}
+.location-box p {
+  font-size: 16px;
+  line-height: 1.5;
+}
+#contact-form label {
+  font-weight: 600;
+}
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  padding: 0.75em;
+  margin-bottom: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+ 

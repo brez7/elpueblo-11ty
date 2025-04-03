@@ -25,6 +25,19 @@ git add .
 git commit -m 'new'
 git push
 
+FORM:
+
+build docker image and deploy to Cloud Run:
+gcloud builds submit ./contact-form-api --tag gcr.io/upbeat-button-265722/contact-form-api && gcloud run deploy contact-form-api --image gcr.io/upbeat-button-265722/contact-form-api --platform managed --region us-central1 --memory 512Mi --allow-unauthenticated
+
+build and run Docker image
+docker build -t contact-form-api .
+docker run -p 8080:8080 contact-form-api
+curl -Method POST -Uri http://localhost:8080/submit -Body (@{ name = 'Rob'; email = 'test@email.com'; message = 'Hey!' } | ConvertTo-Json) -ContentType "application/json"
+
+
+
+
 
 
 eleventy  firebase deploy --only hosting 

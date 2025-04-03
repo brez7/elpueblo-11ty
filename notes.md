@@ -1,6 +1,21 @@
-Here’s the context of my Eleventy project. Please load this.
+Here’s the context of my Eleventy project. Please load this. 
 
 # 📘 Eleventeenth Project Context — `elpueblo-11ty`
+
+Always use thsi styling for buttons: 
+
+.btn-read-more {
+  background: #7f120b;
+  color: white;
+  border: 1px solid black;
+  padding: 10px 28px 12px 28px;
+  border-radius: 50px;
+  font-weight: 400;
+  font-size: 15px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+  transition: 0.5s;
+  letter-spacing: 1px;
+}
 
 ## 🧠 Project Purpose
 

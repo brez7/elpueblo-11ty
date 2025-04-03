@@ -6,32 +6,84 @@ currentPage: contact
 permalink: contact.html
 ---
 
-<section id="events" class="events section-events">
-  <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
-    <h2>Contact Us</h2>
+<section id="contact" class="section">
+  <div class="container" data-aos="fade-up">
+    <!-- Section Title -->
+    <div class="section-title">
+    <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
+      <h1 style="font-size: 48px; text-align: center; font-weight: 700; color: var(--accent-color);">Contact Us</h1>
+      <p style="font-size: 21px; text-align: center">We would love to hear from you!</p>
+    <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
+    </div>
 
-    <form id="contact-form">
-      <label>
-        Your Name:
-        <input type="text" name="name" required />
-      </label>
+    <div class="row gy-4">
+      <!-- Contact Form -->
+      <div class="col-lg-4">
+        <form id="contact-form">
+          <div class="form-group mb-3">
+            <label for="name">Your Name:</label>
+            <input type="text" name="name" class="form-control" required />
+          </div>
+          <div class="form-group mb-3">
+            <label for="email">Your Email:</label>
+            <input type="email" name="email" class="form-control" required />
+          </div>
+          <div class="form-group mb-3">
+            <label for="message">Your Message:</label>
+            <textarea name="message" rows="5" class="form-control" required></textarea>
+          </div>
+<button type="submit" class="btn-read-more">Send Message</button>
+        </form>
+        <div id="form-response" style="margin-top: 1em; font-weight: bold"></div>
+      </div>
 
-      <label>
-        Your Email:
-        <input type="email" name="email" required />
-      </label>
+      <!-- Locations Column 1 -->
+      <div class="col-lg-4" style="padding-top: 20px; text-align: center;">
+        <div class="location-box mb-4">
+          <h3>El Pueblo Mexican Food<br>Del Mar</h3>
+          <p style="text-align: center;">
+            2673 Via De La Valle, Suite C<br />
+            Del Mar, CA 92014<br />
+            6AM–12 AM<br />
+            <a href="tel:8585239834"><strong>(858) 523-9834</strong></a>
+          </p>
+        </div>
+        <div class="location-box mb-4">
+          <h3>El Pueblo Mexican Food<br>Carmel Valley</h3>
+          <p style="text-align: center;">
+            5965 Village Way, Suite E107<br />
+            San Diego, CA 92121<br />
+            6AM–12 AM<br />
+            <a href="tel:9259257129"><strong>(925) 925-7129</strong></a>
+          </p>
+        </div>
+      </div>
 
-      <label>
-        Your Message:
-        <textarea name="message" rows="5" required></textarea>
-      </label>
-
-      <button type="submit">Send Message</button>
-    </form>
-
-    <div id="form-response" style="margin-top: 1em; font-weight: bold"></div>
+      <!-- Locations Column 2 -->
+      <div class="col-lg-4" style="padding-top: 20px; text-align: center;">
+        <div class="location-box mb-4">
+          <h3>El Pueblo Mexican Food<br>Carlsbad</h3>
+          <p style="text-align: center;">
+            7720 Rancho Santa Fe Rd, Suite 125<br />
+            Carlsbad, CA 92009<br />
+            M–F 6AM–10PM and Sat-Sun 6AM – 12AM<br />
+            <a href="tel:7604875810"><strong>(760) 487-5810</strong></a>
+          </p>
+        </div>
+        <div class="location-box mb-4">
+          <h3>El Pueblo Mexican Food, Cardiff</h3>
+          <p style="text-align: center;">
+            820 Birmingham Drive<br />
+            Cardiff-By-The-Sea, CA 92007<br />
+            24 HOURS<br />
+            <a href="tel:7602301771"><strong>(760) 230-1771</strong></a>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
 
 <script>
   const form = document.getElementById("contact-form")
