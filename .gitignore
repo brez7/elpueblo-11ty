@@ -11,3 +11,5 @@ functions/node_modules
 design-source
 
 .env
+
+sheets-creds.json
