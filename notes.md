@@ -2,6 +2,18 @@ Here’s the context of my Eleventy project. Please load this.
 
 # 📘 Eleventeenth Project Context — `elpueblo-11ty`
 
+You began by setting up an Eleventy (11ty) static site and integrating a contact form backend using Python Flask, deployed via Google Cloud Run. You created a contact-form-api with Flask, using Gmail SMTP for email delivery, and later added Google Sheets logging to track submissions. The backend correctly handled POST requests at /submit, verified using curl in both WSL and PowerShell environments.
+
+We debugged several deployment and runtime issues. Early errors involved Cloud Run deployment failures due to image access from Google Container Registry (GCR), which is deprecated. We resolved this by pushing the Docker image to Artifact Registry instead. You also encountered an issue with secret scanning when trying to push the sheets-creds.json file to GitHub — GitHub's push protection blocked it due to it containing Google service credentials. We handled this by using .gitignore, removing the file from Git's index, and cleaning up commit history.
+
+You successfully installed and ran Gunicorn within WSL to serve your Flask app. When transitioning to include Google Sheets, we configured OAuth scopes and used gspread and google-auth for appending form data to your spreadsheet. We overcame a submit() route duplication bug and installation errors related to distutils packages like blinker.
+
+We updated the contact form logic so emails are sent to both rob@elpueblomex.com and rob@barbank.com, and added a confirmation email to be sent back to the person who filled out the form. Docker deployment scripts were tested and iterated on, with emphasis on inline PowerShell-compatible commands for tagging, pushing, and deploying.
+
+Throughout the session, we reinforced using best practices for secrets management, deployment hygiene, and debugging Flask + Gunicorn issues on WSL.
+
+You now have a fully functional contact form API that logs to Google Sheets, sends email notifications to admins, and sends confirmations to users.
+
 In this session, we set up a fully customizable contact form for an Eleventy static site using a Flask API deployed on Google Cloud Run. After evaluating options, we chose Flask over Firebase Functions for greater flexibility and control. We built the Flask app with a /submit endpoint to handle POST requests, containerized it with Docker, and deployed it to Cloud Run using the Google Cloud CLI.
 
 To handle browser security restrictions, we addressed a CORS error by integrating flask-cors and explicitly allowing cross-origin requests. Once the API was live, we wired up a frontend form in the Eleventy site to send submissions via fetch.

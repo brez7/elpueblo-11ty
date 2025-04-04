@@ -1,4 +1,9 @@
  
+
+guide me through step by step, waiting for me to type next to continue
+
+contact-form-api
+
  sTART SERVER: 
 npx eleventy --serve
 npm run run
@@ -37,12 +42,7 @@ docker build -t contact-form-api .; docker tag contact-form-api us-central1-dock
 eleventy  firebase deploy --only hosting 
 npm run go
 
-This would require an API server:
-
-cd /mnt/c/Users/rob/OneDrive/Desktop/yummy-elpueblo-11ty/github-poller
-
- uvicorn app:app --host 0.0.0.0 --port 8000 --reload
-
+ 
 
 Chat GPT Prompts: 
 

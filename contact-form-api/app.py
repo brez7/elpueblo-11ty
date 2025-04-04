@@ -26,15 +26,28 @@ worksheet = gc.open_by_key(SHEET_ID).worksheet(SHEET_NAME)
 
 
 def send_email(name, email, message):
+    # Send internal notification to Rob and IT
     msg = EmailMessage()
     msg["Subject"] = f"New Contact Form Submission from {name}"
     msg["From"] = GMAIL_USER
-    msg["To"] = ", ".join(["rob@elpueblomex.com", "rob@barbank.com"])
+    msg["To"] = "rob@elpueblomex.com, rob@barbank.com"  # already fixed earlier
+
     msg.set_content(f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}")
+
+    # Send confirmation email to the sender
+    confirmation = EmailMessage()
+    confirmation["Subject"] = "We received your message!"
+    confirmation["From"] = GMAIL_USER
+    confirmation["To"] = email
+
+    confirmation.set_content(
+        f"Hi {name},\n\nThanks for reaching out to El Pueblo Mexican Food. We’ve received your message and will be in touch soon!\n\nYour message:\n{message}\n\n— El Pueblo Team"
+    )
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(GMAIL_USER, GMAIL_PASSWORD)
         smtp.send_message(msg)
+        smtp.send_message(confirmation)
 
 
 @app.route("/submit", methods=["POST", "OPTIONS"])
