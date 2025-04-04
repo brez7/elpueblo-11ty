@@ -697,3 +697,26 @@ Correct directory configuration
 ---
 
 Let me know if you want this saved or exported as a `.txt` or markdown file. When you’re ready, type **`next`** to continue integrating Google Sheets.
+
+
+⚙️ Environment
+Project: yummy-elpueblo-11ty
+
+Backend: contact-form-api
+
+Serving With: Flask + Gunicorn
+
+Docker Registry: Artifact Registry (NOT GCR)
+
+Deployment Target: Cloud Run (upbeat-button-265722)
+
+Local Dev: WSL + PowerShell mix
+
+Email Destinations: rob@elpueblomex.com, rob@barbank.com
+
+✅ Command Style
+Always inline, even if multi-line
+
+No backslashes \
+
+PowerShell by default if unspecified, otherwise WSL when running inside Linux shell

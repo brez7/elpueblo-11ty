@@ -29,7 +29,7 @@ def send_email(name, email, message):
     msg = EmailMessage()
     msg["Subject"] = f"New Contact Form Submission from {name}"
     msg["From"] = GMAIL_USER
-    msg["To"] = GMAIL_USER
+    msg["To"] = ", ".join(["rob@elpueblomex.com", "rob@barbank.com"])
     msg.set_content(f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}")
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:

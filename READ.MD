@@ -18,7 +18,7 @@ firebase deploy --only hosting
 MINIFY:
 
 html from root:
-npx html-minifier --input-dir dist --output-dir dist --file-ext html --collapse-whitespace --remove-comments --minify-css true --minify-js true
+npx html-minifier --input-dir dist --output-dircd  dist --file-ext html --collapse-whitespace --remove-comments --minify-css true --minify-js true
 
 
 git add .
@@ -26,23 +26,11 @@ git commit -m 'new'
 git push
 
 FORM:
+cd .\contact-form-api 
 
-# 3. Build Docker image locally
-docker build -t contact-form-api ./contact-form-api
+docker build -t contact-form-api .; docker tag contact-form-api us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api; docker push us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api; gcloud run deploy contact-form-api --image=us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api --platform=managed --region=us-central1 --allow-unauthenticated
 
-# 4. Tag image for Artifact Registry (NOT gcr.io anymore)
-docker tag contact-form-api us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api
 
-# 5. Push to Artifact Registry
-docker push us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api
-
-# 6. Deploy to Cloud Run from Artifact Registry
-gcloud run deploy contact-form-api --project=upbeat-button-265722 --image=us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api --platform=managed --region=us-central1 --allow-unauthenticated --memory=512Mi
-
-. ✅ Future Deploys — Keep Using Artifact Registry
-Always tag and push like this (PowerShell inline):
-
-docker tag contact-form-api us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api; docker push us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api; gcloud run deploy contact-form-api --image=us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api --platform=managed --region=us-central1 --allow-unauthenticated
 
 
 
