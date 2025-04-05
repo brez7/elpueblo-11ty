@@ -11,4 +11,5 @@ COPY . /app
 RUN pip install -r requirements.txt
 
 # Start the server using gunicorn on port 8080
-CMD ["gunicorn", "-b", ":8080", "app:app"]
+CMD ["gunicorn", "-b", "0.0.0.0:8080", "app:app"]
+

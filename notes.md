@@ -2,6 +2,35 @@ Here’s the context of my Eleventy project. Please load this.
 
 # 📘 Eleventeenth Project Context — `elpueblo-11ty`
 
+You began by building two form endpoints—/submit for contact messages and /reserve for party reservations—using Flask, hosted on Google Cloud Run, and integrated with Google Sheets and Gmail. The backend was Dockerized, and deployment was managed via gcloud run deploy.
+
+Initially, the reservation form was returning CORS and 404 errors, even though the route was correctly defined in app.py. You verified the route with @app.route("/reserve", methods=["POST", "OPTIONS"]) and ensured CORS headers were set. The real issue turned out to be Cloud Run not serving the most recent image despite rebuilding with docker build. This was fixed by using versioned tags like v10, v200, and deploying them cleanly, avoiding image cache issues with --no-cache.
+
+Another problem was with how you tested the routes using curl in PowerShell. Many errors stemmed from PowerShell syntax differences (like backticks and escaping quotes), which led to confusing 400 and 404 errors. Eventually, you tested the endpoints successfully using both curl and Invoke-RestMethod.
+
+You also ran into a confusing situation where the contact form stopped working, while the reservation form worked fine. After investigating, you discovered the contact form was still pointing to the old Cloud Run URL (abc123), while the reservation form had the updated one (v200). Once you corrected the endpoint in contact.njk, both forms worked properly.
+
+Ultimately, the main problems were outdated frontend URLs, Docker image caching, and inconsistent deployment. These were resolved by confirming route definitions, verifying deployed versions, and syncing frontend service URLs.
+
+Now both forms are working, and the stack is running smoothly on Cloud Run with email notifications and Google Sheets logging fully functional.
+
+You’re working on an Eleventy-based static site with a Flask API deployed to Google Cloud Run. After successfully deploying a working /submit contact form endpoint, you built a new /reserve endpoint to handle party reservation form data. Despite validating the route existed in your Docker build, hitting /reserve on Cloud Run consistently returned a 404 error, which initially appeared to be a CORS issue.
+
+After investigation, it became clear that the actual problem was that Cloud Run was serving an older version of your container — one that didn’t include /reserve. Even though you rebuilt the Docker image and tagged it :v2, Cloud Run kept deploying the same image digest (sha256:3cf3...). This meant your changes weren’t reaching production.
+
+We confirmed that the issue stemmed from gcloud crashing during deploy due to a Windows-specific OSError: [Errno 22] Invalid argument, related to terminal encoding. This crash silently prevented your gcloud run deploy command from finishing successfully.
+
+To resolve this:
+
+You set PowerShell’s output encoding using $OutputEncoding = [System.Text.Encoding]::UTF8
+
+Then rebuilt the Docker image using a fresh tag like :v3
+
+Pushed it to Artifact Registry
+
+Explicitly deployed the new image using the full tag with gcloud run deploy
+
+You were instructed to verify the new revision in the Cloud Run console and test the route using PowerShell curl. This cleaned up any image caching issues and ensured /reserve is now correctly deployed and live.
 You began by setting up an Eleventy (11ty) static site and integrating a contact form backend using Python Flask, deployed via Google Cloud Run. You created a contact-form-api with Flask, using Gmail SMTP for email delivery, and later added Google Sheets logging to track submissions. The backend correctly handled POST requests at /submit, verified using curl in both WSL and PowerShell environments.
 
 We debugged several deployment and runtime issues. Early errors involved Cloud Run deployment failures due to image access from Google Container Registry (GCR), which is deprecated. We resolved this by pushing the Docker image to Artifact Registry instead. You also encountered an issue with secret scanning when trying to push the sheets-creds.json file to GitHub — GitHub's push protection blocked it due to it containing Google service credentials. We handled this by using .gitignore, removing the file from Git's index, and cleaning up commit history.

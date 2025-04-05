@@ -86,35 +86,35 @@ permalink: contact.html
 
 
 <script>
-  const form = document.getElementById("contact-form")
-  const responseBox = document.getElementById("form-response")
+  const form = document.getElementById("contact-form");
+  const responseBox = document.getElementById("form-response");
 
   form.addEventListener("submit", async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const data = {
-      name: form.name.value,
-      email: form.email.value,
-      message: form.message.value,
-    }
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((val, key) => (payload[key] = val));
 
     try {
       const res = await fetch(
-        "https://contact-form-api-fvmy7faymq-uc.a.run.app/submit",
+        "https://contact-form-api-v200-fvmy7faymq-uc.a.run.app/submit",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify(payload),
         }
-      )
+      );
 
-      const result = await res.json()
+      const result = await res.json();
       responseBox.textContent =
-        result.message || "Thanks! Your message was sent."
-      form.reset()
+        result.message || "Thanks! Your message was sent.";
+      form.reset();
     } catch (err) {
       responseBox.textContent =
-        "⚠️ Error sending message. Please try again later."
+        "⚠️ Error sending message. Please try again later.";
     }
-  })
+  });
 </script>
+
+

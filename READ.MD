@@ -33,7 +33,7 @@ git push
 FORM:
 cd .\contact-form-api 
 
-docker build -t contact-form-api .; docker tag contact-form-api us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api; docker push us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api; gcloud run deploy contact-form-api --image=us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api --platform=managed --region=us-central1 --allow-unauthenticated
+docker build -t contact-form-api .; docker tag contact-form-api us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api; docker push us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api; image=us-central1-docker.pkg.dev/upbeat-button-265722/elpueblo-docker-repo/contact-form-api:v2 --platform=managed --region=us-central1 --allow-unauthenticated
 
 
 

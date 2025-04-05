@@ -1,0 +1,172 @@
+---
+layout: base.njk
+title: "Rent Our Event Space in Del Mar & Carlsbad"
+description: "Reserve El Pueblo Mexican Food’s unique event spaces in Del Mar or Carlsbad for your next party, corporate gathering, or private celebration."
+currentPage: event-space-reservation
+permalink: event-space-reservation.html
+---
+
+<section id="reservation" class="section">
+  <div class="container" data-aos="fade-up">
+    <div class="section-title">
+      <hr
+        style="border: none; height: 5px; background: #7f120b; margin: 20px 0"
+      />
+      <h1
+        style="
+          font-size: 48px;
+          text-align: center;
+          font-weight: 700;
+          color: var(--accent-color);
+        "
+      >
+        HEATED PATIO FOR PARTIES AND EVENTS
+      </h1>
+      <p style="font-size: 21px; text-align: center">
+        Fill out the form below to request an event space reservation.
+      </p>
+      <hr
+        style="border: none; height: 5px; background: #7f120b; margin: 20px 0"
+      />
+    </div>
+    <p>
+      Looking for an exceptional <strong>party place</strong>? Discover the
+      vibrant atmosphere at El Pueblo Mexican Food, a gem among
+      <strong>venues in San Diego</strong>. Not only does it offer a taste of
+      authentic Mexican cuisine, but it also provides a lively and inviting
+      space for all types of gatherings. Whether it’s a birthday celebration, a
+      family get-together, or a corporate event, El Pueblo’s rental space stands
+      out among <strong>venue rentals near you</strong>. With its convenient
+      location and top-notch service, it’s a go-to destination for
+      <strong>party rentals in San Diego</strong>.
+    </p>
+
+    <p>
+      At our event location, the full bar elevates gatherings with a diverse
+      selection of drinks. From classic cocktails to fine wines and craft beers,
+      the bar caters to all tastes. Experienced bartenders add flair, ensuring
+      every guest enjoys a perfectly mixed drink, enhancing the overall event
+      experience.
+    </p>
+
+    <p>
+      Host your next event at El Pueblo’s heated patio available at our
+      <a href="/locations">Del Mar</a>
+      and
+      <a href="/locations">Carmel Valley</a>
+      locations.
+    </p>
+
+    <p
+      style="
+        text-align: center;
+        font-size: 28px;
+        font-weight: 500;
+        margin-top: 2em;
+      "
+    >
+      <span>Request a Patio Reservation:</span>
+    </p>
+
+    <p style="text-align: center; font-size: 26px; color: red">
+      <strong
+        >Please Note: Reservations are unavailable for tables inside the
+        restaurant.</strong
+      >
+    </p>
+
+<form id="reservationForm" style="max-width: 700px; margin: 0 auto">
+  <p style="color:rgb(255, 17, 0); font-weight: bold; margin-bottom: 1.5em">
+    * Required fields
+  </p>
+
+  <label style="font-weight: bold;">First Name <span style="color: red">*</span></label>
+  <input type="text" name="firstName" class="form-control" required />
+
+  <label style="font-weight: bold;">Last Name <span style="color: red">*</span></label>
+  <input type="text" name="lastName" class="form-control" required />
+
+  <label style="font-weight: bold;">Phone <span style="color: red">*</span></label>
+  <input type="tel" name="phone" class="form-control" required />
+
+  <label style="font-weight: bold;">Email <span style="color: red">*</span></label>
+  <input type="email" name="email" class="form-control" required />
+
+  <label style="font-weight: bold;">Event Location Preference <span style="color: red">*</span></label>
+  <select name="location" class="form-control" required>
+    <option value="">-- Select a Location --</option>
+    <option value="Del Mar">Del Mar</option>
+    <option value="Carmel Valley">Carmel Valley</option>
+  </select>
+
+  <label style="font-weight: bold;">Date Requested <span style="color: red">*</span></label>
+  <input type="date" name="date" class="form-control" required />
+
+  <label style="font-weight: bold;">Time Requested <span style="color: red">*</span></label>
+  <input
+    type="time"
+    name="time"
+    class="form-control"
+    min="06:00"
+    max="22:00"
+    required
+  />
+
+  <label style="font-weight: bold;">Number of People in Your Party (Min. 8)
+    <span style="color: red">*</span></label>
+  <input
+    type="number"
+    name="partySize"
+    class="form-control"
+    min="8"
+    required
+  />
+
+  <label style="font-weight: bold;">Type of Event <span style="color: red">*</span></label>
+  <input type="text" name="eventType" class="form-control" required />
+
+  <label style="font-weight: bold;">Business or Organization <span style="color: red">*</span></label>
+  <input type="text" name="organization" class="form-control" required />
+
+  <label style="font-weight: bold;">Comments</label>
+  <textarea name="comments" class="form-control" rows="4"></textarea>
+  <br />
+  <button class="btn-read-more" type="submit">Submit Reservation</button>
+</form>
+
+    <div id="form-response" style="margin-top: 1em; font-weight: bold"></div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("reservationForm")
+  const responseBox = document.getElementById("form-response")
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+
+    const formData = new FormData(form)
+    const payload = {}
+    formData.forEach((val, key) => (payload[key] = val))
+
+    try {
+      const res = await fetch(
+        "https://contact-form-api-v200-fvmy7faymq-uc.a.run.app/reserve",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }
+      )
+
+      const result = await res.json()
+      responseBox.textContent = result.message || "Form submitted."
+      form.reset()
+    } catch (err) {
+      responseBox.textContent =
+        "⚠️ Error sending reservation. Please try again later."
+    }
+  })
+</script>
+ 
+ 

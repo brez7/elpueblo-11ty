@@ -20,9 +20,14 @@
         "destination": "/contact.html"
       },
       {
+        "source": "/event-space-reservation",
+        "destination": "/event-space-reservation.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
     ]
   } 
 }
+ 

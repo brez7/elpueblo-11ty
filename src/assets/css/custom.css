@@ -544,3 +544,6 @@ button {
   border-radius: 4px;
 }
  
+hr {
+  opacity: 1 !important;
+}
