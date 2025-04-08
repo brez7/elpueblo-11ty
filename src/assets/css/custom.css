@@ -249,7 +249,7 @@ color-mix(in srgb, var(--default-color), transparent 50%); */
 .btn-read-more:hover {
   background-color: rgb(170, 162, 162);
   color: #ffffff;
-  border-color:  rgb(170, 162, 162);
+  border-color: rgb(170, 162, 162);
 }
 .breadcrumb-nav {
   background-color: #f8f9fa;
@@ -543,7 +543,22 @@ button {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
- 
+
 hr {
   opacity: 1 !important;
+}
+
+@media (min-width: 768px) {
+  .form-left-aligned {
+    max-width: 700px;
+    margin: 0;
+
+  }
+}
+
+@media (max-width: 767px) {
+  .form-left-aligned {
+    margin: 0 auto;
+
+  }
 }

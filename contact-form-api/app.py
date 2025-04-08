@@ -130,6 +130,7 @@ def reserve():
                 {"error": f"Missing fields: {', '.join(missing)}"}, status=400
             )
 
+        # Email body formatting
         msg_body = f"""
         New Party Reservation Request:
 
@@ -145,6 +146,7 @@ def reserve():
         Comments: {data.get('comments', 'N/A')}
         """
 
+        # Send notification email
         msg = EmailMessage()
         msg.set_content(msg_body)
         msg["Subject"] = "New Party Reservation Request"
@@ -155,13 +157,44 @@ def reserve():
             smtp.login(GMAIL_USER, GMAIL_PASSWORD)
             smtp.send_message(msg)
 
+        # ✅ Log to Sheet2
+        try:
+            sheet2 = gc.open_by_key(SHEET_ID).worksheet("Sheet2")
+            sheet2.append_row(
+                [
+                    datetime.now().isoformat(),
+                    data["firstName"],
+                    data["lastName"],
+                    data["phone"],
+                    data["email"],
+                    data["location"],
+                    data["date"],
+                    data["time"],
+                    data["partySize"],
+                    data["eventType"],
+                    data["organization"],
+                    data.get("comments", ""),
+                ]
+            )
+            print(
+                f"✅ Sheet2 logging successful for: {data['firstName']} {data['lastName']}"
+            )
+        except Exception as e:
+            print("❌ Failed to log to Sheet2:", e)
+
+        # Success response
         return _cors_response(
-            {"message": "Reservation request submitted successfully!"}
+            {
+                "message": "Reservation request submitted successfully! Our store manager will contact you to verify the details."
+            }
         )
 
     except Exception as e:
-        print(f"Error processing reservation: {e}")
-        return _cors_response({"error": "An error occurred"}, status=500)
+        print("❌ Error processing reservation:", e)
+        return _cors_response(
+            {"error": "An error occurred while processing your reservation."},
+            status=500,
+        )
 
 
 if __name__ == "__main__":
