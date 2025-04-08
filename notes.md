@@ -1,6 +1,14 @@
-Here’s the context of my Eleventy project. Please load this. 
+Here’s the context of my Eleventy project. Please load this. progress of project with the first info being most recent. 
 
 # 📘 Eleventeenth Project Context — `elpueblo-11ty`
+
+Rob worked on expanding the Eleventy-based static site for El Pueblo Mexican Food by integrating multiple backend forms using a Flask API deployed to Google Cloud Run. After resolving CORS issues and Cloud Run deployment bugs, both the contact form (/submit) and reservation form (/reserve) were made fully functional, including Google Sheets logging and email notifications via Gmail SMTP.
+
+Later, issues arose while attempting to center a confirmation message returned by the reservation form. This led to miscommunication between frontend display logic and Flask routes. Docker images weren't properly rebuilt during those changes, which caused inconsistencies in behavior. Rebuilding and redeploying the Docker image resolved those errors.
+
+Rob then created a new job-openings.njk page to collect employment applications. A full form was built with all fields, including select inputs and formatted one-line text areas. The backend /jobs endpoint was implemented to log submissions to “Sheet3” of the existing spreadsheet and return success messages via JSON.
+
+The form is now connected via JavaScript using fetch() with appropriate error handling and required field validation. Future steps may include adding digital signature fields and email confirmations. Everything is now working smoothly again after the final redeploy and script updates.
 
 You began by building two form endpoints—/submit for contact messages and /reserve for party reservations—using Flask, hosted on Google Cloud Run, and integrated with Google Sheets and Gmail. The backend was Dockerized, and deployment was managed via gcloud run deploy.
 

@@ -24,6 +24,10 @@
         "destination": "/event-space-reservation.html"
       },
       {
+        "source": "/job-openings",
+        "destination": "/job-openings.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

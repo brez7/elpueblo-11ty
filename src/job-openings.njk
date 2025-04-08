@@ -1,0 +1,204 @@
+---
+layout: base.njk
+title: "Job Application"
+description: "Apply for a job at El Pueblo Mexican Food"
+currentPage: job-openings
+permalink: job-openings.html
+---
+
+<section id="reservation" class="section">
+  <div class="container" data-aos="fade-up">
+  <form id="jobApplicationForm" style="max-width: 800px; margin: 0 auto; padding: 2em 0;">
+  <h2 style="text-align: center;">Job Application Form</h2>
+
+  <label><strong>Full Name <span style="color: red">*</span></strong></label>
+  <input type="text" name="fullName" class="form-control" required>
+
+  <label><strong>Phone <span style="color: red">*</span></strong></label>
+  <input type="tel" name="phone" class="form-control" required>
+
+  <label><strong>Date of Birth <span style="color: red">*</span></strong></label>
+  <input type="date" name="dob" class="form-control" required>
+
+  <label><strong>Email <span style="color: red">*</span></strong></label>
+  <input type="email" name="email" class="form-control" required>
+
+  <label><strong>Address Line 1 <span style="color: red">*</span></strong></label>
+  <input type="text" name="addressLine1" class="form-control" required>
+
+  <label><strong>Address Line 2</strong></label>
+  <input type="text" name="addressLine2" class="form-control">
+
+  <label><strong>City <span style="color: red">*</span></strong></label>
+  <input type="text" name="city" class="form-control" required>
+
+  <label><strong>State <span style="color: red">*</span></strong></label>
+  <input type="text" name="state" class="form-control" required>
+
+  <label><strong>Postal Code <span style="color: red">*</span></strong></label>
+  <input type="text" name="postalCode" class="form-control" required>
+
+  <label><strong>List all names you have used in the past</strong></label>
+  <input type="text" name="otherNames" class="form-control">
+
+  <label><strong>Have you ever been employed by our Company? <span style="color: red">*</span></strong></label>
+  <select name="employedBefore" class="form-control" required>
+    <option value="">Select</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <label><strong>If yes, list the dates you were employed</strong></label>
+  <input type="text" name="employmentDates" class="form-control">
+
+  <label><strong>Have you ever applied for employment at our Company? <span style="color: red">*</span></strong></label>
+  <select name="appliedBefore" class="form-control" required>
+    <option value="">Select</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <label><strong>If yes, date you applied</strong></label>
+  <input type="text" name="applicationDate" class="form-control">
+
+  <label><strong>How were you referred to our Company? <span style="color: red">*</span></strong></label>
+  <select name="referralSource" class="form-control" required>
+    <option value="">Select</option>
+    <option>Advertisement</option>
+    <option>Employee</option>
+    <option>Other</option>
+  </select>
+
+  <label><strong>Position Desired <span style="color: red">*</span></strong></label>
+  <select name="position" class="form-control" required>
+    <option value="">Select One</option>
+    <option>Busser</option>
+    <option>Dishwasher</option>
+    <option>Food Prep</option>
+    <option>Cashier</option>
+    <option>Food Runner</option>
+    <option>Bartender</option>
+    <option>Barback</option>
+    <option>Shift Leader</option>
+    <option>Manager</option>
+  </select>
+
+  <label><strong>Desired Location <span style="color: red">*</span></strong></label>
+  <select name="location" class="form-control" required>
+    <option value="">Select One</option>
+    <option>Carmel Valley</option>
+    <option>Carlsbad</option>
+    <option>Cardiff</option>
+    <option>Del Mar</option>
+  </select>
+
+  <label><strong>Date available to start <span style="color: red">*</span></strong></label>
+  <input type="date" name="availableDate" class="form-control" required>
+
+  <label><strong>Are you interested in: <span style="color: red">*</span></strong></label>
+  <select name="availability" class="form-control" required>
+    <option value="">Select</option>
+    <option>Temporary</option>
+    <option>Full Time</option>
+    <option>Part Time</option>
+  </select>
+
+  <label><strong>Employment History (last 10 years) <span style="color: red">*</span></strong></label>
+  <input type="text" name="employmentHistory" class="form-control" required>
+
+  <label><strong>May we contact your current or most recent employer? <span style="color: red">*</span></strong></label>
+  <select name="contactEmployer" class="form-control" required>
+    <option value="">Select</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+<label><strong>References (Name, relationship, phone) <span style="color: red">*</span></strong></label>
+<textarea name="references" class="form-control" rows="4" required></textarea>
+
+  <label><strong>Felony conviction in the last 7 years? <span style="color: red">*</span></strong></label>
+  <select name="felony" class="form-control" required>
+    <option value="">Select</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+<label><strong>If yes, explain</strong></label>
+<textarea name="felonyExplanation" class="form-control" rows="4"></textarea>
+
+  <label><strong>Can you perform job functions (with or without accommodation)? <span style="color: red">*</span></strong></label>
+  <select name="jobFunctions" class="form-control" required>
+    <option value="">Select</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <label><strong>Do you have reliable transportation? <span style="color: red">*</span></strong></label>
+  <select name="transportation" class="form-control" required>
+    <option value="">Select</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <label><strong>Can you meet the attendance requirements? <span style="color: red">*</span></strong></label>
+  <select name="attendance" class="form-control" required>
+    <option value="">Select</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <label><strong>If hired, I will provide proof of authorization to work in the U.S. <span style="color: red">*</span></strong></label>
+  <select name="authorization" class="form-control" required>
+    <option value="">Select</option>
+    <option>Yes</option>
+    <option>No</option>
+  </select>
+
+  <!-- Placeholder for signature/initials -->
+  <p><strong>INITIAL HERE (initial pad)</strong> — [coming soon]</p>
+  <p><strong>INITIAL HERE (initial pad)</strong> — [coming soon]</p>
+  <p><strong>INITIAL HERE (initial pad)</strong> — [coming soon]</p>
+
+  <label><strong>Applicant Signature — [signature pad coming soon]</strong></label>
+
+  <label><strong>Print Name <span style="color: red">*</span></strong></label>
+  <input type="text" name="printName" class="form-control" required>
+
+  <label><strong>Date Signed <span style="color: red">*</span></strong></label>
+  <input type="date" name="signatureDate" class="form-control" required>
+
+  <button type="submit" class="location-btn-full">Submit Application</button>
+</form>
+
+
+  </div>
+</section>
+<script>
+  const form = document.getElementById("jobApplicationForm");
+  const responseBox = document.createElement("div");
+  responseBox.style.marginTop = "1.5em";
+  responseBox.style.fontWeight = "bold";
+  form.appendChild(responseBox);
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((val, key) => (payload[key] = val));
+
+    try {
+      const res = await fetch("https://contact-form-api-fvmy7faymq-uc.a.run.app/jobs", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+      responseBox.textContent = result.message || "Application submitted successfully!";
+      form.reset();
+    } catch (err) {
+      responseBox.textContent = "⚠️ There was a problem submitting your application.";
+    }
+  });
+</script>

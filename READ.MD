@@ -1,6 +1,6 @@
  
 
-guide me through step by step, waiting for me to type next to continue
+guide me through step by step, waiting for me to type go to continue
 
 contact-form-api
 
