@@ -154,7 +154,7 @@ permalink: job-openings.html
     <option>No</option>
   </select>
 <br>
-  <h2 style="font-size:18px;">Please read carefully, initial after each paragraph, and sign at the bottom of the page:
+  <h2 style="font-size:18px;color:black;">Please read carefully, initial after each paragraph, and sign at the bottom of the page:
 </h2>
 <br>
   <!-- Placeholder for signature/initials -->
@@ -205,7 +205,7 @@ payload.initial3 = capturePad("initialPad3");
 payload.signature = capturePad("signaturePad");
 
     try {
-      const res = await fetch("http://127.0.0.1:8080/jobs", {
+      const res = await fetch("https://contact-form-api-fvmy7faymq-uc.a.run.app/jobs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

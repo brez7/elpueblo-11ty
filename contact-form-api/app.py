@@ -7,6 +7,14 @@ from datetime import datetime
 import base64
 import re
 
+
+def format_date(date_str):
+    try:
+        return datetime.strptime(date_str, "%Y-%m-%d").strftime("%B %d, %Y")
+    except:
+        return date_str  # fallback if the format is off
+
+
 app = Flask(__name__)
 
 # Gmail setup
@@ -91,15 +99,15 @@ def send_job_application_email(data):
       <p><strong>Full Name:</strong> {name}<br>
       <strong>Email:</strong> {email}<br>
       <strong>Phone:</strong> {data.get("phone")}<br>
-      <strong>DOB:</strong> {data.get("dob")}<br>
+<strong>DOB:</strong> {format_date(data.get("dob"))}<br>
       <strong>Address:</strong> {data.get("addressLine1")}, {data.get("addressLine2")}<br>
       <strong>City/State/Zip:</strong> {data.get("city")}, {data.get("state")} {data.get("postalCode")}<br>
       <strong>Other Names:</strong> {data.get("otherNames")}<br>
       <strong>Employed Before:</strong> {data.get("employedBefore")} ({data.get("employmentDates")})<br>
-      <strong>Applied Before:</strong> {data.get("appliedBefore")} ({data.get("applicationDate")})<br>
+<strong>Application Date:</strong> {format_date(data.get("applicationDate"))}<br>
       <strong>Referral:</strong> {data.get("referralSource")}<br>
       <strong>Position:</strong> {data.get("position")} at {data.get("location")}<br>
-      <strong>Start Date:</strong> {data.get("availableDate")}<br>
+<strong>Start Date:</strong> {format_date(data.get("availableDate"))}<br>
       <strong>Availability:</strong> {data.get("availability")}<br>
       <strong>Employment History:</strong> {data.get("employmentHistory")}<br>
       <strong>References:</strong> {data.get("references")}<br>
@@ -130,7 +138,7 @@ def send_job_application_email(data):
         <img src="cid:signature" width="400" height="150" style="border:1px solid #ccc; margin-top:8px;">
         </p>
               <strong>Print Name:</strong> {data.get("printName")}<br>
-      <strong>Signature Date:</strong> {data.get("signatureDate")}<br>
+<strong>Signature Date:</strong> {format_date(data.get("signatureDate"))}<br>
       
     </body></html>
     """

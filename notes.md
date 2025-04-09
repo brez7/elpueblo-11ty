@@ -24,8 +24,8 @@ The project uses a structured source folder and a Python-based data fetcher to p
 2. Flask app included a `/submit` endpoint that receives form data via POST.
 3. Docker image was built and deployed to **Google Cloud Run** using:
    ```bash
-   gcloud builds submit --tag gcr.io/PROJECT_ID/contact-form
-   gcloud run deploy contact-form --image gcr.io/PROJECT_ID/contact-form --platform managed --region us-central1 --allow-unauthenticated
+   gcloud builds submit --tag us-central1-docker.pkg.dev/upbeat-button-265722/contact-form
+   gcloud run deploy contact-form --image us-central1-docker.pkg.dev/upbeat-button-265722/contact-form --platform managed --region us-central1 --allow-unauthenticated
    ```
 4. Eleventy site submits the form via `fetch()` to the live Cloud Run endpoint.
 
@@ -143,6 +143,36 @@ Correct directory configuration
 Let me know if you want this saved or exported as a `.txt` or markdown file. When you’re ready, type **`next`** to continue integrating Google Sheets.
 
 ⚙️ Environment
+
+1. Signature and Initials Styling in Email
+You updated the .njk file to display each certification paragraph followed by its corresponding initial box (canvas). You wanted the email to reflect this exact layout, with each paragraph displayed clearly and the matching image (initial) right below it.
+
+2. Email Image Rendering
+You changed the height of <img> tags (e.g., height="85"), but they didn’t appear updated locally. We confirmed it was due to HTML email client caching or not rebuilding/redeploying.
+
+3. Form Field Adjustment
+You tried to add rows="4" to an <input> for employmentHistory, but it didn’t work. I explained that <input type="text"> doesn’t support rows; you should use a <textarea> instead.
+
+4. Email Display Color
+You noticed some fields in the email appeared purple. This was likely due to your local email client styling (e.g., Gmail marking visited or autofilled text).
+
+5. Preparing for Cloud Run Deployment (v350, then v360)
+You declared readiness to push the Dockerfile live as version v350. Later, you wanted to deploy version v360 and confirmed the correct project ID: upbeat-button-265722.
+
+6. Domain Confusion
+You noticed the deployed service URL changed unexpectedly (from https://contact-form-api... to https://el-pueblo-api...). We discussed that Cloud Run uses service names for the default URL, and that the contact-form-api service must be explicitly specified to retain the URL.
+
+7. Date Format Fix
+You wanted the date in the notification email to appear as month/day/year instead of YYYY-MM-DD. We noted that the .njk form field needs no change — formatting should be handled in app.py.
+
+8. Docker Push Errors
+You tried pushing the Docker image and encountered errors like name unknown: Repository "contact-form-api" not found. I explained this was likely due to not enabling or creating the Artifact Registry repository for your region (us-central1).
+
+9. GCloud Output Issues
+Your gcloud command gave an OSError: [Errno 22] Invalid argument, which is a known PowerShell encoding issue when outputting to stdout.
+
+10. Final Deployment Command
+You requested a corrected gcloud run deploy command using the confirmed service URL (https://contact-form-api...). I gave the full command to deploy version v360 using Artifact Registry and contact-form-api as the service name.
 
 Since the last progress report, we’ve completed the full job application form on the job-openings.njk page, including all required fields, date and dropdown selectors, and grouped sections for personal, employment, and legal information. We added JavaScript logic to auto-fill the form with test data for faster testing. We also integrated three initial pads and one signature pad using canvas elements, with both mouse and touch support. These pads are converted to base64 images and sent as part of the form submission payload.
 
