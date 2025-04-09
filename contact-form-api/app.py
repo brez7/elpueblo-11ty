@@ -7,25 +7,44 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-print("✅ Routes loaded at build time:")
-print(app.url_map)
-
-# Gmail credentials
+# Gmail setup
 GMAIL_USER = "it@elpueblomex.com"
 GMAIL_PASSWORD = "tywz qiut zlzq yndx"
 
 # Google Sheets setup
 SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 SERVICE_ACCOUNT_FILE = "sheets-creds.json"
-
 credentials = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 gc = gspread.authorize(credentials)
-
 SHEET_ID = "1s1bqJcfEY2d4bCXHqfowPnHsZ2-hvm1EldrNeydZumQ"
-SHEET_NAME = "Sheet1"
-worksheet = gc.open_by_key(SHEET_ID).worksheet(SHEET_NAME)
+worksheet = gc.open_by_key(SHEET_ID).worksheet("Sheet1")
 
 
+# Utility: CORS headers
+def _get_allowed_origin():
+    allowed_origins = ["http://localhost:8080", "https://restart-elpueblo.web.app"]
+    origin = request.headers.get("Origin")
+    return origin if origin in allowed_origins else "null"
+
+
+def _build_cors_preflight_response():
+    res = jsonify({"message": "Preflight OK"})
+    res.headers.add("Access-Control-Allow-Origin", _get_allowed_origin())
+    res.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    res.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+    return res
+
+
+def _cors_response(data, status=200):
+    res = jsonify(data)
+    res.status_code = status
+    res.headers.add("Access-Control-Allow-Origin", _get_allowed_origin())
+    res.headers.add("Access-Control-Allow-Headers", "Content-Type")
+    res.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
+    return res
+
+
+# ✉️ Contact Form Email
 def send_email(name, email, message):
     msg = EmailMessage()
     msg["Subject"] = f"New Contact Form Submission from {name}"
@@ -47,72 +66,109 @@ def send_email(name, email, message):
         smtp.send_message(confirmation)
 
 
-def _build_cors_preflight_response():
-    response = jsonify({"message": "Preflight OK"})
-    response.headers.add(
-        "Access-Control-Allow-Origin", "https://restart-elpueblo.web.app"
+# ✉️ Job Application Email
+def send_job_application_email(data):
+    name = data.get("fullName", "")
+    email = data.get("email", "")
+    msg = EmailMessage()
+    msg["Subject"] = f"New Job Application from {name}"
+    msg["From"] = GMAIL_USER
+    msg["To"] = "rob@elpueblomex.com, rob@barbank.com"
+    msg.set_content(f"New job application from {name}. View in HTML client.")
+
+    html_body = f"""
+    <html><body style="font-family: Arial, sans-serif; font-size: 15px;">
+      <h2>📨 New Job Application</h2>
+      <p><strong>Timestamp:</strong> {datetime.now().isoformat()}</p>
+      <p><strong>Full Name:</strong> {name}<br>
+      <strong>Email:</strong> {email}<br>
+      <strong>Phone:</strong> {data.get("phone")}<br>
+      <strong>DOB:</strong> {data.get("dob")}<br>
+      <strong>Address:</strong> {data.get("addressLine1")}, {data.get("addressLine2")}<br>
+      <strong>City/State/Zip:</strong> {data.get("city")}, {data.get("state")} {data.get("postalCode")}<br>
+      <strong>Other Names:</strong> {data.get("otherNames")}<br>
+      <strong>Employed Before:</strong> {data.get("employedBefore")} ({data.get("employmentDates")})<br>
+      <strong>Applied Before:</strong> {data.get("appliedBefore")} ({data.get("applicationDate")})<br>
+      <strong>Referral:</strong> {data.get("referralSource")}<br>
+      <strong>Position:</strong> {data.get("position")} at {data.get("location")}<br>
+      <strong>Start Date:</strong> {data.get("availableDate")}<br>
+      <strong>Availability:</strong> {data.get("availability")}<br>
+      <strong>Employment History:</strong> {data.get("employmentHistory")}<br>
+      <strong>References:</strong> {data.get("references")}<br>
+      <strong>Felony:</strong> {data.get("felony")} – {data.get("felonyExplanation")}<br>
+      <strong>Functions:</strong> {data.get("jobFunctions")}<br>
+      <strong>Transportation:</strong> {data.get("transportation")}<br>
+      <strong>Attendance:</strong> {data.get("attendance")}<br>
+      <strong>Authorization:</strong> {data.get("authorization")}<br>
+      <strong>Print Name:</strong> {data.get("printName")}<br>
+      <strong>Signature Date:</strong> {data.get("signatureDate")}<br>
+      <strong>Initials & Signature:</strong><br>
+      <img src="{data.get("initial1")}" width="100"><br>
+      <img src="{data.get("initial2")}" width="100"><br>
+      <img src="{data.get("initial3")}" width="100"><br>
+      <img src="{data.get("signature")}" width="400">
+      </p>
+    </body></html>
+    """
+    msg.add_alternative(html_body, subtype="html")
+
+    confirmation = EmailMessage()
+    confirmation["Subject"] = "We received your job application!"
+    confirmation["From"] = GMAIL_USER
+    confirmation["To"] = email
+    confirmation.set_content(
+        f"Hi {name},\n\nThanks for applying! We’ve received your job application and will review it shortly.\n\n— El Pueblo Team"
     )
-    response.headers.add("Access-Control-Allow-Headers", "Content-Type")
-    response.headers.add("Access-Control-Allow-Methods", "POST, OPTIONS")
-    return response
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+        smtp.login(GMAIL_USER, GMAIL_PASSWORD)
+        smtp.send_message(msg)
+        smtp.send_message(confirmation)
 
 
-def _cors_response(data, status=200):
-    response = jsonify(data)
-    response.status_code = status
-    response.headers.add(
-        "Access-Control-Allow-Origin", "https://restart-elpueblo.web.app"
-    )
-    return response
-
-
+# 📨 /submit
 @app.route("/submit", methods=["POST", "OPTIONS"])
 def submit():
     if request.method == "OPTIONS":
         return _build_cors_preflight_response()
-
     data = request.get_json()
-    name = data.get("name")
-    email = data.get("email")
-    message = data.get("message")
-
-    send_email(name, email, message)
-
+    send_email(data.get("name"), data.get("email"), data.get("message"))
     try:
-        worksheet.append_row([datetime.now().isoformat(), name, email, message])
+        worksheet.append_row(
+            [
+                datetime.now().isoformat(),
+                data.get("name"),
+                data.get("email"),
+                data.get("message"),
+            ]
+        )
     except Exception as e:
         print("❌ Google Sheets logging failed:", e)
-
     return _cors_response(
         {"status": "success", "message": "Thanks! Your message was sent."}
     )
 
 
+# 📨 /
 @app.route("/", methods=["POST", "OPTIONS"])
 def root_post():
     if request.method == "OPTIONS":
         return _build_cors_preflight_response()
-
     data = request.get_json()
-    name = data.get("name")
-    email = data.get("email")
-    message = data.get("message")
-
-    send_email(name, email, message)
-
+    send_email(data.get("name"), data.get("email"), data.get("message"))
     return _cors_response(
         {"status": "success", "message": "Thanks! Your message was sent."}
     )
 
 
+# 🥳 /reserve
 @app.route("/reserve", methods=["POST", "OPTIONS"])
 def reserve():
     if request.method == "OPTIONS":
         return _build_cors_preflight_response()
-
     try:
         data = request.get_json()
-        required_fields = [
+        required = [
             "firstName",
             "lastName",
             "phone",
@@ -124,78 +180,141 @@ def reserve():
             "eventType",
             "organization",
         ]
-        missing = [field for field in required_fields if not data.get(field)]
+        missing = [f for f in required if not data.get(f)]
         if missing:
             return _cors_response(
                 {"error": f"Missing fields: {', '.join(missing)}"}, status=400
             )
 
-        # Email body formatting
         msg_body = f"""
-        New Party Reservation Request:
-
-        Name: {data['firstName']} {data['lastName']}
+        New Reservation from {data['firstName']} {data['lastName']}
         Phone: {data['phone']}
         Email: {data['email']}
         Location: {data['location']}
-        Date: {data['date']}
-        Time: {data['time']}
+        Date/Time: {data['date']} @ {data['time']}
         Party Size: {data['partySize']}
-        Type of Event: {data['eventType']}
-        Organization: {data['organization']}
+        Event Type: {data['eventType']}
+        Org: {data['organization']}
         Comments: {data.get('comments', 'N/A')}
         """
-
-        # Send notification email
         msg = EmailMessage()
         msg.set_content(msg_body)
-        msg["Subject"] = "New Party Reservation Request"
+        msg["Subject"] = "New Party Reservation"
         msg["From"] = GMAIL_USER
         msg["To"] = ["rob@elpueblomex.com", "rob@barbank.com"]
-
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
             smtp.login(GMAIL_USER, GMAIL_PASSWORD)
             smtp.send_message(msg)
 
-        # ✅ Log to Sheet2
-        try:
-            sheet2 = gc.open_by_key(SHEET_ID).worksheet("Sheet2")
-            sheet2.append_row(
-                [
-                    datetime.now().isoformat(),
-                    data["firstName"],
-                    data["lastName"],
-                    data["phone"],
-                    data["email"],
-                    data["location"],
-                    data["date"],
-                    data["time"],
-                    data["partySize"],
-                    data["eventType"],
-                    data["organization"],
-                    data.get("comments", ""),
-                ]
-            )
-            print(
-                f"✅ Sheet2 logging successful for: {data['firstName']} {data['lastName']}"
-            )
-        except Exception as e:
-            print("❌ Failed to log to Sheet2:", e)
-
-        # Success response
-        return _cors_response(
-            {
-                "message": "Reservation request submitted successfully! Our store manager will contact you to verify the details."
-            }
+        sheet = gc.open_by_key(SHEET_ID).worksheet("Sheet2")
+        sheet.append_row(
+            [
+                datetime.now().isoformat(),
+                data["firstName"],
+                data["lastName"],
+                data["phone"],
+                data["email"],
+                data["location"],
+                data["date"],
+                data["time"],
+                data["partySize"],
+                data["eventType"],
+                data["organization"],
+                data.get("comments", ""),
+            ]
         )
 
+        return _cors_response({"message": "Reservation submitted!"})
     except Exception as e:
-        print("❌ Error processing reservation:", e)
-        return _cors_response(
-            {"error": "An error occurred while processing your reservation."},
-            status=500,
+        print("❌ Reservation error:", e)
+        return _cors_response({"error": "Reservation failed."}, status=500)
+
+
+# 🧑‍💼 /jobs
+@app.route("/jobs", methods=["POST", "OPTIONS"])
+def jobs():
+    if request.method == "OPTIONS":
+        return _build_cors_preflight_response()
+    try:
+        data = request.get_json()
+        required = [
+            "fullName",
+            "phone",
+            "dob",
+            "email",
+            "addressLine1",
+            "city",
+            "state",
+            "postalCode",
+            "employedBefore",
+            "appliedBefore",
+            "referralSource",
+            "position",
+            "location",
+            "availableDate",
+            "availability",
+            "employmentHistory",
+            "contactEmployer",
+            "references",
+            "felony",
+            "jobFunctions",
+            "transportation",
+            "attendance",
+            "authorization",
+            "printName",
+            "signatureDate",
+        ]
+        missing = [f for f in required if not data.get(f)]
+        if missing:
+            return _cors_response(
+                {"error": f"Missing fields: {', '.join(missing)}"}, status=400
+            )
+
+        sheet3 = gc.open_by_key(SHEET_ID).worksheet("Sheet3")
+        sheet3.append_row(
+            [
+                datetime.now().isoformat(),
+                data.get("fullName"),
+                data.get("phone"),
+                data.get("dob"),
+                data.get("email"),
+                data.get("addressLine1"),
+                data.get("addressLine2"),
+                data.get("city"),
+                data.get("state"),
+                data.get("postalCode"),
+                data.get("otherNames"),
+                data.get("employedBefore"),
+                data.get("employmentDates"),
+                data.get("appliedBefore"),
+                data.get("applicationDate"),
+                data.get("referralSource"),
+                data.get("position"),
+                data.get("location"),
+                data.get("availableDate"),
+                data.get("availability"),
+                data.get("employmentHistory"),
+                data.get("contactEmployer"),
+                data.get("references"),
+                data.get("felony"),
+                data.get("felonyExplanation"),
+                data.get("jobFunctions"),
+                data.get("transportation"),
+                data.get("attendance"),
+                data.get("authorization"),
+                data.get("printName"),
+                data.get("signatureDate"),
+            ]
         )
+        send_job_application_email(data)
+        return _cors_response({"message": "✅ Job application submitted successfully!"})
+    except Exception as e:
+        print("❌ Job form error:", e)
+        return _cors_response({"error": "Job submission failed."}, status=500)
 
 
 if __name__ == "__main__":
+    print("✅ Registered routes:")
+    for rule in app.url_map.iter_rules():
+        print(f"→ {rule.rule}")
     app.run(debug=True, port=8080)

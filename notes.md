@@ -1,6 +1,160 @@
-Here’s the context of my Eleventy project. Please load this. progress of project with the first info being most recent. 
+Here’s the context of my Eleventy project. Please load this. progress of project with the first info being most recent.
 
-# 📘 Eleventeenth Project Context — `elpueblo-11ty`
+## 🧠 Project Purpose
+
+This is a content-rich static site built with [11ty (Eleventy)](https://11ty.dev). It integrates:
+
+- Custom GitHub polling logic via Python
+- Firebase Hosting + optional Cloud Functions
+- Custom templates and layouts for content like locations, menus, and blog-style posts
+
+The project uses a structured source folder and a Python-based data fetcher to pull GitHub info into Eleventy templates dynamically.
+
+### 🧱 **Project Setup & Goals**
+
+- You’re building a static site with **Eleventy (11ty)** and deploying via **Firebase Hosting**.
+- You wanted a **fully customizable contact form** that integrates with your site.
+- We explored whether to use **Firebase Functions** or a **Flask API with Cloud Run** — you chose Flask on Cloud Run for flexibility.
+
+---
+
+### ⚙️ **Flask + Cloud Run Setup**
+
+1. Created a `contact-form-api/` directory with `app.py`, `requirements.txt`, and a `Dockerfile`.
+2. Flask app included a `/submit` endpoint that receives form data via POST.
+3. Docker image was built and deployed to **Google Cloud Run** using:
+   ```bash
+   gcloud builds submit --tag gcr.io/PROJECT_ID/contact-form
+   gcloud run deploy contact-form --image gcr.io/PROJECT_ID/contact-form --platform managed --region us-central1 --allow-unauthenticated
+   ```
+4. Eleventy site submits the form via `fetch()` to the live Cloud Run endpoint.
+
+---
+
+### 🚨 **CORS Issue & Fix**
+
+- You hit a CORS error when testing the form.
+- Solution: Installed `flask-cors` and added:
+  ```python
+  CORS(app, origins="*", methods=["GET", "POST", "OPTIONS"])
+  ```
+- Also handled `OPTIONS` requests explicitly in the Flask route.
+
+---
+
+### 📬 **Sending Emails via Gmail**
+
+- Created a Gmail **App Password** for `it@elpueblomex.com`
+- Updated Flask to send email via `smtplib` using:
+  ```python
+  smtp.login(GMAIL_USER, GMAIL_PASSWORD)
+  smtp.send_message(msg)
+  ```
+- Emails now arrive successfully in the inbox.
+
+---
+
+### 📊 **Logging Submissions to Google Sheets (in progress)**
+
+- Created a Google Sheet with headers: `Timestamp | Name | Email | Message`
+- Set up a **Service Account** with access to Google Sheets API
+- Shared the sheet with the service account
+- Downloaded the JSON credentials file
+- Preparing to use `gspread` or `google-api-python-client` to log submissions from Flask
+
+---
+
+Let me know if you want this saved or exported as a `.txt` or markdown file. When you’re ready, type **`next`** to continue integrating Google Sheets.
+
+⚙️ Environment
+Project: yummy-elpueblo-11ty
+
+Backend: contact-form-api
+
+Serving With: Flask + Gunicorn
+
+Docker Registry: Artifact Registry (NOT GCR)
+
+Deployment Target: Cloud Run (upbeat-button-265722)
+
+Local Dev: WSL + PowerShell mix
+
+Email Destinations: rob@elpueblomex.com, rob@barbank.com
+
+✅ Command Style
+Always inline, even if multi-line
+
+No backslashes \
+
+PowerShell by default if unspecified, otherwise WSL when running inside Linux shell
+
+🧠 Goal
+You wanted to display recent blog post previews on your Eleventy-powered homepage (index.njk) and encountered issues with collections and layout.
+
+✅ What We Diagnosed and Solved
+
+1. Blog Posts Not Showing on Homepage
+   Your blog posts were correctly tagged and visible on the blog listing page.
+
+However, they were not rendering on the homepage.
+
+We confirmed collections.blog had 6 posts, but collections.blogLatest returned 0.
+
+2. Issue with slice() in .eleventy.js
+   Using .slice(0, 3) directly in a custom collection (blogLatest) caused it to return an empty array due to build timing issues.
+
+Fix: Instead of slicing in .eleventy.js, we now slice inside the template using:
+
+njk
+Copy
+Edit
+{% set blogLatest = collections.blog.slice(0, 3) %} 3. Rendering Fix
+Updated the index.njk to:
+
+Use collections.blog.slice(0, 3)
+
+Render Bootstrap card layout like your latest-news.njk template
+
+Fixed layout bugs and ensured visibility
+
+4. HTML Cleanup
+   Resolved an invalid {# ... #} Nunjucks comment block that caused HTML parsing errors
+
+Ensured all tags in your homepage template were correctly opened and closed
+
+5. Updated .eleventy.js
+   Cleaned it up to include:
+
+blog collection only (no need for blogLatest)
+
+Luxon-based date filter
+
+Passthrough copy for assets
+
+Correct directory configuration
+
+✅ Final State
+✅ Blog posts show on homepage via collections.blog.slice(0, 3)
+
+✅ No Eleventy build errors
+
+✅ Clean and maintainable index.njk and .eleventy.js
+
+Let me know if you want this saved or exported as a `.txt` or markdown file. When you’re ready, type **`next`** to continue integrating Google Sheets.
+
+⚙️ Environment
+
+Since the last progress report, we’ve completed the full job application form on the job-openings.njk page, including all required fields, date and dropdown selectors, and grouped sections for personal, employment, and legal information. We added JavaScript logic to auto-fill the form with test data for faster testing. We also integrated three initial pads and one signature pad using canvas elements, with both mouse and touch support. These pads are converted to base64 images and sent as part of the form submission payload.
+
+On the backend, we created the /jobs route in app.py to handle job application submissions. This route validates all required fields, logs the data into Sheet3 on Google Sheets, and returns a proper JSON response. We also added a new email function that sends the full application details to rob@elpueblomex.com and rob@barbank.com. The email now includes inline-rendered images of the initials and signature.
+
+For local testing, we set up the Eleventy server at http://localhost:8080 and the Flask API at http://localhost:5000. We updated the CORS logic to support local development and resolved all preflight issues affecting /submit, /reserve, and /jobs. The forms and endpoints are now working reliably in both dev and production.
+
+Rob began developing a third form for El Pueblo’s Eleventy-based website to collect job applications. He requested a full HTML form with specified fields, including dropdowns, text inputs, and required markers. The form would eventually include signature pads, but those were postponed. Initially, the form used <textarea> fields, but Rob clarified that all fields should use single-line inputs unless otherwise specified. Special cases like the references and felony explanation fields were updated to use multiline <textarea> elements with 4 rows for better usability.
+
+Once the full form was built, JavaScript was added to handle POST submissions using fetch() to a new /jobs endpoint on the Flask API, hosted on Google Cloud Run. On the backend, Rob implemented the /jobs route in app.py, which receives the submission, validates required fields, logs data into “Sheet3” of the existing Google Sheet, and returns a JSON response. Optional email notifications are supported.
+
+The form uses Eleventy’s dev server for local preview and testing at localhost:8080/job-openings.html, avoiding the need to deploy to Firebase during development. This streamlined local workflow allows Rob to test layout, validation, and API responses efficiently before pushing to production. The setup is now ready for signature support and email confirmations.
 
 Rob worked on expanding the Eleventy-based static site for El Pueblo Mexican Food by integrating multiple backend forms using a Flask API deployed to Google Cloud Run. After resolving CORS issues and Cloud Run deployment bugs, both the contact form (/submit) and reservation form (/reserve) were made fully functional, including Google Sheets logging and email notifications via Gmail SMTP.
 
@@ -61,31 +215,20 @@ We also began integrating Google Sheets as a backend log for form submissions. T
 
 The session was highly productive, ending with a live contact form that sends real emails and is nearly ready for full data logging.
 
-Always use thsi styling for buttons: 
+Always use thsi styling for buttons:
 
 .btn-read-more {
-  background: #7f120b;
-  color: white;
-  border: 1px solid black;
-  padding: 10px 28px 12px 28px;
-  border-radius: 50px;
-  font-weight: 400;
-  font-size: 15px;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
-  transition: 0.5s;
-  letter-spacing: 1px;
+background: #7f120b;
+color: white;
+border: 1px solid black;
+padding: 10px 28px 12px 28px;
+border-radius: 50px;
+font-weight: 400;
+font-size: 15px;
+box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+transition: 0.5s;
+letter-spacing: 1px;
 }
-
-## 🧠 Project Purpose
-
-This is a content-rich static site built with [11ty (Eleventy)](https://11ty.dev). It integrates:
-- Custom GitHub polling logic via Python
-- Firebase Hosting + optional Cloud Functions
-- Custom templates and layouts for content like locations, menus, and blog-style posts
-
-The project uses a structured source folder and a Python-based data fetcher to pull GitHub info into Eleventy templates dynamically.
-
----
 
 ## 📁 Directory Structure Overview
 
@@ -637,135 +780,5 @@ Project Structure:
 
 ---
 
- April 2, 2025 
 
- 🧠 Goal
-You wanted to display recent blog post previews on your Eleventy-powered homepage (index.njk) and encountered issues with collections and layout.
-
-✅ What We Diagnosed and Solved
-1. Blog Posts Not Showing on Homepage
-Your blog posts were correctly tagged and visible on the blog listing page.
-
-However, they were not rendering on the homepage.
-
-We confirmed collections.blog had 6 posts, but collections.blogLatest returned 0.
-
-2. Issue with slice() in .eleventy.js
-Using .slice(0, 3) directly in a custom collection (blogLatest) caused it to return an empty array due to build timing issues.
-
-Fix: Instead of slicing in .eleventy.js, we now slice inside the template using:
-
-njk
-Copy
-Edit
-{% set blogLatest = collections.blog.slice(0, 3) %}
-3. Rendering Fix
-Updated the index.njk to:
-
-Use collections.blog.slice(0, 3)
-
-Render Bootstrap card layout like your latest-news.njk template
-
-Fixed layout bugs and ensured visibility
-
-4. HTML Cleanup
-Resolved an invalid {# ... #} Nunjucks comment block that caused HTML parsing errors
-
-Ensured all tags in your homepage template were correctly opened and closed
-
-5. Updated .eleventy.js
-Cleaned it up to include:
-
-blog collection only (no need for blogLatest)
-
-Luxon-based date filter
-
-Passthrough copy for assets
-
-Correct directory configuration
-
-✅ Final State
-✅ Blog posts show on homepage via collections.blog.slice(0, 3)
-
-✅ No Eleventy build errors
-
-✅ Clean and maintainable index.njk and .eleventy.js
-
----
- Absolutely. Here's a **text-only summary** of everything we've covered in this conversation so far:
-
----
-
-### 🧱 **Project Setup & Goals**
-- You’re building a static site with **Eleventy (11ty)** and deploying via **Firebase Hosting**.
-- You wanted a **fully customizable contact form** that integrates with your site.
-- We explored whether to use **Firebase Functions** or a **Flask API with Cloud Run** — you chose Flask on Cloud Run for flexibility.
-
----
-
-### ⚙️ **Flask + Cloud Run Setup**
-1. Created a `contact-form-api/` directory with `app.py`, `requirements.txt`, and a `Dockerfile`.
-2. Flask app included a `/submit` endpoint that receives form data via POST.
-3. Docker image was built and deployed to **Google Cloud Run** using:
-   ```bash
-   gcloud builds submit --tag gcr.io/PROJECT_ID/contact-form
-   gcloud run deploy contact-form --image gcr.io/PROJECT_ID/contact-form --platform managed --region us-central1 --allow-unauthenticated
-   ```
-4. Eleventy site submits the form via `fetch()` to the live Cloud Run endpoint.
-
----
-
-### 🚨 **CORS Issue & Fix**
-- You hit a CORS error when testing the form.
-- Solution: Installed `flask-cors` and added:
-  ```python
-  CORS(app, origins="*", methods=["GET", "POST", "OPTIONS"])
-  ```
-- Also handled `OPTIONS` requests explicitly in the Flask route.
-
----
-
-### 📬 **Sending Emails via Gmail**
-- Created a Gmail **App Password** for `it@elpueblomex.com`
-- Updated Flask to send email via `smtplib` using:
-  ```python
-  smtp.login(GMAIL_USER, GMAIL_PASSWORD)
-  smtp.send_message(msg)
-  ```
-- Emails now arrive successfully in the inbox.
-
----
-
-### 📊 **Logging Submissions to Google Sheets (in progress)**
-- Created a Google Sheet with headers: `Timestamp | Name | Email | Message`
-- Set up a **Service Account** with access to Google Sheets API
-- Shared the sheet with the service account
-- Downloaded the JSON credentials file
-- Preparing to use `gspread` or `google-api-python-client` to log submissions from Flask
-
----
-
-Let me know if you want this saved or exported as a `.txt` or markdown file. When you’re ready, type **`next`** to continue integrating Google Sheets.
-
-
-⚙️ Environment
-Project: yummy-elpueblo-11ty
-
-Backend: contact-form-api
-
-Serving With: Flask + Gunicorn
-
-Docker Registry: Artifact Registry (NOT GCR)
-
-Deployment Target: Cloud Run (upbeat-button-265722)
-
-Local Dev: WSL + PowerShell mix
-
-Email Destinations: rob@elpueblomex.com, rob@barbank.com
-
-✅ Command Style
-Always inline, even if multi-line
-
-No backslashes \
-
-PowerShell by default if unspecified, otherwise WSL when running inside Linux shell
+```

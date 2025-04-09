@@ -155,12 +155,20 @@ permalink: job-openings.html
   </select>
 
   <!-- Placeholder for signature/initials -->
-  <p><strong>INITIAL HERE (initial pad)</strong> — [coming soon]</p>
-  <p><strong>INITIAL HERE (initial pad)</strong> — [coming soon]</p>
-  <p><strong>INITIAL HERE (initial pad)</strong> — [coming soon]</p>
+<label><strong>Initial Here (1) *</strong></label>
+<canvas id="initialPad1" width="150" height="50" style="border:1px solid #ccc;"></canvas>
 
-  <label><strong>Applicant Signature — [signature pad coming soon]</strong></label>
+<label><strong>Initial Here (2) *</strong></label>
+<canvas id="initialPad2" width="150" height="50" style="border:1px solid #ccc;"></canvas>
 
+<label><strong>Initial Here (3) *</strong></label>
+<canvas id="initialPad3" width="150" height="50" style="border:1px solid #ccc;"></canvas>
+
+<!-- Signature -->
+<label><strong>Applicant Signature *</strong></label>
+<canvas id="signaturePad" width="400" height="150" style="border:1px solid #ccc;"></canvas>
+
+ 
   <label><strong>Print Name <span style="color: red">*</span></strong></label>
   <input type="text" name="printName" class="form-control" required>
 
@@ -188,7 +196,7 @@ permalink: job-openings.html
     formData.forEach((val, key) => (payload[key] = val));
 
     try {
-      const res = await fetch("https://contact-form-api-fvmy7faymq-uc.a.run.app/jobs", {
+      const res = await fetch("http://127.0.0.1:8080/jobs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -202,3 +210,116 @@ permalink: job-openings.html
     }
   });
 </script>
+
+
+<script>
+  window.addEventListener("load", () => {
+    const form = document.getElementById("jobApplicationForm");
+    if (!form) return;
+
+    const sampleData = {
+      fullName: "John Doe",
+      phone: "555-123-4567",
+      dob: "1990-01-01",
+      email: "john.doe@example.com",
+      addressLine1: "123 Main St",
+      addressLine2: "Apt 4B",
+      city: "San Diego",
+      state: "CA",
+      postalCode: "92130",
+      otherNames: "Johnny D.",
+      employedBefore: "No",
+      employmentDates: "",
+      appliedBefore: "Yes",
+      applicationDate: "2023-07-15",
+      referralSource: "Employee",
+      position: "Bartender",
+      location: "Carmel Valley",
+      availableDate: "2025-04-20",
+      availability: "Full Time",
+      employmentHistory: "Last 3 jobs: Taco Shack, Foodie Grill, Bar Uno.",
+      contactEmployer: "Yes",
+      references: "Jane Smith, Former Manager, 555-888-9999",
+      felony: "No",
+      felonyExplanation: "",
+      jobFunctions: "Yes",
+      transportation: "Yes",
+      attendance: "Yes",
+      authorization: "Yes",
+      printName: "John Doe",
+      signatureDate: "2025-04-08"
+    };
+
+    Object.entries(sampleData).forEach(([key, value]) => {
+      const field = form.elements[key];
+      if (field) {
+        if (field.tagName === "SELECT") {
+          [...field.options].forEach(opt => {
+            if (opt.value === value) field.value = value;
+          });
+        } else {
+          field.value = value;
+        }
+      }
+    });
+
+    console.log("✅ Job application form autofilled for testing.");
+  });
+</script>
+
+<script>
+function capturePad(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  return canvas.toDataURL("image/png");
+}
+
+function clearPads() {
+  ["initialPad1", "initialPad2", "initialPad3", "signaturePad"].forEach(id => {
+    const ctx = document.getElementById(id).getContext("2d");
+    ctx.clearRect(0, 0, 1000, 1000);
+  });
+}
+
+function enableDrawing(canvasId) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext("2d");
+  let drawing = false;
+
+  canvas.addEventListener("mousedown", () => (drawing = true));
+  canvas.addEventListener("mouseup", () => (drawing = false));
+  canvas.addEventListener("mouseleave", () => (drawing = false));
+
+  canvas.addEventListener("mousemove", (e) => {
+    if (!drawing) return;
+    const rect = canvas.getBoundingClientRect();
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#000";
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+  });
+
+  // touch support
+  canvas.addEventListener("touchstart", () => (drawing = true));
+  canvas.addEventListener("touchend", () => (drawing = false));
+  canvas.addEventListener("touchcancel", () => (drawing = false));
+  canvas.addEventListener("touchmove", (e) => {
+    if (!drawing) return;
+    e.preventDefault();
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#000";
+    ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+  });
+}
+
+["initialPad1", "initialPad2", "initialPad3", "signaturePad"].forEach(enableDrawing);
+</script>
+
