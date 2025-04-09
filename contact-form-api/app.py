@@ -4,6 +4,8 @@ from email.message import EmailMessage
 import gspread
 from google.oauth2.service_account import Credentials
 from datetime import datetime
+import base64
+import re
 
 app = Flask(__name__)
 
@@ -67,9 +69,15 @@ def send_email(name, email, message):
 
 
 # ✉️ Job Application Email
+import base64
+import re
+from email.message import EmailMessage
+
+
 def send_job_application_email(data):
     name = data.get("fullName", "")
     email = data.get("email", "")
+
     msg = EmailMessage()
     msg["Subject"] = f"New Job Application from {name}"
     msg["From"] = GMAIL_USER
@@ -96,22 +104,68 @@ def send_job_application_email(data):
       <strong>Employment History:</strong> {data.get("employmentHistory")}<br>
       <strong>References:</strong> {data.get("references")}<br>
       <strong>Felony:</strong> {data.get("felony")} – {data.get("felonyExplanation")}<br>
-      <strong>Functions:</strong> {data.get("jobFunctions")}<br>
-      <strong>Transportation:</strong> {data.get("transportation")}<br>
+      <strong>Perform Job Functions:</strong> {data.get("jobFunctions")}<br>
+      <strong>Reliable Transportation:</strong> {data.get("transportation")}<br>
       <strong>Attendance:</strong> {data.get("attendance")}<br>
-      <strong>Authorization:</strong> {data.get("authorization")}<br>
-      <strong>Print Name:</strong> {data.get("printName")}<br>
-      <strong>Signature Date:</strong> {data.get("signatureDate")}<br>
+      <strong>Authorization to work in the US:</strong> {data.get("authorization")}<br>
+
       <strong>Initials & Signature:</strong><br>
-      <img src="{data.get("initial1")}" width="100"><br>
-      <img src="{data.get("initial2")}" width="100"><br>
-      <img src="{data.get("initial3")}" width="100"><br>
-      <img src="{data.get("signature")}" width="400">
-      </p>
+        <p>
+        I hereby certify that I have not knowingly withheld any information that might adversely affect my chances for employment and that the answers given by me are correct to the best of my knowledge. I further certify that I, the undersigned applicant, have personally completed this application. I understand that any permission or misstatements of material fact on this application or on any document used to secure employment shall be grounds for rejection of this application or for immediate discharge if I am employed, regardless of the time elapsed before discovery.
+        <br><img src="cid:initial1" width="150" height="85" style="border:1px solid #ccc; margin-top:8px;">
+        </p>
+
+        <p>
+        I hereby authorize El Pueblo Mexican Food to thoroughly investigate my references, work record and other matters related to my suitability for employment and further.
+        <br><img src="cid:initial2" width="150" height="85" style="border:1px solid #ccc; margin-top:8px;">
+        </p>
+
+        <p>
+        I understand and agree that if I am employed, my employment is at will and is for no definite or determinable period and may be terminated at any anytime, with or without prior notice, or with or without cause, at the option of either myself or the company.
+        <br><img src="cid:initial3" width="150" height="85" style="border:1px solid #ccc; margin-top:8px;">
+        </p>
+
+        <p>
+        <strong>Applicant Signature:</strong><br>
+        <img src="cid:signature" width="400" height="150" style="border:1px solid #ccc; margin-top:8px;">
+        </p>
+              <strong>Print Name:</strong> {data.get("printName")}<br>
+      <strong>Signature Date:</strong> {data.get("signatureDate")}<br>
+      
     </body></html>
     """
+
     msg.add_alternative(html_body, subtype="html")
 
+    # Helper to safely attach base64-encoded images
+    def attach_image(cid, data_url):
+        if (
+            not data_url
+            or not isinstance(data_url, str)
+            or not data_url.startswith("data:image")
+        ):
+            print(f"⚠️ Skipping image {cid}: invalid or missing data URL")
+            return
+        try:
+            match = re.search(r"^data:image\/\w+;base64,(.+)", data_url)
+            if not match:
+                print(f"⚠️ Skipping image {cid}: malformed base64 data")
+                return
+            b64_data = match.group(1)
+            img_data = base64.b64decode(b64_data)
+            msg.get_payload()[1].add_related(
+                img_data, maintype="image", subtype="png", cid=f"<{cid}>"
+            )
+        except Exception as e:
+            print(f"❌ Error attaching image {cid}: {e}")
+
+    # Attach all signature fields
+    attach_image("initial1", data.get("initial1"))
+    attach_image("initial2", data.get("initial2"))
+    attach_image("initial3", data.get("initial3"))
+    attach_image("signature", data.get("signature"))
+
+    # Confirmation email to applicant
     confirmation = EmailMessage()
     confirmation["Subject"] = "We received your job application!"
     confirmation["From"] = GMAIL_USER

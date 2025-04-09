@@ -8,8 +8,8 @@ permalink: job-openings.html
 
 <section id="reservation" class="section">
   <div class="container" data-aos="fade-up">
-  <form id="jobApplicationForm" style="max-width: 800px; margin: 0 auto; padding: 2em 0;">
-  <h2 style="text-align: center;">Job Application Form</h2>
+  <form id="jobApplicationForm" style="max-width: 800px; margin: 0 auto; ">
+  <h2>Job Application Form</h2>
 
   <label><strong>Full Name <span style="color: red">*</span></strong></label>
   <input type="text" name="fullName" class="form-control" required>
@@ -104,7 +104,7 @@ permalink: job-openings.html
   </select>
 
   <label><strong>Employment History (last 10 years) <span style="color: red">*</span></strong></label>
-  <input type="text" name="employmentHistory" class="form-control" required>
+  <textarea name="employmentHistory" class="form-control" rows="4" required></textarea>
 
   <label><strong>May we contact your current or most recent employer? <span style="color: red">*</span></strong></label>
   <select name="contactEmployer" class="form-control" required>
@@ -153,16 +153,19 @@ permalink: job-openings.html
     <option>Yes</option>
     <option>No</option>
   </select>
-
+<br>
+  <h2 style="font-size:18px;">Please read carefully, initial after each paragraph, and sign at the bottom of the page:
+</h2>
+<br>
   <!-- Placeholder for signature/initials -->
-<label><strong>Initial Here (1) *</strong></label>
-<canvas id="initialPad1" width="150" height="50" style="border:1px solid #ccc;"></canvas>
+<label><strong>I hereby certify that I have not knowingly withheld any information that might adversely affect my chances for employment and that the answers given by me are correct to the best of my knowledge. I further certify that I, the undersigned applicant, have personally completed this application. I understand that any permission or misstatements of material fact on this application or on any document used to secure employment shall be grounds for rejection of this application or for immediate discharge if I am employed, regardless of the time elapsed before discovery.<span style="color: red"> *</span></strong></label>
+<canvas id="initialPad1" width="150" height="85" style="border:1px solid #ccc;"></canvas>
 
-<label><strong>Initial Here (2) *</strong></label>
-<canvas id="initialPad2" width="150" height="50" style="border:1px solid #ccc;"></canvas>
+<label><strong>I hereby authorize El Pueblo Mexican Food to thoroughly investigate my references, work record and other matters related to my suitability for employment and further.<span style="color: red"> *</span></strong></label>
+<canvas id="initialPad2" width="150" height="85" style="border:1px solid #ccc;"></canvas>
 
-<label><strong>Initial Here (3) *</strong></label>
-<canvas id="initialPad3" width="150" height="50" style="border:1px solid #ccc;"></canvas>
+<label><strong>I understand and agree that if I am employed, my employment is at will and is for no definite or determinable period and may be terminated at any anytime, with or without prior notice, or with or without cause, at the option of either myself or the company. <span style="color: red"> *</span></strong></label>
+<canvas id="initialPad3" width="150" height="85" style="border:1px solid #ccc;"></canvas>
 
 <!-- Signature -->
 <label><strong>Applicant Signature *</strong></label>
@@ -174,7 +177,7 @@ permalink: job-openings.html
 
   <label><strong>Date Signed <span style="color: red">*</span></strong></label>
   <input type="date" name="signatureDate" class="form-control" required>
-
+<br>
   <button type="submit" class="location-btn-full">Submit Application</button>
 </form>
 
@@ -191,9 +194,15 @@ permalink: job-openings.html
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
-    const payload = {};
-    formData.forEach((val, key) => (payload[key] = val));
+const formData = new FormData(form);
+const payload = {};
+formData.forEach((val, key) => (payload[key] = val));
+
+// Add canvas signature images to payload
+payload.initial1 = capturePad("initialPad1");
+payload.initial2 = capturePad("initialPad2");
+payload.initial3 = capturePad("initialPad3");
+payload.signature = capturePad("signaturePad");
 
     try {
       const res = await fetch("http://127.0.0.1:8080/jobs", {
