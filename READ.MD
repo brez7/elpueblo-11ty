@@ -1,5 +1,11 @@
 guide me through step by step, waiting for me to type go to continue
 
+# start remote vsc xx
+Remote-SSH: Connect to Host...
+select: remote-dev
+ 
+
+
 cd contact-form-api
 
 sTART SERVER:
