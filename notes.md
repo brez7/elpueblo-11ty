@@ -808,7 +808,4 @@ Project Structure:
     ├── robots.txt
     └── test.njk
 
----
 
-
-```
