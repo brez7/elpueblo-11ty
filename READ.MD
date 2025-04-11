@@ -3,8 +3,9 @@ guide me through step by step, waiting for me to type go to continue
 # start remote vsc xx
 Remote-SSH: Connect to Host...
 select: remote-dev
- 
 
+# Manual pull from remote
+SFTP: Download Project
 
 cd contact-form-api
 
@@ -14,7 +15,7 @@ npm run run
 
 BUILD:
 eleventy
-
+ 
 clear cache:
 rm -rf dist/ \_site/
 
