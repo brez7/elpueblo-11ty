@@ -144,6 +144,10 @@ Let me know if you want this saved or exported as a `.txt` or markdown file. Whe
 
 ⚙️ Environment
 
+To add Google reviews to the site, we configured OAuth2 using the https://www.googleapis.com/auth/business.manage scope and set up authentication routes in app.py. The app securely fetches the user's business account, lists associated locations, and pulls reviews using the Google Business Profile API. We implemented caching to optimize performance and used CORS for frontend compatibility. On the frontend, reviews.njk dynamically loads and displays these reviews using JavaScript. We also troubleshooted issues including OAuth scope registration, redirect URI setup, and token refreshing. Final setup works locally via http://localhost:8080/reviews and requires proper credentials in client_secret.json.
+
+vSince the last summary, we finalized and tested the job application form on the Eleventy site, updated the <canvas> labels to display specific legal statements above each initial pad, and ensured the email reflects this layout with each paragraph followed by the matching inline image. We corrected the format of the date fields to display as MM/DD/YYYY in the notification email. You prepared for Cloud Run deployment of version v360, verified the correct project and service naming, resolved image registry errors, and confirmed the live endpoint is https://contact-form-api-fvmy7faymq-uc.a.run.app. The project context was fully reloaded and synced.
+
 1. Signature and Initials Styling in Email
 You updated the .njk file to display each certification paragraph followed by its corresponding initial box (canvas). You wanted the email to reflect this exact layout, with each paragraph displayed clearly and the matching image (initial) right below it.
 

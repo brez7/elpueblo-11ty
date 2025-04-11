@@ -28,6 +28,10 @@
         "destination": "/job-openings.html"
       },
       {
+        "source": "/reviews",
+        "destination": "/reviews.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
