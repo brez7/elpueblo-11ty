@@ -1,36 +1,51 @@
-from flask import Flask, request, jsonify
-import smtplib
+from flask import Flask, request, jsonify, redirect
+from flask_cors import CORS
 from email.message import EmailMessage
+import smtplib
 import gspread
-from google.oauth2.service_account import Credentials
+from google.oauth2.service_account import Credentials as ServiceAccountCredentials
 from datetime import datetime
 import base64
 import re
+import os
+import json
+import google.auth.transport.requests
+from google_auth_oauthlib.flow import Flow
+from googleapiclient.discovery import build
+import traceback
+from google.oauth2.credentials import Credentials as OAuthCredentials
+from googleapiclient.discovery import build
+import requests
+from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
+
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+# ✨ Setup
+app = Flask(__name__)
+CORS(app)
+
+GMAIL_USER = "it@elpueblomex.com"
+GMAIL_PASSWORD = "tywz qiut zlzq yndx"
+
+# 🔐 Google Sheets setup
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+SERVICE_ACCOUNT_FILE = "sheets-creds.json"
+credentials = ServiceAccountCredentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES
+)
+
+gc = gspread.authorize(credentials)
+SHEET_ID = "1s1bqJcfEY2d4bCXHqfowPnHsZ2-hvm1EldrNeydZumQ"
 
 
+# 📆 Utility: format date
 def format_date(date_str):
     try:
         return datetime.strptime(date_str, "%Y-%m-%d").strftime("%B %d, %Y")
     except:
-        return date_str  # fallback if the format is off
+        return date_str
 
 
-app = Flask(__name__)
-
-# Gmail setup
-GMAIL_USER = "it@elpueblomex.com"
-GMAIL_PASSWORD = "tywz qiut zlzq yndx"
-
-# Google Sheets setup
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
-SERVICE_ACCOUNT_FILE = "sheets-creds.json"
-credentials = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-gc = gspread.authorize(credentials)
-SHEET_ID = "1s1bqJcfEY2d4bCXHqfowPnHsZ2-hvm1EldrNeydZumQ"
-worksheet = gc.open_by_key(SHEET_ID).worksheet("Sheet1")
-
-
-# Utility: CORS headers
+# 🌐 CORS utilities
 def _get_allowed_origin():
     allowed_origins = ["http://localhost:8080", "https://restart-elpueblo.web.app"]
     origin = request.headers.get("Origin")
@@ -76,12 +91,7 @@ def send_email(name, email, message):
         smtp.send_message(confirmation)
 
 
-# ✉️ Job Application Email
-import base64
-import re
-from email.message import EmailMessage
-
-
+# 🧑‍💼 Job Application Email with signature images
 def send_job_application_email(data):
     name = data.get("fullName", "")
     email = data.get("email", "")
@@ -99,15 +109,15 @@ def send_job_application_email(data):
       <p><strong>Full Name:</strong> {name}<br>
       <strong>Email:</strong> {email}<br>
       <strong>Phone:</strong> {data.get("phone")}<br>
-<strong>DOB:</strong> {format_date(data.get("dob"))}<br>
+      <strong>DOB:</strong> {format_date(data.get("dob"))}<br>
       <strong>Address:</strong> {data.get("addressLine1")}, {data.get("addressLine2")}<br>
       <strong>City/State/Zip:</strong> {data.get("city")}, {data.get("state")} {data.get("postalCode")}<br>
       <strong>Other Names:</strong> {data.get("otherNames")}<br>
       <strong>Employed Before:</strong> {data.get("employedBefore")} ({data.get("employmentDates")})<br>
-<strong>Application Date:</strong> {format_date(data.get("applicationDate"))}<br>
+      <strong>Application Date:</strong> {format_date(data.get("applicationDate"))}<br>
       <strong>Referral:</strong> {data.get("referralSource")}<br>
       <strong>Position:</strong> {data.get("position")} at {data.get("location")}<br>
-<strong>Start Date:</strong> {format_date(data.get("availableDate"))}<br>
+      <strong>Start Date:</strong> {format_date(data.get("availableDate"))}<br>
       <strong>Availability:</strong> {data.get("availability")}<br>
       <strong>Employment History:</strong> {data.get("employmentHistory")}<br>
       <strong>References:</strong> {data.get("references")}<br>
@@ -117,75 +127,96 @@ def send_job_application_email(data):
       <strong>Attendance:</strong> {data.get("attendance")}<br>
       <strong>Authorization to work in the US:</strong> {data.get("authorization")}<br>
 
-      <strong>Initials & Signature:</strong><br>
-        <p>
-        I hereby certify that I have not knowingly withheld any information that might adversely affect my chances for employment and that the answers given by me are correct to the best of my knowledge. I further certify that I, the undersigned applicant, have personally completed this application. I understand that any permission or misstatements of material fact on this application or on any document used to secure employment shall be grounds for rejection of this application or for immediate discharge if I am employed, regardless of the time elapsed before discovery.
-        <br><img src="cid:initial1" width="150" height="85" style="border:1px solid #ccc; margin-top:8px;">
-        </p>
-
-        <p>
-        I hereby authorize El Pueblo Mexican Food to thoroughly investigate my references, work record and other matters related to my suitability for employment and further.
-        <br><img src="cid:initial2" width="150" height="85" style="border:1px solid #ccc; margin-top:8px;">
-        </p>
-
-        <p>
-        I understand and agree that if I am employed, my employment is at will and is for no definite or determinable period and may be terminated at any anytime, with or without prior notice, or with or without cause, at the option of either myself or the company.
-        <br><img src="cid:initial3" width="150" height="85" style="border:1px solid #ccc; margin-top:8px;">
-        </p>
-
-        <p>
-        <strong>Applicant Signature:</strong><br>
-        <img src="cid:signature" width="400" height="150" style="border:1px solid #ccc; margin-top:8px;">
-        </p>
-              <strong>Print Name:</strong> {data.get("printName")}<br>
-<strong>Signature Date:</strong> {format_date(data.get("signatureDate"))}<br>
-      
+      <p><strong>Initials & Signature:</strong></p>
+      <p>1.<br><img src="cid:initial1" width="150" height="85" style="border:1px solid #ccc;"></p>
+      <p>2.<br><img src="cid:initial2" width="150" height="85" style="border:1px solid #ccc;"></p>
+      <p>3.<br><img src="cid:initial3" width="150" height="85" style="border:1px solid #ccc;"></p>
+      <p><strong>Applicant Signature:</strong><br>
+      <img src="cid:signature" width="400" height="150" style="border:1px solid #ccc;"></p>
+      <p><strong>Print Name:</strong> {data.get("printName")}<br>
+      <strong>Signature Date:</strong> {format_date(data.get("signatureDate"))}</p>
     </body></html>
     """
-
     msg.add_alternative(html_body, subtype="html")
 
-    # Helper to safely attach base64-encoded images
     def attach_image(cid, data_url):
-        if (
-            not data_url
-            or not isinstance(data_url, str)
-            or not data_url.startswith("data:image")
-        ):
-            print(f"⚠️ Skipping image {cid}: invalid or missing data URL")
+        if not data_url or not data_url.startswith("data:image"):
             return
-        try:
-            match = re.search(r"^data:image\/\w+;base64,(.+)", data_url)
-            if not match:
-                print(f"⚠️ Skipping image {cid}: malformed base64 data")
-                return
+        match = re.search(r"^data:image/\\w+;base64,(.+)", data_url)
+        if match:
             b64_data = match.group(1)
             img_data = base64.b64decode(b64_data)
             msg.get_payload()[1].add_related(
                 img_data, maintype="image", subtype="png", cid=f"<{cid}>"
             )
-        except Exception as e:
-            print(f"❌ Error attaching image {cid}: {e}")
 
-    # Attach all signature fields
     attach_image("initial1", data.get("initial1"))
     attach_image("initial2", data.get("initial2"))
     attach_image("initial3", data.get("initial3"))
     attach_image("signature", data.get("signature"))
 
-    # Confirmation email to applicant
     confirmation = EmailMessage()
     confirmation["Subject"] = "We received your job application!"
     confirmation["From"] = GMAIL_USER
     confirmation["To"] = email
     confirmation.set_content(
-        f"Hi {name},\n\nThanks for applying! We’ve received your job application and will review it shortly.\n\n— El Pueblo Team"
+        f"Hi {name},\n\nThanks for applying! We’ll review it shortly.\n\n— El Pueblo Team"
     )
 
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
         smtp.login(GMAIL_USER, GMAIL_PASSWORD)
         smtp.send_message(msg)
         smtp.send_message(confirmation)
+
+
+# 🔄 OAuth Flow for Google Business Profile
+OAUTH_SCOPES = ["https://www.googleapis.com/auth/business.manage"]
+CLIENT_SECRETS_FILE = "client_secret.json"
+REDIRECT_URI = "http://127.0.0.1:5000/oauth2callback"
+
+
+@app.route("/authorize")
+def authorize():
+    flow = Flow.from_client_secrets_file(
+        CLIENT_SECRETS_FILE, scopes=OAUTH_SCOPES, redirect_uri=REDIRECT_URI
+    )
+    auth_url, _ = flow.authorization_url(
+        access_type="offline",
+        include_granted_scopes="true",
+        prompt="consent",
+    )
+    return redirect(auth_url)
+
+
+@app.route("/oauth2callback")
+def oauth2callback():
+    flow = Flow.from_client_secrets_file(
+        CLIENT_SECRETS_FILE, scopes=OAUTH_SCOPES, redirect_uri=REDIRECT_URI
+    )
+
+    flow.fetch_token(authorization_response=request.url)
+    creds = flow.credentials
+
+    # ✅ Properly save the token using the built-in serializer
+    with open("token.json", "w") as token_file:
+        token_file.write(creds.to_json())
+
+    return "✅ Auth successful. You can close this tab."
+
+
+def load_credentials():
+    with open("token.json", "r") as f:
+        token_data = json.load(f)
+
+    creds = Credentials.from_authorized_user_info(token_data, SCOPES)
+
+    if creds.expired and creds.refresh_token:
+        creds.refresh(Request())
+        # Save updated token
+        with open("token.json", "w") as f:
+            f.write(creds.to_json())
+
+    return creds
 
 
 # 📨 /submit
@@ -196,6 +227,7 @@ def submit():
     data = request.get_json()
     send_email(data.get("name"), data.get("email"), data.get("message"))
     try:
+        worksheet = gc.open_by_key(SHEET_ID).worksheet("Sheet1")
         worksheet.append_row(
             [
                 datetime.now().isoformat(),
@@ -292,6 +324,56 @@ def reserve():
         return _cors_response({"error": "Reservation failed."}, status=500)
 
 
+from flask import jsonify
+from google.oauth2.credentials import Credentials
+from google.auth.transport.requests import Request
+import json, requests
+
+
+@app.route("/reviews", methods=["GET"])
+def reviews():
+    try:
+        with open("token.json", "r") as f:
+            token_data = json.load(f)
+
+        creds = Credentials.from_authorized_user_info(token_data, OAUTH_SCOPES)
+
+        if creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+            with open("token.json", "w") as f:
+                f.write(creds.to_json())
+
+        access_token = creds.token
+
+        # ✅ Hardcoded values for now (you can dynamically list later if needed)
+        account_id = "107556498414456817580"
+        location_id = "1189929405054644351"
+        url = f"https://mybusiness.googleapis.com/v4/accounts/{account_id}/locations/{location_id}/reviews"
+
+        headers = {
+            "Authorization": f"Bearer {access_token}",
+            "Accept": "application/json",
+        }
+
+        response = requests.get(url, headers=headers)
+
+        if response.status_code != 200:
+            print("❌ Google API Error:", response.status_code, response.text)
+            return jsonify({"error": "Could not fetch reviews"}), 500
+
+        data = response.json()
+        return jsonify(
+            {
+                "location": "El Pueblo Mexican Food & Bar - Carmel Valley",
+                "reviews": data.get("reviews", []),
+            }
+        )
+
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": "Server error while loading reviews"}), 500
+
+
 # 🧑‍💼 /jobs
 @app.route("/jobs", methods=["POST", "OPTIONS"])
 def jobs():
@@ -379,4 +461,4 @@ if __name__ == "__main__":
     print("✅ Registered routes:")
     for rule in app.url_map.iter_rules():
         print(f"→ {rule.rule}")
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=5000)
