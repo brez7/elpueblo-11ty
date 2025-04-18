@@ -12,8 +12,6 @@ design-source
 
 .env
 
-sheets-creds.json
-contact-form-api/sheets-creds.json
  
-
-contact-form-api/client-secret.json
+contact-form-api/*.json
+contact-form-api/client_secret.json

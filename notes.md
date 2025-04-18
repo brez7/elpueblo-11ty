@@ -142,6 +142,77 @@ Correct directory configuration
 
 Let me know if you want this saved or exported as a `.txt` or markdown file. When you’re ready, type **`next`** to continue integrating Google Sheets.
 
+✅ Google Reviews Fully Integrated
+Set up /reviews endpoint on Flask backend to fetch live reviews using:
+
+Hardcoded accountId and locationId from El Pueblo's Business Profile
+
+Authenticated with token.json containing a valid OAuth token
+
+Backend fetches reviews from Google Business API v4 (mybusiness.googleapis.com)
+
+Ensures expired tokens refresh automatically using google.auth.transport.requests.Request
+
+Filters out reviews below 4 stars before returning JSON to frontend
+
+✅ Frontend Review Display (reviews.njk)
+Added a grid layout using .review-grid and .review-card classes
+
+Each review tile displays:
+
+Profile photo (left-aligned, circle)
+
+Name (bold), date (below name)
+
+Star rating directly beneath name
+
+Comment below stars
+
+Responsive grid with equal-width tiles regardless of comment length
+
+Review photos failing to load are replaced with src/assets/img/google.svg fallback
+
+Layout spacing optimized to minimize gaps between stars and text
+
+✅ Index Page: Reviews Carousel
+Integrated a mini carousel on index.njk showing 5 recent reviews
+
+Uses JavaScript to auto-scroll horizontally through reviews every 3 seconds
+
+Each tile styled identically to reviews.njk for visual consistency
+
+Smooth scroll logic ensures wrap-around looping
+
+✅ Resolved GitHub Push Blocking
+GitHub push protection blocked commits containing secrets (e.g. token.json)
+
+Removed all secrets from tracked history using:
+
+bash
+Copy
+Edit
+git rm --cached contact-form-api/token.json
+git commit --amend --no-edit
+git push --force
+Added token.json and client_secret.json to .gitignore and removed from Git cache
+
+Confirmed no secrets remain in commit history
+
+🧪 OAuth Workflow Finalized
+Verified /authorize and /oauth2callback work correctly
+
+Used browser to manually visit http://127.0.0.1:5000/authorize
+
+After login and consent, the app:
+
+Creates a valid token.json
+
+Stores access and refresh tokens securely
+
+Enables access to reviews via the My Business API
+
+
+
 ⚙️ Environment
 
 To add Google reviews to the site, we configured OAuth2 using the https://www.googleapis.com/auth/business.manage scope and set up authentication routes in app.py. The app securely fetches the user's business account, lists associated locations, and pulls reviews using the Google Business Profile API. We implemented caching to optimize performance and used CORS for frontend compatibility. On the frontend, reviews.njk dynamically loads and displays these reviews using JavaScript. We also troubleshooted issues including OAuth scope registration, redirect URI setup, and token refreshing. Final setup works locally via http://localhost:8080/reviews and requires proper credentials in client_secret.json.
