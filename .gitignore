@@ -13,5 +13,7 @@ design-source
 .env
 
  
-contact-form-api/*.json
+# API credentials
 contact-form-api/client_secret.json
+contact-form-api/token.json
+contact-form-api/sheets-creds.json
