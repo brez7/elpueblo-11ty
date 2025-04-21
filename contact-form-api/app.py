@@ -1,23 +1,22 @@
 from flask import Flask, request, jsonify, redirect
 from flask_cors import CORS
 from email.message import EmailMessage
-import smtplib
-import gspread
-from google.oauth2.service_account import Credentials as ServiceAccountCredentials
 from datetime import datetime
 import base64
-import re
-import os
+import gspread
 import json
-import google.auth.transport.requests
+import os
+import re
+import requests
+import smtplib
+import traceback
+
+# Google Auth & APIs
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google.oauth2.service_account import Credentials as ServiceAccountCredentials
 from google_auth_oauthlib.flow import Flow
 from googleapiclient.discovery import build
-import traceback
-from google.oauth2.credentials import Credentials as OAuthCredentials
-from googleapiclient.discovery import build
-import requests
-from google.oauth2.credentials import Credentials
-from google.auth.transport.requests import Request
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 # ✨ Setup
@@ -142,7 +141,8 @@ def send_job_application_email(data):
     def attach_image(cid, data_url):
         if not data_url or not data_url.startswith("data:image"):
             return
-        match = re.search(r"^data:image/\\w+;base64,(.+)", data_url)
+        match = re.search(r"^data:image/\w+;base64,(.+)", data_url)
+
         if match:
             b64_data = match.group(1)
             img_data = base64.b64decode(b64_data)
