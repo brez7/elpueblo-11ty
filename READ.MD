@@ -1,6 +1,6 @@
 guide me through step by step, waiting for me to type go to continue
 
-test
+ 
 
 # start remote vsc xx
 Remote-SSH: Connect to Host...

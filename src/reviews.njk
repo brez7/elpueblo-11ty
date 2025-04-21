@@ -5,71 +5,77 @@ description: "Reserve El Pueblo Mexican Food’s unique event spaces in Del Mar 
 currentPage: reviews
 permalink: reviews.html
 ---
-<div class="container-reviews">
 
+<div class="container-reviews">
   <section id="blog" class="blog section">
-  <div class="container section-title" data-aos="fade-up">
-    <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
-    <h1 class="h1-format" style="color: var(--accent-color);">Recent Reviews from Google</h1>
-    <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
-  </div>
-  <div id="review-list" class="review-grid"></div>
+    <div class="container section-title" data-aos="fade-up">
+      <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
+      <h1 class="h1-format" style="color: var(--accent-color);">Recent Reviews from Google</h1>
+      <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
+    </div>
+    <div id="review-list" class="review-grid"></div>
+  </section>
 </div>
 
 <script>
-const starMap = {
-  "FIVE": 5,
-  "FOUR": 4,
-  "THREE": 3,
-  "TWO": 2,
-  "ONE": 1
-};
+  window.addEventListener("DOMContentLoaded", () => {
+    const starMap = {
+      "FIVE": 5,
+      "FOUR": 4,
+      "THREE": 3,
+      "TWO": 2,
+      "ONE": 1
+    };
 
-fetch("http://localhost:5000/reviews")
-  .then(res => res.json())
-  .then(data => {
-    const list = document.getElementById("review-list");
-    const reviews = data.reviews || [];
+    fetch("https://contact-form-api-fvmy7faymq-uc.a.run.app/reviews")
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("review-list");
+        const reviews = data.reviews || [];
 
-    const filtered = reviews.filter(r => (starMap[r.starRating] || 0) >= 4);
+        const filtered = reviews.filter(r => (starMap[r.starRating] || 0) >= 4);
 
-    if (!filtered.length) {
-      list.innerHTML = "<p>No recent reviews found.</p>";
-      return;
-    }
+        if (!filtered.length) {
+          list.innerHTML = "<p>No recent reviews found.</p>";
+          return;
+        }
 
-    list.innerHTML = filtered.map(r => {
-      const name = r.reviewer?.displayName || "Anonymous";
-      let image = r.reviewer?.profilePhotoUrl || "";
-      image = image.replace("/a/", "/a-/"); // Fixes malformed URLs
+        list.innerHTML = filtered.map(r => {
+          const name = r.reviewer?.displayName || "Anonymous";
+          let image = r.reviewer?.profilePhotoUrl || "/assets/img/google.svg";
+          image = image.replace("/a/", "/a-/"); // Google fix
+          if (!image.startsWith("http")) {
+            image = "/assets/img/google.svg";
+          }
 
-      const stars = "⭐️".repeat(starMap[r.starRating] || 0);
-      const date = new Date(r.createTime).toLocaleDateString(undefined, {
-        year: "numeric", month: "short", day: "numeric"
-      });
-      const comment = r.comment?.trim() || "";
+          const stars = "⭐️".repeat(starMap[r.starRating] || 0);
+          const date = new Date(r.createTime).toLocaleDateString(undefined, {
+            year: "numeric", month: "short", day: "numeric"
+          });
+          const comment = r.comment?.trim() || "";
 
-      return `
-        <div class="review-card">
-          <div class="review-header">
-            <img src="${image}"
-                 class="review-photo"
-                 referrerpolicy="no-referrer"
-                 onerror="this.onerror=null;this.src='assets/img/google.svg';"
-                 alt="${name} profile photo" />
-            <div>
-              <div class="review-name">${name}</div>
-              <div class="review-date" style="font-size: 0.85rem; color: #777;">${date}</div>
+          return `
+            <div class="review-card">
+              <div class="review-header">
+                <img src="${image}"
+                     class="review-photo"
+                     referrerpolicy="no-referrer"
+                     onerror="this.onerror=null;this.src='/assets/img/google.svg';"
+                     alt="${name} profile photo" />
+                <div>
+                  <div class="review-name">${name}</div>
+                  <div class="review-date" style="font-size: 0.85rem; color: #777;">${date}</div>
+                </div>
+              </div>
+              <div class="review-stars">${stars}</div>
+              ${comment ? `<div class="review-text">${comment}</div>` : ""}
             </div>
-          </div>
-          <div class="review-stars">${stars}</div>
-          ${comment ? `<div class="review-text">${comment}</div>` : ""}
-        </div>
-      `;
-    }).join("");
-  })
-  .catch(err => {
-    console.error("❌ Review fetch error:", err);
-    document.getElementById("review-list").innerText = "Error loading reviews.";
+          `;
+        }).join("");
+      })
+      .catch(err => {
+        console.error("❌ Review fetch error:", err);
+        document.getElementById("review-list").innerHTML = "<p>Error loading reviews.</p>";
+      });
   });
 </script>
