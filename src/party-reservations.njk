@@ -167,34 +167,46 @@ permalink: event-space-reservation.html
 </section>
 
 <script>
-  const form = document.getElementById("reservationForm")
-  const responseBox = document.getElementById("form-response")
+  const form = document.getElementById("reservationForm");
+  const responseBox = document.getElementById("form-response");
+  const submitBtn = form.querySelector("button[type='submit']");
+  const originalBtnText = submitBtn.innerHTML;
 
   form.addEventListener("submit", async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
-    const formData = new FormData(form)
-    const payload = {}
-    formData.forEach((val, key) => (payload[key] = val))
+    // Disable button and show spinner
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = `<span class="spinner"></span>Submitting...`;
+
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((val, key) => (payload[key] = val));
 
     try {
-      const res = await fetch(
-        "https://contact-form-api-fvmy7faymq-uc.a.run.app/reserve", 
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      )
+      const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      const endpoint = isLocal
+        ? "http://127.0.0.1:5000/reserve"
+        : "https://contact-form-api-fvmy7faymq-uc.a.run.app/reserve";
 
-      const result = await res.json()
-      responseBox.textContent = result.message || "Form submitted."
-      form.reset()
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await res.json();
+      responseBox.style.color = "#2e7d32";
+      responseBox.textContent = result.message || "✅ Reservation submitted!";
+      form.reset();
     } catch (err) {
-      responseBox.textContent =
-        "⚠️ Error sending reservation. Please try again later."
+      responseBox.style.color = "#c62828";
+      responseBox.textContent = "⚠️ Error sending reservation. Please try again.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnText;
     }
-  })
+  });
 </script>
- 
+
  

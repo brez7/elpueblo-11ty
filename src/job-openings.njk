@@ -186,6 +186,9 @@ permalink: job-openings.html
 </section>
 <script>
   const form = document.getElementById("jobApplicationForm");
+  const submitBtn = form.querySelector("button[type='submit']");
+  const originalBtnText = submitBtn.innerHTML;
+
   const responseBox = document.createElement("div");
   responseBox.style.marginTop = "1.5em";
   responseBox.style.fontWeight = "bold";
@@ -194,28 +197,45 @@ permalink: job-openings.html
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-const formData = new FormData(form);
-const payload = {};
-formData.forEach((val, key) => (payload[key] = val));
+    // Disable button and show spinner
+    submitBtn.disabled = true;
+    submitBtn.classList.add("submit-btn-disabled");
+    submitBtn.innerHTML = `<span class="spinner"></span>Submitting...`;
 
-// Add canvas signature images to payload
-payload.initial1 = capturePad("initialPad1");
-payload.initial2 = capturePad("initialPad2");
-payload.initial3 = capturePad("initialPad3");
-payload.signature = capturePad("signaturePad");
+    const formData = new FormData(form);
+    const payload = {};
+    formData.forEach((val, key) => (payload[key] = val));
+
+    // Add canvas signature images to payload
+    payload.initial1 = capturePad("initialPad1");
+    payload.initial2 = capturePad("initialPad2");
+    payload.initial3 = capturePad("initialPad3");
+    payload.signature = capturePad("signaturePad");
 
     try {
-      const res = await fetch("https://contact-form-api-fvmy7faymq-uc.a.run.app/jobs", {
+      const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      const endpoint = isLocal
+        ? "http://127.0.0.1:5000/jobs"
+        : "https://contact-form-api-fvmy7faymq-uc.a.run.app/jobs";
+
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
       const result = await res.json();
-      responseBox.textContent = result.message || "Application submitted successfully!";
+      responseBox.style.color = "#2e7d32";
+      responseBox.textContent = result.message || "✅ Application submitted!";
       form.reset();
+      clearPads(); // Reset signature pads
     } catch (err) {
+      responseBox.style.color = "#c62828";
       responseBox.textContent = "⚠️ There was a problem submitting your application.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove("submit-btn-disabled");
+      submitBtn.innerHTML = originalBtnText;
     }
   });
 </script>

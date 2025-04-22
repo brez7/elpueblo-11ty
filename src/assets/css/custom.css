@@ -441,11 +441,11 @@ section-events,
   text-decoration: none;
   border-radius: 10px;
   font-size: 18px; /* slightly smaller font */
-  text-align: center;
-  width: 50%; /* half-width buttons */
+ 
+ 
   display: block;
   transition: background-color 0.3s ease;
-  margin: 0 auto; /* centers the button horizontally */
+ 
 }
 
 .location-btn-full:hover {
@@ -635,3 +635,27 @@ hr {
   overflow-wrap: break-word;
   max-height: 100%;
 }
+
+  .spinner {
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+      border-left-color: white; /* or #000 */
+    animation: spin 0.9s linear infinite;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .submit-btn-disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+

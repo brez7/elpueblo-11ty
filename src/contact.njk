@@ -10,10 +10,37 @@ permalink: contact.html
   <div class="container" data-aos="fade-up">
     <!-- Section Title -->
     <div class="section-title">
-    <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
-      <h1 style="font-size: 48px; text-align: center; font-weight: 700; color: var(--accent-color);">Contact Us</h1>
-      <p style="font-size: 21px; text-align: center">We would love to hear from you!</p>
-    <hr style="border: none; height: 5px; background: #7f120b; margin: 20px 0; opacity: 1 !important;" />
+      <hr
+        style="
+          border: none;
+          height: 5px;
+          background: #7f120b;
+          margin: 20px 0;
+          opacity: 1 !important;
+        "
+      />
+      <h1
+        style="
+          font-size: 48px;
+          text-align: center;
+          font-weight: 700;
+          color: var(--accent-color);
+        "
+      >
+        Contact Us
+      </h1>
+      <p style="font-size: 21px; text-align: center">
+        We would love to hear from you!
+      </p>
+      <hr
+        style="
+          border: none;
+          height: 5px;
+          background: #7f120b;
+          margin: 20px 0;
+          opacity: 1 !important;
+        "
+      />
     </div>
 
     <div class="row gy-4">
@@ -30,18 +57,26 @@ permalink: contact.html
           </div>
           <div class="form-group mb-3">
             <label for="message">Your Message:</label>
-            <textarea name="message" rows="5" class="form-control" required></textarea>
+            <textarea
+              name="message"
+              rows="5"
+              class="form-control"
+              required
+            ></textarea>
           </div>
-<button type="submit" class="btn-read-more">Send Message</button>
+          <button type="submit" class="btn-read-more">Send Message</button>
         </form>
-        <div id="form-response" style="margin-top: 1em; font-weight: bold"></div>
+        <div
+          id="form-response"
+          style="margin-top: 1em; font-weight: bold"
+        ></div>
       </div>
 
       <!-- Locations Column 1 -->
-      <div class="col-lg-4" style="padding-top: 20px; text-align: center;">
+      <div class="col-lg-4" style="padding-top: 20px; text-align: center">
         <div class="location-box mb-4">
-          <h3>El Pueblo Mexican Food<br><strong>Del Mar</strong></h3>
-          <p style="text-align: center;">
+          <h3>El Pueblo Mexican Food<br /><strong>Del Mar</strong></h3>
+          <p style="text-align: center">
             2673 Via De La Valle, Suite C<br />
             Del Mar, CA 92014<br />
             6AM–12 AM<br />
@@ -49,8 +84,8 @@ permalink: contact.html
           </p>
         </div>
         <div class="location-box mb-4">
-          <h3>El Pueblo Mexican Food<br><strong>Carmel Valley</strong></h3>
-          <p style="text-align: center;">
+          <h3>El Pueblo Mexican Food<br /><strong>Carmel Valley</strong></h3>
+          <p style="text-align: center">
             5965 Village Way, Suite E107<br />
             San Diego, CA 92121<br />
             6AM–12 AM<br />
@@ -60,10 +95,10 @@ permalink: contact.html
       </div>
 
       <!-- Locations Column 2 -->
-      <div class="col-lg-4" style="padding-top: 20px; text-align: center;">
+      <div class="col-lg-4" style="padding-top: 20px; text-align: center">
         <div class="location-box mb-4">
-          <h3>El Pueblo Mexican Food<br><strong>Carlsbad</strong></h3>
-          <p style="text-align: center;">
+          <h3>El Pueblo Mexican Food<br /><strong>Carlsbad</strong></h3>
+          <p style="text-align: center">
             7720 Rancho Santa Fe Rd, Suite 125<br />
             Carlsbad, CA 92009<br />
             M–F 6AM–10PM and Sat-Sun 6AM – 12AM<br />
@@ -71,8 +106,8 @@ permalink: contact.html
           </p>
         </div>
         <div class="location-box mb-4">
-          <h3>El Pueblo Mexican Food<br><strong>Cardiff</strong></h3>
-          <p style="text-align: center;">
+          <h3>El Pueblo Mexican Food<br /><strong>Cardiff</strong></h3>
+          <p style="text-align: center">
             820 Birmingham Drive<br />
             Cardiff-By-The-Sea, CA 92007<br />
             24 HOURS<br />
@@ -84,37 +119,51 @@ permalink: contact.html
   </div>
 </section>
 
-
 <script>
-  const form = document.getElementById("contact-form");
-  const responseBox = document.getElementById("form-response");
+  const form = document.querySelector("form")
+  const submitBtn = form.querySelector("button[type='submit']")
+  const originalBtnText = submitBtn.textContent
+  const responseBox = document.createElement("div")
+  responseBox.style.marginTop = "1em"
+  form.appendChild(responseBox)
 
   form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const formData = new FormData(form);
-    const payload = {};
-    formData.forEach((val, key) => (payload[key] = val));
+    // Disable button and add spinner
+    submitBtn.disabled = true
+    submitBtn.classList.add("submit-btn-disabled")
+    submitBtn.innerHTML = `<span class="spinner"></span>Submitting...`
+
+    const formData = new FormData(form)
+    const payload = {}
+    formData.forEach((val, key) => (payload[key] = val))
 
     try {
-      const res = await fetch(
-        "https://contact-form-api-fvmy7faymq-uc.a.run.app/submit",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
+      const isLocal =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
+      const endpoint = isLocal
+        ? "http://127.0.0.1:5000/submit"
+        : "https://contact-form-api-fvmy7faymq-uc.a.run.app/submit"
 
-      const result = await res.json();
-      responseBox.textContent =
-        result.message || "Thanks! Your message was sent.";
-      form.reset();
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+
+      const result = await res.json()
+      responseBox.style.color = "#2e7d32"
+      responseBox.textContent = result.message || "✅ Message sent!"
+      form.reset()
     } catch (err) {
-      responseBox.textContent =
-        "⚠️ Error sending message. Please try again later.";
+      responseBox.style.color = "#c62828"
+      responseBox.textContent = "⚠️ There was a problem sending your message."
+    } finally {
+      submitBtn.disabled = false
+      submitBtn.classList.remove("submit-btn-disabled")
+      submitBtn.innerHTML = originalBtnText
     }
-  });
+  })
 </script>
-
-
