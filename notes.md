@@ -215,6 +215,14 @@ Enables access to reviews via the My Business API
 
 ⚙️ Environment
 
+Over the course of this thread, we worked through building and polishing key functionality for the El Pueblo website using Eleventy (11ty), Flask, and various frontend enhancements. We debugged issues with Google Reviews not rendering due to container IDs mismatches and refined the display with proper formatting and error handling. You successfully configured the Flask backend to support signature capture in job applications by properly attaching base64-encoded canvas images in emails. We resolved issues with form submissions and ensured email delivery via Gmail SMTP, updating your app.py to include proper image embedding using cid.
+
+You later implemented frontend loading spinners on the contact, reservation, and job application forms to give users immediate feedback upon submission. These were added alongside graceful success/failure messages and reset behavior. You also made sure that endpoint logic switches between local and production URLs dynamically for smoother testing and deployment.
+
+We reviewed and cleaned the codebase, including unused imports and redundant blocks. Your CSS was confirmed to already support the spinner animation, and we validated that no app-level backend changes were needed for the spinner behavior.
+
+Finally, I suggested additional UX improvements such as floating labels, signature persistence, email formatting, and a future admin dashboard to enhance usability and management. All functionality is now working cleanly.
+
 To add Google reviews to the site, we configured OAuth2 using the https://www.googleapis.com/auth/business.manage scope and set up authentication routes in app.py. The app securely fetches the user's business account, lists associated locations, and pulls reviews using the Google Business Profile API. We implemented caching to optimize performance and used CORS for frontend compatibility. On the frontend, reviews.njk dynamically loads and displays these reviews using JavaScript. We also troubleshooted issues including OAuth scope registration, redirect URI setup, and token refreshing. Final setup works locally via http://localhost:8080/reviews and requires proper credentials in client_secret.json.
 
 vSince the last summary, we finalized and tested the job application form on the Eleventy site, updated the <canvas> labels to display specific legal statements above each initial pad, and ensured the email reflects this layout with each paragraph followed by the matching inline image. We corrected the format of the date fields to display as MM/DD/YYYY in the notification email. You prepared for Cloud Run deployment of version v360, verified the correct project and service naming, resolved image registry errors, and confirmed the live endpoint is https://contact-form-api-fvmy7faymq-uc.a.run.app. The project context was fully reloaded and synced.

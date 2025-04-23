@@ -1,11 +1,18 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const reviewsContainer = document.getElementById("reviews");
+  if (!reviewsContainer) {
+    console.error("❌ #reviews container is missing from the DOM.");
+    return;
+  }
 
-  const endpoint = "https://contact-form-api-fvmy7faymq-uc.a.run.app/reviews";
+  const endpoint =
+    "https://contact-form-api-fvmy7faymq-uc.a.run.app/reviews?refresh=true";
 
   try {
     const res = await fetch(endpoint);
     const data = await res.json();
+
+    console.log("✅ Fetched review data:", data);
 
     const reviews = data.reviews || [];
 
@@ -33,13 +40,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       card.innerHTML = `
         <div class="review-header">
           <img src="${
-            review.reviewer.profilePhotoUrl || "/assets/img/google.svg"
+            review.reviewer?.profilePhotoUrl || "/assets/img/google.svg"
           }"
-               alt="${review.reviewer.displayName}" 
+               alt="${review.reviewer?.displayName || "Anonymous"}" 
                class="review-photo" 
                onerror="this.src='/assets/img/google.svg';" />
           <div>
-            <h4>${review.reviewer.displayName}</h4>
+            <h4>${review.reviewer?.displayName || "Anonymous"}</h4>
             <p class="review-stars">${stars}</p>
           </div>
         </div>
@@ -52,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     reviewsContainer.innerHTML = "";
     reviewsContainer.appendChild(grid);
   } catch (err) {
-    console.error("Error fetching reviews:", err);
+    console.error("❌ Error fetching reviews:", err);
     reviewsContainer.innerHTML = "<p>Could not load reviews right now.</p>";
   }
 });

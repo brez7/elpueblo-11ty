@@ -345,9 +345,8 @@ def reviews():
 
         access_token = creds.token
 
-        # ✅ Hardcoded values for now (you can dynamically list later if needed)
         account_id = "107556498414456817580"
-        location_id = "1189929405054644351"
+        location_id = "7240440297771033418"  # ✅ Del Mar
         url = f"https://mybusiness.googleapis.com/v4/accounts/{account_id}/locations/{location_id}/reviews"
 
         headers = {
@@ -362,9 +361,10 @@ def reviews():
             return jsonify({"error": "Could not fetch reviews"}), 500
 
         data = response.json()
+
         return jsonify(
             {
-                "location": "El Pueblo Mexican Food & Bar - Carmel Valley",
+                "location": "El Pueblo Mexican Food - Del Mar",  # ✅ Update this line
                 "reviews": data.get("reviews", []),
             }
         )

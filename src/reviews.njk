@@ -27,13 +27,17 @@ permalink: reviews.html
       "ONE": 1
     };
 
-    fetch("https://contact-form-api-fvmy7faymq-uc.a.run.app/reviews")
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById("review-list");
-        const reviews = data.reviews || [];
+const apiBase = window.location.hostname === "localhost"
+  ? "http://127.0.0.1:5000"
+  : "https://contact-form-api-fvmy7faymq-uc.a.run.app";
 
-        const filtered = reviews.filter(r => (starMap[r.starRating] || 0) >= 4);
+fetch(`${apiBase}/reviews?refresh=true`)
+  .then(res => res.json())
+  .then(data => {
+    const list = document.getElementById("review-list");
+    const reviews = data.reviews || [];
+
+    const filtered = reviews.filter(r => (starMap[r.starRating] || 0) >= 4);
 
         if (!filtered.length) {
           list.innerHTML = "<p>No recent reviews found.</p>";
